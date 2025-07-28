@@ -1,0 +1,6 @@
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|6f2489fc-75af-4e90-b201-2d02d5685563
+C:\Users\karthik\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|ab06da9d-5ada-42f0-b1e5-7a50da65ff98
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|0f7ed0f9-187b-46f1-9ec4-da332b65af90
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|9fed23de-504e-4d8c-8f01-96d15b5a3ae7
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|c86ba0a8-40f9-4e63-8092-22687cf0fd11
+C:\IIITB\Summer Term\Summer Term\Structures\Struct_with_3_sensors.cydsn\Struct_with_3_sensors.cyprj|779ad4ce-1f0f-4280-9839-735c02b9060c

@@ -1,0 +1,1474 @@
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.task1,"ax",%progbits
+  20              		.align	2
+  21              		.global	task1
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	task1, %function
+  25              	task1:
+  26              	.LFB69:
+  27              		.file 1 "main.c"
+   1:main.c        **** #include <stdio.h>
+   2:main.c        **** #include <stdlib.h>
+   3:main.c        **** #include <string.h>
+   4:main.c        **** #include "project.h"
+   5:main.c        **** #include "FreeRTOS.h"
+   6:main.c        **** #include "task.h"
+   7:main.c        **** #include "semphr.h"
+   8:main.c        **** 
+   9:main.c        **** extern void FreeRTOS_Start();
+  10:main.c        **** 
+  11:main.c        **** SemaphoreHandle_t uart_mutex;
+  12:main.c        **** 
+  13:main.c        **** void task1(void *ptr) {
+  28              		.loc 1 13 0
+  29              		.cfi_startproc
+  30              		@ Volatile: function does not return.
+  31              		@ args = 0, pretend = 0, frame = 0
+  32              		@ frame_needed = 0, uses_anonymous_args = 0
+  33              	.LVL0:
+  34 0000 08B5     		push	{r3, lr}
+  35              		.cfi_def_cfa_offset 8
+  36              		.cfi_offset 3, -8
+  37              		.cfi_offset 14, -4
+  38              	.LVL1:
+  39              	.L4:
+  14:main.c        ****     for(;;) {
+  15:main.c        ****         if (xSemaphoreTake(uart_mutex, portMAX_DELAY) == pdTRUE) {
+  40              		.loc 1 15 0
+  41 0002 4FF0FF31 		mov	r1, #-1
+  42 0006 124B     		ldr	r3, .L7
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 2
+
+
+  43 0008 1868     		ldr	r0, [r3]
+  44 000a FFF7FEFF 		bl	xQueueSemaphoreTake
+  45              	.LVL2:
+  46 000e 0128     		cmp	r0, #1
+  47 0010 18D1     		bne	.L2
+  16:main.c        ****             Pin_LED_Write(!Pin_LED_Read());
+  48              		.loc 1 16 0
+  49 0012 FFF7FEFF 		bl	Pin_LED_Read
+  50              	.LVL3:
+  51 0016 B0FA80F0 		clz	r0, r0
+  52 001a 4009     		lsrs	r0, r0, #5
+  53 001c FFF7FEFF 		bl	Pin_LED_Write
+  54              	.LVL4:
+  17:main.c        ****             UART_PutString("Task 1: LED ");
+  55              		.loc 1 17 0
+  56 0020 0C48     		ldr	r0, .L7+4
+  57 0022 FFF7FEFF 		bl	UART_PutString
+  58              	.LVL5:
+  18:main.c        ****             UART_PutString(Pin_LED_Read() ? "ON\r\n" : "OFF\r\n");
+  59              		.loc 1 18 0
+  60 0026 FFF7FEFF 		bl	Pin_LED_Read
+  61              	.LVL6:
+  62 002a 08B1     		cbz	r0, .L5
+  63 002c 0A48     		ldr	r0, .L7+8
+  64 002e 00E0     		b	.L3
+  65              	.L5:
+  66 0030 0A48     		ldr	r0, .L7+12
+  67              	.L3:
+  68              		.loc 1 18 0 is_stmt 0 discriminator 4
+  69 0032 FFF7FEFF 		bl	UART_PutString
+  70              	.LVL7:
+  19:main.c        ****             xSemaphoreGive(uart_mutex);
+  71              		.loc 1 19 0 is_stmt 1 discriminator 4
+  72 0036 0023     		movs	r3, #0
+  73 0038 1A46     		mov	r2, r3
+  74 003a 1946     		mov	r1, r3
+  75 003c 0448     		ldr	r0, .L7
+  76 003e 0068     		ldr	r0, [r0]
+  77 0040 FFF7FEFF 		bl	xQueueGenericSend
+  78              	.LVL8:
+  79              	.L2:
+  20:main.c        ****         }
+  21:main.c        ****         vTaskDelay(500);
+  80              		.loc 1 21 0
+  81 0044 4FF4FA70 		mov	r0, #500
+  82 0048 FFF7FEFF 		bl	vTaskDelay
+  83              	.LVL9:
+  22:main.c        ****     }
+  84              		.loc 1 22 0
+  85 004c D9E7     		b	.L4
+  86              	.L8:
+  87 004e 00BF     		.align	2
+  88              	.L7:
+  89 0050 00000000 		.word	uart_mutex
+  90 0054 10000000 		.word	.LC2
+  91 0058 00000000 		.word	.LC0
+  92 005c 08000000 		.word	.LC1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 3
+
+
+  93              		.cfi_endproc
+  94              	.LFE69:
+  95              		.size	task1, .-task1
+  96              		.section	.text.task2,"ax",%progbits
+  97              		.align	2
+  98              		.global	task2
+  99              		.thumb
+ 100              		.thumb_func
+ 101              		.type	task2, %function
+ 102              	task2:
+ 103              	.LFB70:
+  23:main.c        **** }
+  24:main.c        **** 
+  25:main.c        **** void task2(void *ptr) {
+ 104              		.loc 1 25 0
+ 105              		.cfi_startproc
+ 106              		@ Volatile: function does not return.
+ 107              		@ args = 0, pretend = 0, frame = 0
+ 108              		@ frame_needed = 0, uses_anonymous_args = 0
+ 109              	.LVL10:
+ 110 0000 08B5     		push	{r3, lr}
+ 111              		.cfi_def_cfa_offset 8
+ 112              		.cfi_offset 3, -8
+ 113              		.cfi_offset 14, -4
+ 114              	.LVL11:
+ 115              	.L12:
+  26:main.c        ****     for(;;) {
+  27:main.c        ****         if (xSemaphoreTake(uart_mutex, portMAX_DELAY) == pdTRUE) {
+ 116              		.loc 1 27 0
+ 117 0002 4FF0FF31 		mov	r1, #-1
+ 118 0006 124B     		ldr	r3, .L15
+ 119 0008 1868     		ldr	r0, [r3]
+ 120 000a FFF7FEFF 		bl	xQueueSemaphoreTake
+ 121              	.LVL12:
+ 122 000e 0128     		cmp	r0, #1
+ 123 0010 18D1     		bne	.L10
+  28:main.c        ****             Pin_LED_Write(!Pin_LED_Read());
+ 124              		.loc 1 28 0
+ 125 0012 FFF7FEFF 		bl	Pin_LED_Read
+ 126              	.LVL13:
+ 127 0016 B0FA80F0 		clz	r0, r0
+ 128 001a 4009     		lsrs	r0, r0, #5
+ 129 001c FFF7FEFF 		bl	Pin_LED_Write
+ 130              	.LVL14:
+  29:main.c        ****             UART_PutString("Task 2: LED ");
+ 131              		.loc 1 29 0
+ 132 0020 0C48     		ldr	r0, .L15+4
+ 133 0022 FFF7FEFF 		bl	UART_PutString
+ 134              	.LVL15:
+  30:main.c        ****             UART_PutString(Pin_LED_Read() ? "ON\r\n" : "OFF\r\n");
+ 135              		.loc 1 30 0
+ 136 0026 FFF7FEFF 		bl	Pin_LED_Read
+ 137              	.LVL16:
+ 138 002a 08B1     		cbz	r0, .L13
+ 139 002c 0A48     		ldr	r0, .L15+8
+ 140 002e 00E0     		b	.L11
+ 141              	.L13:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 4
+
+
+ 142 0030 0A48     		ldr	r0, .L15+12
+ 143              	.L11:
+ 144              		.loc 1 30 0 is_stmt 0 discriminator 4
+ 145 0032 FFF7FEFF 		bl	UART_PutString
+ 146              	.LVL17:
+  31:main.c        ****             xSemaphoreGive(uart_mutex);
+ 147              		.loc 1 31 0 is_stmt 1 discriminator 4
+ 148 0036 0023     		movs	r3, #0
+ 149 0038 1A46     		mov	r2, r3
+ 150 003a 1946     		mov	r1, r3
+ 151 003c 0448     		ldr	r0, .L15
+ 152 003e 0068     		ldr	r0, [r0]
+ 153 0040 FFF7FEFF 		bl	xQueueGenericSend
+ 154              	.LVL18:
+ 155              	.L10:
+  32:main.c        ****         }
+  33:main.c        ****         vTaskDelay(750);
+ 156              		.loc 1 33 0
+ 157 0044 40F2EE20 		movw	r0, #750
+ 158 0048 FFF7FEFF 		bl	vTaskDelay
+ 159              	.LVL19:
+  34:main.c        ****     }
+ 160              		.loc 1 34 0
+ 161 004c D9E7     		b	.L12
+ 162              	.L16:
+ 163 004e 00BF     		.align	2
+ 164              	.L15:
+ 165 0050 00000000 		.word	uart_mutex
+ 166 0054 20000000 		.word	.LC3
+ 167 0058 00000000 		.word	.LC0
+ 168 005c 08000000 		.word	.LC1
+ 169              		.cfi_endproc
+ 170              	.LFE70:
+ 171              		.size	task2, .-task2
+ 172              		.section	.text.main,"ax",%progbits
+ 173              		.align	2
+ 174              		.global	main
+ 175              		.thumb
+ 176              		.thumb_func
+ 177              		.type	main, %function
+ 178              	main:
+ 179              	.LFB71:
+  35:main.c        **** }
+  36:main.c        **** 
+  37:main.c        **** int main(void) {
+ 180              		.loc 1 37 0
+ 181              		.cfi_startproc
+ 182              		@ Volatile: function does not return.
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 0, uses_anonymous_args = 0
+ 185 0000 00B5     		push	{lr}
+ 186              		.cfi_def_cfa_offset 4
+ 187              		.cfi_offset 14, -4
+ 188 0002 83B0     		sub	sp, sp, #12
+ 189              		.cfi_def_cfa_offset 16
+  38:main.c        ****     CyGlobalIntEnable;
+ 190              		.loc 1 38 0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 5
+
+
+ 191              		.syntax unified
+ 192              	@ 38 "main.c" 1
+ 193 0004 62B6     		CPSIE   i
+ 194              	@ 0 "" 2
+  39:main.c        ****     FreeRTOS_Start();
+ 195              		.loc 1 39 0
+ 196              		.thumb
+ 197              		.syntax unified
+ 198 0006 FFF7FEFF 		bl	FreeRTOS_Start
+ 199              	.LVL20:
+  40:main.c        ****     UART_Start();
+ 200              		.loc 1 40 0
+ 201 000a FFF7FEFF 		bl	UART_Start
+ 202              	.LVL21:
+  41:main.c        ****     UART_ClearTxBuffer();
+ 203              		.loc 1 41 0
+ 204 000e FFF7FEFF 		bl	UART_ClearTxBuffer
+ 205              	.LVL22:
+  42:main.c        ****     uart_mutex = xSemaphoreCreateMutex();
+ 206              		.loc 1 42 0
+ 207 0012 0120     		movs	r0, #1
+ 208 0014 FFF7FEFF 		bl	xQueueCreateMutex
+ 209              	.LVL23:
+ 210 0018 0D4B     		ldr	r3, .L22
+ 211 001a 1860     		str	r0, [r3]
+  43:main.c        ****     if(uart_mutex == NULL) {
+ 212              		.loc 1 43 0
+ 213 001c 18B9     		cbnz	r0, .L18
+  44:main.c        ****         UART_PutString("Failed to create mutex\r\n");
+ 214              		.loc 1 44 0
+ 215 001e 0D48     		ldr	r0, .L22+4
+ 216 0020 FFF7FEFF 		bl	UART_PutString
+ 217              	.LVL24:
+ 218              	.L19:
+ 219 0024 FEE7     		b	.L19
+ 220              	.L18:
+  45:main.c        ****         while(1);
+  46:main.c        ****     }
+  47:main.c        ****     xTaskCreate(task1, "Task 1", 200, NULL, 2, NULL);
+ 221              		.loc 1 47 0
+ 222 0026 0024     		movs	r4, #0
+ 223 0028 0194     		str	r4, [sp, #4]
+ 224 002a 0225     		movs	r5, #2
+ 225 002c 0095     		str	r5, [sp]
+ 226 002e 2346     		mov	r3, r4
+ 227 0030 C822     		movs	r2, #200
+ 228 0032 0949     		ldr	r1, .L22+8
+ 229 0034 0948     		ldr	r0, .L22+12
+ 230 0036 FFF7FEFF 		bl	xTaskCreate
+ 231              	.LVL25:
+  48:main.c        ****     xTaskCreate(task2, "Task 2", 200, NULL, 2, NULL);
+ 232              		.loc 1 48 0
+ 233 003a 0194     		str	r4, [sp, #4]
+ 234 003c 0095     		str	r5, [sp]
+ 235 003e 2346     		mov	r3, r4
+ 236 0040 C822     		movs	r2, #200
+ 237 0042 0749     		ldr	r1, .L22+16
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 6
+
+
+ 238 0044 0748     		ldr	r0, .L22+20
+ 239 0046 FFF7FEFF 		bl	xTaskCreate
+ 240              	.LVL26:
+  49:main.c        ****     vTaskStartScheduler();
+ 241              		.loc 1 49 0
+ 242 004a FFF7FEFF 		bl	vTaskStartScheduler
+ 243              	.LVL27:
+ 244              	.L20:
+ 245 004e FEE7     		b	.L20
+ 246              	.L23:
+ 247              		.align	2
+ 248              	.L22:
+ 249 0050 00000000 		.word	uart_mutex
+ 250 0054 30000000 		.word	.LC4
+ 251 0058 4C000000 		.word	.LC5
+ 252 005c 00000000 		.word	task1
+ 253 0060 54000000 		.word	.LC6
+ 254 0064 00000000 		.word	task2
+ 255              		.cfi_endproc
+ 256              	.LFE71:
+ 257              		.size	main, .-main
+ 258              		.comm	uart_mutex,4,4
+ 259              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 260              		.align	2
+ 261              	.LC0:
+ 262 0000 4F4E0D0A 		.ascii	"ON\015\012\000"
+ 262      00
+ 263 0005 000000   		.space	3
+ 264              	.LC1:
+ 265 0008 4F46460D 		.ascii	"OFF\015\012\000"
+ 265      0A00
+ 266 000e 0000     		.space	2
+ 267              	.LC2:
+ 268 0010 5461736B 		.ascii	"Task 1: LED \000"
+ 268      20313A20 
+ 268      4C454420 
+ 268      00
+ 269 001d 000000   		.space	3
+ 270              	.LC3:
+ 271 0020 5461736B 		.ascii	"Task 2: LED \000"
+ 271      20323A20 
+ 271      4C454420 
+ 271      00
+ 272 002d 000000   		.space	3
+ 273              	.LC4:
+ 274 0030 4661696C 		.ascii	"Failed to create mutex\015\012\000"
+ 274      65642074 
+ 274      6F206372 
+ 274      65617465 
+ 274      206D7574 
+ 275 0049 000000   		.space	3
+ 276              	.LC5:
+ 277 004c 5461736B 		.ascii	"Task 1\000"
+ 277      203100
+ 278 0053 00       		.space	1
+ 279              	.LC6:
+ 280 0054 5461736B 		.ascii	"Task 2\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 7
+
+
+ 280      203200
+ 281              		.text
+ 282              	.Letext0:
+ 283              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 284              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 285              		.file 4 "..\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM3/portmacro.h"
+ 286              		.file 5 "..\\FreeRTOS\\Source\\include/queue.h"
+ 287              		.file 6 "..\\FreeRTOS\\Source\\include/semphr.h"
+ 288              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 289              		.file 8 "Generated_Source\\PSoC5/Pin_LED.h"
+ 290              		.file 9 "Generated_Source\\PSoC5/UART.h"
+ 291              		.file 10 "..\\FreeRTOS\\Source\\include/task.h"
+ 292              		.section	.debug_info,"",%progbits
+ 293              	.Ldebug_info0:
+ 294 0000 D2030000 		.4byte	0x3d2
+ 295 0004 0400     		.2byte	0x4
+ 296 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 297 000a 04       		.byte	0x4
+ 298 000b 01       		.uleb128 0x1
+ 299 000c 6F000000 		.4byte	.LASF40
+ 300 0010 0C       		.byte	0xc
+ 301 0011 EF010000 		.4byte	.LASF41
+ 302 0015 FB010000 		.4byte	.LASF42
+ 303 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 304 001d 00000000 		.4byte	0
+ 305 0021 00000000 		.4byte	.Ldebug_line0
+ 306 0025 02       		.uleb128 0x2
+ 307 0026 01       		.byte	0x1
+ 308 0027 06       		.byte	0x6
+ 309 0028 9F020000 		.4byte	.LASF0
+ 310 002c 03       		.uleb128 0x3
+ 311 002d 00000000 		.4byte	.LASF4
+ 312 0031 02       		.byte	0x2
+ 313 0032 1D       		.byte	0x1d
+ 314 0033 37000000 		.4byte	0x37
+ 315 0037 02       		.uleb128 0x2
+ 316 0038 01       		.byte	0x1
+ 317 0039 08       		.byte	0x8
+ 318 003a 61000000 		.4byte	.LASF1
+ 319 003e 02       		.uleb128 0x2
+ 320 003f 02       		.byte	0x2
+ 321 0040 05       		.byte	0x5
+ 322 0041 4E010000 		.4byte	.LASF2
+ 323 0045 02       		.uleb128 0x2
+ 324 0046 02       		.byte	0x2
+ 325 0047 07       		.byte	0x7
+ 326 0048 1F000000 		.4byte	.LASF3
+ 327 004c 03       		.uleb128 0x3
+ 328 004d 15000000 		.4byte	.LASF5
+ 329 0051 02       		.byte	0x2
+ 330 0052 3F       		.byte	0x3f
+ 331 0053 57000000 		.4byte	0x57
+ 332 0057 02       		.uleb128 0x2
+ 333 0058 04       		.byte	0x4
+ 334 0059 05       		.byte	0x5
+ 335 005a 6D020000 		.4byte	.LASF6
+ 336 005e 03       		.uleb128 0x3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 8
+
+
+ 337 005f FD000000 		.4byte	.LASF7
+ 338 0063 02       		.byte	0x2
+ 339 0064 41       		.byte	0x41
+ 340 0065 69000000 		.4byte	0x69
+ 341 0069 02       		.uleb128 0x2
+ 342 006a 04       		.byte	0x4
+ 343 006b 07       		.byte	0x7
+ 344 006c 2A010000 		.4byte	.LASF8
+ 345 0070 02       		.uleb128 0x2
+ 346 0071 08       		.byte	0x8
+ 347 0072 05       		.byte	0x5
+ 348 0073 E1010000 		.4byte	.LASF9
+ 349 0077 02       		.uleb128 0x2
+ 350 0078 08       		.byte	0x8
+ 351 0079 07       		.byte	0x7
+ 352 007a 90010000 		.4byte	.LASF10
+ 353 007e 04       		.uleb128 0x4
+ 354 007f 04       		.byte	0x4
+ 355 0080 05       		.byte	0x5
+ 356 0081 696E7400 		.ascii	"int\000"
+ 357 0085 02       		.uleb128 0x2
+ 358 0086 04       		.byte	0x4
+ 359 0087 07       		.byte	0x7
+ 360 0088 75010000 		.4byte	.LASF11
+ 361 008c 02       		.uleb128 0x2
+ 362 008d 08       		.byte	0x8
+ 363 008e 04       		.byte	0x4
+ 364 008f 93020000 		.4byte	.LASF12
+ 365 0093 05       		.uleb128 0x5
+ 366 0094 04       		.byte	0x4
+ 367 0095 02       		.uleb128 0x2
+ 368 0096 04       		.byte	0x4
+ 369 0097 07       		.byte	0x7
+ 370 0098 D8010000 		.4byte	.LASF13
+ 371 009c 02       		.uleb128 0x2
+ 372 009d 01       		.byte	0x1
+ 373 009e 08       		.byte	0x8
+ 374 009f F6010000 		.4byte	.LASF14
+ 375 00a3 03       		.uleb128 0x3
+ 376 00a4 A7010000 		.4byte	.LASF15
+ 377 00a8 03       		.byte	0x3
+ 378 00a9 18       		.byte	0x18
+ 379 00aa 2C000000 		.4byte	0x2c
+ 380 00ae 03       		.uleb128 0x3
+ 381 00af D0010000 		.4byte	.LASF16
+ 382 00b3 03       		.byte	0x3
+ 383 00b4 2C       		.byte	0x2c
+ 384 00b5 4C000000 		.4byte	0x4c
+ 385 00b9 03       		.uleb128 0x3
+ 386 00ba 64020000 		.4byte	.LASF17
+ 387 00be 03       		.byte	0x3
+ 388 00bf 30       		.byte	0x30
+ 389 00c0 5E000000 		.4byte	0x5e
+ 390 00c4 02       		.uleb128 0x2
+ 391 00c5 04       		.byte	0x4
+ 392 00c6 04       		.byte	0x4
+ 393 00c7 5B000000 		.4byte	.LASF18
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 9
+
+
+ 394 00cb 02       		.uleb128 0x2
+ 395 00cc 08       		.byte	0x8
+ 396 00cd 04       		.byte	0x4
+ 397 00ce 54000000 		.4byte	.LASF19
+ 398 00d2 03       		.uleb128 0x3
+ 399 00d3 CE020000 		.4byte	.LASF20
+ 400 00d7 04       		.byte	0x4
+ 401 00d8 38       		.byte	0x38
+ 402 00d9 57000000 		.4byte	0x57
+ 403 00dd 03       		.uleb128 0x3
+ 404 00de 0A000000 		.4byte	.LASF21
+ 405 00e2 04       		.byte	0x4
+ 406 00e3 3F       		.byte	0x3f
+ 407 00e4 B9000000 		.4byte	0xb9
+ 408 00e8 03       		.uleb128 0x3
+ 409 00e9 32000000 		.4byte	.LASF22
+ 410 00ed 05       		.byte	0x5
+ 411 00ee 30       		.byte	0x30
+ 412 00ef F3000000 		.4byte	0xf3
+ 413 00f3 06       		.uleb128 0x6
+ 414 00f4 04       		.byte	0x4
+ 415 00f5 F9000000 		.4byte	0xf9
+ 416 00f9 07       		.uleb128 0x7
+ 417 00fa 65010000 		.4byte	.LASF43
+ 418 00fe 03       		.uleb128 0x3
+ 419 00ff 3C010000 		.4byte	.LASF23
+ 420 0103 06       		.byte	0x6
+ 421 0104 25       		.byte	0x25
+ 422 0105 E8000000 		.4byte	0xe8
+ 423 0109 08       		.uleb128 0x8
+ 424 010a 08010000 		.4byte	.LASF24
+ 425 010e 01       		.byte	0x1
+ 426 010f 0D       		.byte	0xd
+ 427 0110 00000000 		.4byte	.LFB69
+ 428 0114 60000000 		.4byte	.LFE69-.LFB69
+ 429 0118 01       		.uleb128 0x1
+ 430 0119 9C       		.byte	0x9c
+ 431 011a AB010000 		.4byte	0x1ab
+ 432 011e 09       		.uleb128 0x9
+ 433 011f 70747200 		.ascii	"ptr\000"
+ 434 0123 01       		.byte	0x1
+ 435 0124 0D       		.byte	0xd
+ 436 0125 93000000 		.4byte	0x93
+ 437 0129 00000000 		.4byte	.LLST0
+ 438 012d 0A       		.uleb128 0xa
+ 439 012e 0E000000 		.4byte	.LVL2
+ 440 0132 4B030000 		.4byte	0x34b
+ 441 0136 41010000 		.4byte	0x141
+ 442 013a 0B       		.uleb128 0xb
+ 443 013b 01       		.uleb128 0x1
+ 444 013c 51       		.byte	0x51
+ 445 013d 02       		.uleb128 0x2
+ 446 013e 09       		.byte	0x9
+ 447 013f FF       		.byte	0xff
+ 448 0140 00       		.byte	0
+ 449 0141 0C       		.uleb128 0xc
+ 450 0142 16000000 		.4byte	.LVL3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 10
+
+
+ 451 0146 57030000 		.4byte	0x357
+ 452 014a 0C       		.uleb128 0xc
+ 453 014b 20000000 		.4byte	.LVL4
+ 454 014f 62030000 		.4byte	0x362
+ 455 0153 0A       		.uleb128 0xa
+ 456 0154 26000000 		.4byte	.LVL5
+ 457 0158 6D030000 		.4byte	0x36d
+ 458 015c 6A010000 		.4byte	0x16a
+ 459 0160 0B       		.uleb128 0xb
+ 460 0161 01       		.uleb128 0x1
+ 461 0162 50       		.byte	0x50
+ 462 0163 05       		.uleb128 0x5
+ 463 0164 03       		.byte	0x3
+ 464 0165 10000000 		.4byte	.LC2
+ 465 0169 00       		.byte	0
+ 466 016a 0C       		.uleb128 0xc
+ 467 016b 2A000000 		.4byte	.LVL6
+ 468 016f 57030000 		.4byte	0x357
+ 469 0173 0C       		.uleb128 0xc
+ 470 0174 36000000 		.4byte	.LVL7
+ 471 0178 6D030000 		.4byte	0x36d
+ 472 017c 0A       		.uleb128 0xa
+ 473 017d 44000000 		.4byte	.LVL8
+ 474 0181 78030000 		.4byte	0x378
+ 475 0185 99010000 		.4byte	0x199
+ 476 0189 0B       		.uleb128 0xb
+ 477 018a 01       		.uleb128 0x1
+ 478 018b 51       		.byte	0x51
+ 479 018c 01       		.uleb128 0x1
+ 480 018d 30       		.byte	0x30
+ 481 018e 0B       		.uleb128 0xb
+ 482 018f 01       		.uleb128 0x1
+ 483 0190 52       		.byte	0x52
+ 484 0191 01       		.uleb128 0x1
+ 485 0192 30       		.byte	0x30
+ 486 0193 0B       		.uleb128 0xb
+ 487 0194 01       		.uleb128 0x1
+ 488 0195 53       		.byte	0x53
+ 489 0196 01       		.uleb128 0x1
+ 490 0197 30       		.byte	0x30
+ 491 0198 00       		.byte	0
+ 492 0199 0D       		.uleb128 0xd
+ 493 019a 4C000000 		.4byte	.LVL9
+ 494 019e 84030000 		.4byte	0x384
+ 495 01a2 0B       		.uleb128 0xb
+ 496 01a3 01       		.uleb128 0x1
+ 497 01a4 50       		.byte	0x50
+ 498 01a5 03       		.uleb128 0x3
+ 499 01a6 0A       		.byte	0xa
+ 500 01a7 F401     		.2byte	0x1f4
+ 501 01a9 00       		.byte	0
+ 502 01aa 00       		.byte	0
+ 503 01ab 08       		.uleb128 0x8
+ 504 01ac 0E010000 		.4byte	.LASF25
+ 505 01b0 01       		.byte	0x1
+ 506 01b1 19       		.byte	0x19
+ 507 01b2 00000000 		.4byte	.LFB70
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 11
+
+
+ 508 01b6 60000000 		.4byte	.LFE70-.LFB70
+ 509 01ba 01       		.uleb128 0x1
+ 510 01bb 9C       		.byte	0x9c
+ 511 01bc 4D020000 		.4byte	0x24d
+ 512 01c0 09       		.uleb128 0x9
+ 513 01c1 70747200 		.ascii	"ptr\000"
+ 514 01c5 01       		.byte	0x1
+ 515 01c6 19       		.byte	0x19
+ 516 01c7 93000000 		.4byte	0x93
+ 517 01cb 21000000 		.4byte	.LLST1
+ 518 01cf 0A       		.uleb128 0xa
+ 519 01d0 0E000000 		.4byte	.LVL12
+ 520 01d4 4B030000 		.4byte	0x34b
+ 521 01d8 E3010000 		.4byte	0x1e3
+ 522 01dc 0B       		.uleb128 0xb
+ 523 01dd 01       		.uleb128 0x1
+ 524 01de 51       		.byte	0x51
+ 525 01df 02       		.uleb128 0x2
+ 526 01e0 09       		.byte	0x9
+ 527 01e1 FF       		.byte	0xff
+ 528 01e2 00       		.byte	0
+ 529 01e3 0C       		.uleb128 0xc
+ 530 01e4 16000000 		.4byte	.LVL13
+ 531 01e8 57030000 		.4byte	0x357
+ 532 01ec 0C       		.uleb128 0xc
+ 533 01ed 20000000 		.4byte	.LVL14
+ 534 01f1 62030000 		.4byte	0x362
+ 535 01f5 0A       		.uleb128 0xa
+ 536 01f6 26000000 		.4byte	.LVL15
+ 537 01fa 6D030000 		.4byte	0x36d
+ 538 01fe 0C020000 		.4byte	0x20c
+ 539 0202 0B       		.uleb128 0xb
+ 540 0203 01       		.uleb128 0x1
+ 541 0204 50       		.byte	0x50
+ 542 0205 05       		.uleb128 0x5
+ 543 0206 03       		.byte	0x3
+ 544 0207 20000000 		.4byte	.LC3
+ 545 020b 00       		.byte	0
+ 546 020c 0C       		.uleb128 0xc
+ 547 020d 2A000000 		.4byte	.LVL16
+ 548 0211 57030000 		.4byte	0x357
+ 549 0215 0C       		.uleb128 0xc
+ 550 0216 36000000 		.4byte	.LVL17
+ 551 021a 6D030000 		.4byte	0x36d
+ 552 021e 0A       		.uleb128 0xa
+ 553 021f 44000000 		.4byte	.LVL18
+ 554 0223 78030000 		.4byte	0x378
+ 555 0227 3B020000 		.4byte	0x23b
+ 556 022b 0B       		.uleb128 0xb
+ 557 022c 01       		.uleb128 0x1
+ 558 022d 51       		.byte	0x51
+ 559 022e 01       		.uleb128 0x1
+ 560 022f 30       		.byte	0x30
+ 561 0230 0B       		.uleb128 0xb
+ 562 0231 01       		.uleb128 0x1
+ 563 0232 52       		.byte	0x52
+ 564 0233 01       		.uleb128 0x1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 12
+
+
+ 565 0234 30       		.byte	0x30
+ 566 0235 0B       		.uleb128 0xb
+ 567 0236 01       		.uleb128 0x1
+ 568 0237 53       		.byte	0x53
+ 569 0238 01       		.uleb128 0x1
+ 570 0239 30       		.byte	0x30
+ 571 023a 00       		.byte	0
+ 572 023b 0D       		.uleb128 0xd
+ 573 023c 4C000000 		.4byte	.LVL19
+ 574 0240 84030000 		.4byte	0x384
+ 575 0244 0B       		.uleb128 0xb
+ 576 0245 01       		.uleb128 0x1
+ 577 0246 50       		.byte	0x50
+ 578 0247 03       		.uleb128 0x3
+ 579 0248 0A       		.byte	0xa
+ 580 0249 EE02     		.2byte	0x2ee
+ 581 024b 00       		.byte	0
+ 582 024c 00       		.byte	0
+ 583 024d 0E       		.uleb128 0xe
+ 584 024e CB010000 		.4byte	.LASF44
+ 585 0252 01       		.byte	0x1
+ 586 0253 25       		.byte	0x25
+ 587 0254 7E000000 		.4byte	0x7e
+ 588 0258 00000000 		.4byte	.LFB71
+ 589 025c 68000000 		.4byte	.LFE71-.LFB71
+ 590 0260 01       		.uleb128 0x1
+ 591 0261 9C       		.byte	0x9c
+ 592 0262 29030000 		.4byte	0x329
+ 593 0266 0C       		.uleb128 0xc
+ 594 0267 0A000000 		.4byte	.LVL20
+ 595 026b 90030000 		.4byte	0x390
+ 596 026f 0C       		.uleb128 0xc
+ 597 0270 0E000000 		.4byte	.LVL21
+ 598 0274 9B030000 		.4byte	0x39b
+ 599 0278 0C       		.uleb128 0xc
+ 600 0279 12000000 		.4byte	.LVL22
+ 601 027d A6030000 		.4byte	0x3a6
+ 602 0281 0A       		.uleb128 0xa
+ 603 0282 18000000 		.4byte	.LVL23
+ 604 0286 B1030000 		.4byte	0x3b1
+ 605 028a 94020000 		.4byte	0x294
+ 606 028e 0B       		.uleb128 0xb
+ 607 028f 01       		.uleb128 0x1
+ 608 0290 50       		.byte	0x50
+ 609 0291 01       		.uleb128 0x1
+ 610 0292 31       		.byte	0x31
+ 611 0293 00       		.byte	0
+ 612 0294 0A       		.uleb128 0xa
+ 613 0295 24000000 		.4byte	.LVL24
+ 614 0299 6D030000 		.4byte	0x36d
+ 615 029d AB020000 		.4byte	0x2ab
+ 616 02a1 0B       		.uleb128 0xb
+ 617 02a2 01       		.uleb128 0x1
+ 618 02a3 50       		.byte	0x50
+ 619 02a4 05       		.uleb128 0x5
+ 620 02a5 03       		.byte	0x3
+ 621 02a6 30000000 		.4byte	.LC4
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 13
+
+
+ 622 02aa 00       		.byte	0
+ 623 02ab 0A       		.uleb128 0xa
+ 624 02ac 3A000000 		.4byte	.LVL25
+ 625 02b0 BD030000 		.4byte	0x3bd
+ 626 02b4 E5020000 		.4byte	0x2e5
+ 627 02b8 0B       		.uleb128 0xb
+ 628 02b9 01       		.uleb128 0x1
+ 629 02ba 50       		.byte	0x50
+ 630 02bb 05       		.uleb128 0x5
+ 631 02bc 03       		.byte	0x3
+ 632 02bd 00000000 		.4byte	task1
+ 633 02c1 0B       		.uleb128 0xb
+ 634 02c2 01       		.uleb128 0x1
+ 635 02c3 51       		.byte	0x51
+ 636 02c4 05       		.uleb128 0x5
+ 637 02c5 03       		.byte	0x3
+ 638 02c6 4C000000 		.4byte	.LC5
+ 639 02ca 0B       		.uleb128 0xb
+ 640 02cb 01       		.uleb128 0x1
+ 641 02cc 52       		.byte	0x52
+ 642 02cd 02       		.uleb128 0x2
+ 643 02ce 08       		.byte	0x8
+ 644 02cf C8       		.byte	0xc8
+ 645 02d0 0B       		.uleb128 0xb
+ 646 02d1 01       		.uleb128 0x1
+ 647 02d2 53       		.byte	0x53
+ 648 02d3 02       		.uleb128 0x2
+ 649 02d4 74       		.byte	0x74
+ 650 02d5 00       		.sleb128 0
+ 651 02d6 0B       		.uleb128 0xb
+ 652 02d7 02       		.uleb128 0x2
+ 653 02d8 7D       		.byte	0x7d
+ 654 02d9 00       		.sleb128 0
+ 655 02da 02       		.uleb128 0x2
+ 656 02db 75       		.byte	0x75
+ 657 02dc 00       		.sleb128 0
+ 658 02dd 0B       		.uleb128 0xb
+ 659 02de 02       		.uleb128 0x2
+ 660 02df 7D       		.byte	0x7d
+ 661 02e0 04       		.sleb128 4
+ 662 02e1 02       		.uleb128 0x2
+ 663 02e2 74       		.byte	0x74
+ 664 02e3 00       		.sleb128 0
+ 665 02e4 00       		.byte	0
+ 666 02e5 0A       		.uleb128 0xa
+ 667 02e6 4A000000 		.4byte	.LVL26
+ 668 02ea BD030000 		.4byte	0x3bd
+ 669 02ee 1F030000 		.4byte	0x31f
+ 670 02f2 0B       		.uleb128 0xb
+ 671 02f3 01       		.uleb128 0x1
+ 672 02f4 50       		.byte	0x50
+ 673 02f5 05       		.uleb128 0x5
+ 674 02f6 03       		.byte	0x3
+ 675 02f7 00000000 		.4byte	task2
+ 676 02fb 0B       		.uleb128 0xb
+ 677 02fc 01       		.uleb128 0x1
+ 678 02fd 51       		.byte	0x51
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 14
+
+
+ 679 02fe 05       		.uleb128 0x5
+ 680 02ff 03       		.byte	0x3
+ 681 0300 54000000 		.4byte	.LC6
+ 682 0304 0B       		.uleb128 0xb
+ 683 0305 01       		.uleb128 0x1
+ 684 0306 52       		.byte	0x52
+ 685 0307 02       		.uleb128 0x2
+ 686 0308 08       		.byte	0x8
+ 687 0309 C8       		.byte	0xc8
+ 688 030a 0B       		.uleb128 0xb
+ 689 030b 01       		.uleb128 0x1
+ 690 030c 53       		.byte	0x53
+ 691 030d 02       		.uleb128 0x2
+ 692 030e 74       		.byte	0x74
+ 693 030f 00       		.sleb128 0
+ 694 0310 0B       		.uleb128 0xb
+ 695 0311 02       		.uleb128 0x2
+ 696 0312 7D       		.byte	0x7d
+ 697 0313 00       		.sleb128 0
+ 698 0314 02       		.uleb128 0x2
+ 699 0315 75       		.byte	0x75
+ 700 0316 00       		.sleb128 0
+ 701 0317 0B       		.uleb128 0xb
+ 702 0318 02       		.uleb128 0x2
+ 703 0319 7D       		.byte	0x7d
+ 704 031a 04       		.sleb128 4
+ 705 031b 02       		.uleb128 0x2
+ 706 031c 74       		.byte	0x74
+ 707 031d 00       		.sleb128 0
+ 708 031e 00       		.byte	0
+ 709 031f 0C       		.uleb128 0xc
+ 710 0320 4E000000 		.4byte	.LVL27
+ 711 0324 C9030000 		.4byte	0x3c9
+ 712 0328 00       		.byte	0
+ 713 0329 0F       		.uleb128 0xf
+ 714 032a 58010000 		.4byte	.LASF26
+ 715 032e 07       		.byte	0x7
+ 716 032f 1207     		.2byte	0x712
+ 717 0331 35030000 		.4byte	0x335
+ 718 0335 10       		.uleb128 0x10
+ 719 0336 AE000000 		.4byte	0xae
+ 720 033a 11       		.uleb128 0x11
+ 721 033b 1F010000 		.4byte	.LASF27
+ 722 033f 01       		.byte	0x1
+ 723 0340 0B       		.byte	0xb
+ 724 0341 FE000000 		.4byte	0xfe
+ 725 0345 05       		.uleb128 0x5
+ 726 0346 03       		.byte	0x3
+ 727 0347 00000000 		.4byte	uart_mutex
+ 728 034b 12       		.uleb128 0x12
+ 729 034c AB020000 		.4byte	.LASF28
+ 730 0350 AB020000 		.4byte	.LASF28
+ 731 0354 05       		.byte	0x5
+ 732 0355 8A05     		.2byte	0x58a
+ 733 0357 13       		.uleb128 0x13
+ 734 0358 BE010000 		.4byte	.LASF29
+ 735 035c BE010000 		.4byte	.LASF29
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 15
+
+
+ 736 0360 08       		.byte	0x8
+ 737 0361 29       		.byte	0x29
+ 738 0362 13       		.uleb128 0x13
+ 739 0363 82010000 		.4byte	.LASF30
+ 740 0367 82010000 		.4byte	.LASF30
+ 741 036b 08       		.byte	0x8
+ 742 036c 26       		.byte	0x26
+ 743 036d 13       		.uleb128 0x13
+ 744 036e BF020000 		.4byte	.LASF31
+ 745 0372 BF020000 		.4byte	.LASF31
+ 746 0376 09       		.byte	0x9
+ 747 0377 8B       		.byte	0x8b
+ 748 0378 12       		.uleb128 0x12
+ 749 0379 3F020000 		.4byte	.LASF32
+ 750 037d 3F020000 		.4byte	.LASF32
+ 751 0381 05       		.byte	0x5
+ 752 0382 8A02     		.2byte	0x28a
+ 753 0384 12       		.uleb128 0x12
+ 754 0385 76020000 		.4byte	.LASF33
+ 755 0389 76020000 		.4byte	.LASF33
+ 756 038d 0A       		.byte	0xa
+ 757 038e F602     		.2byte	0x2f6
+ 758 0390 13       		.uleb128 0x13
+ 759 0391 AF010000 		.4byte	.LASF34
+ 760 0395 AF010000 		.4byte	.LASF34
+ 761 0399 01       		.byte	0x1
+ 762 039a 09       		.byte	0x9
+ 763 039b 13       		.uleb128 0x13
+ 764 039c 14010000 		.4byte	.LASF35
+ 765 03a0 14010000 		.4byte	.LASF35
+ 766 03a4 09       		.byte	0x9
+ 767 03a5 54       		.byte	0x54
+ 768 03a6 13       		.uleb128 0x13
+ 769 03a7 51020000 		.4byte	.LASF36
+ 770 03ab 51020000 		.4byte	.LASF36
+ 771 03af 09       		.byte	0x9
+ 772 03b0 8F       		.byte	0x8f
+ 773 03b1 12       		.uleb128 0x12
+ 774 03b2 81020000 		.4byte	.LASF37
+ 775 03b6 81020000 		.4byte	.LASF37
+ 776 03ba 05       		.byte	0x5
+ 777 03bb 8605     		.2byte	0x586
+ 778 03bd 12       		.uleb128 0x12
+ 779 03be D9020000 		.4byte	.LASF38
+ 780 03c2 D9020000 		.4byte	.LASF38
+ 781 03c6 0A       		.byte	0xa
+ 782 03c7 4A01     		.2byte	0x14a
+ 783 03c9 12       		.uleb128 0x12
+ 784 03ca 40000000 		.4byte	.LASF39
+ 785 03ce 40000000 		.4byte	.LASF39
+ 786 03d2 0A       		.byte	0xa
+ 787 03d3 9704     		.2byte	0x497
+ 788 03d5 00       		.byte	0
+ 789              		.section	.debug_abbrev,"",%progbits
+ 790              	.Ldebug_abbrev0:
+ 791 0000 01       		.uleb128 0x1
+ 792 0001 11       		.uleb128 0x11
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 16
+
+
+ 793 0002 01       		.byte	0x1
+ 794 0003 25       		.uleb128 0x25
+ 795 0004 0E       		.uleb128 0xe
+ 796 0005 13       		.uleb128 0x13
+ 797 0006 0B       		.uleb128 0xb
+ 798 0007 03       		.uleb128 0x3
+ 799 0008 0E       		.uleb128 0xe
+ 800 0009 1B       		.uleb128 0x1b
+ 801 000a 0E       		.uleb128 0xe
+ 802 000b 55       		.uleb128 0x55
+ 803 000c 17       		.uleb128 0x17
+ 804 000d 11       		.uleb128 0x11
+ 805 000e 01       		.uleb128 0x1
+ 806 000f 10       		.uleb128 0x10
+ 807 0010 17       		.uleb128 0x17
+ 808 0011 00       		.byte	0
+ 809 0012 00       		.byte	0
+ 810 0013 02       		.uleb128 0x2
+ 811 0014 24       		.uleb128 0x24
+ 812 0015 00       		.byte	0
+ 813 0016 0B       		.uleb128 0xb
+ 814 0017 0B       		.uleb128 0xb
+ 815 0018 3E       		.uleb128 0x3e
+ 816 0019 0B       		.uleb128 0xb
+ 817 001a 03       		.uleb128 0x3
+ 818 001b 0E       		.uleb128 0xe
+ 819 001c 00       		.byte	0
+ 820 001d 00       		.byte	0
+ 821 001e 03       		.uleb128 0x3
+ 822 001f 16       		.uleb128 0x16
+ 823 0020 00       		.byte	0
+ 824 0021 03       		.uleb128 0x3
+ 825 0022 0E       		.uleb128 0xe
+ 826 0023 3A       		.uleb128 0x3a
+ 827 0024 0B       		.uleb128 0xb
+ 828 0025 3B       		.uleb128 0x3b
+ 829 0026 0B       		.uleb128 0xb
+ 830 0027 49       		.uleb128 0x49
+ 831 0028 13       		.uleb128 0x13
+ 832 0029 00       		.byte	0
+ 833 002a 00       		.byte	0
+ 834 002b 04       		.uleb128 0x4
+ 835 002c 24       		.uleb128 0x24
+ 836 002d 00       		.byte	0
+ 837 002e 0B       		.uleb128 0xb
+ 838 002f 0B       		.uleb128 0xb
+ 839 0030 3E       		.uleb128 0x3e
+ 840 0031 0B       		.uleb128 0xb
+ 841 0032 03       		.uleb128 0x3
+ 842 0033 08       		.uleb128 0x8
+ 843 0034 00       		.byte	0
+ 844 0035 00       		.byte	0
+ 845 0036 05       		.uleb128 0x5
+ 846 0037 0F       		.uleb128 0xf
+ 847 0038 00       		.byte	0
+ 848 0039 0B       		.uleb128 0xb
+ 849 003a 0B       		.uleb128 0xb
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 17
+
+
+ 850 003b 00       		.byte	0
+ 851 003c 00       		.byte	0
+ 852 003d 06       		.uleb128 0x6
+ 853 003e 0F       		.uleb128 0xf
+ 854 003f 00       		.byte	0
+ 855 0040 0B       		.uleb128 0xb
+ 856 0041 0B       		.uleb128 0xb
+ 857 0042 49       		.uleb128 0x49
+ 858 0043 13       		.uleb128 0x13
+ 859 0044 00       		.byte	0
+ 860 0045 00       		.byte	0
+ 861 0046 07       		.uleb128 0x7
+ 862 0047 13       		.uleb128 0x13
+ 863 0048 00       		.byte	0
+ 864 0049 03       		.uleb128 0x3
+ 865 004a 0E       		.uleb128 0xe
+ 866 004b 3C       		.uleb128 0x3c
+ 867 004c 19       		.uleb128 0x19
+ 868 004d 00       		.byte	0
+ 869 004e 00       		.byte	0
+ 870 004f 08       		.uleb128 0x8
+ 871 0050 2E       		.uleb128 0x2e
+ 872 0051 01       		.byte	0x1
+ 873 0052 3F       		.uleb128 0x3f
+ 874 0053 19       		.uleb128 0x19
+ 875 0054 03       		.uleb128 0x3
+ 876 0055 0E       		.uleb128 0xe
+ 877 0056 3A       		.uleb128 0x3a
+ 878 0057 0B       		.uleb128 0xb
+ 879 0058 3B       		.uleb128 0x3b
+ 880 0059 0B       		.uleb128 0xb
+ 881 005a 27       		.uleb128 0x27
+ 882 005b 19       		.uleb128 0x19
+ 883 005c 8701     		.uleb128 0x87
+ 884 005e 19       		.uleb128 0x19
+ 885 005f 11       		.uleb128 0x11
+ 886 0060 01       		.uleb128 0x1
+ 887 0061 12       		.uleb128 0x12
+ 888 0062 06       		.uleb128 0x6
+ 889 0063 40       		.uleb128 0x40
+ 890 0064 18       		.uleb128 0x18
+ 891 0065 9742     		.uleb128 0x2117
+ 892 0067 19       		.uleb128 0x19
+ 893 0068 01       		.uleb128 0x1
+ 894 0069 13       		.uleb128 0x13
+ 895 006a 00       		.byte	0
+ 896 006b 00       		.byte	0
+ 897 006c 09       		.uleb128 0x9
+ 898 006d 05       		.uleb128 0x5
+ 899 006e 00       		.byte	0
+ 900 006f 03       		.uleb128 0x3
+ 901 0070 08       		.uleb128 0x8
+ 902 0071 3A       		.uleb128 0x3a
+ 903 0072 0B       		.uleb128 0xb
+ 904 0073 3B       		.uleb128 0x3b
+ 905 0074 0B       		.uleb128 0xb
+ 906 0075 49       		.uleb128 0x49
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 18
+
+
+ 907 0076 13       		.uleb128 0x13
+ 908 0077 02       		.uleb128 0x2
+ 909 0078 17       		.uleb128 0x17
+ 910 0079 00       		.byte	0
+ 911 007a 00       		.byte	0
+ 912 007b 0A       		.uleb128 0xa
+ 913 007c 898201   		.uleb128 0x4109
+ 914 007f 01       		.byte	0x1
+ 915 0080 11       		.uleb128 0x11
+ 916 0081 01       		.uleb128 0x1
+ 917 0082 31       		.uleb128 0x31
+ 918 0083 13       		.uleb128 0x13
+ 919 0084 01       		.uleb128 0x1
+ 920 0085 13       		.uleb128 0x13
+ 921 0086 00       		.byte	0
+ 922 0087 00       		.byte	0
+ 923 0088 0B       		.uleb128 0xb
+ 924 0089 8A8201   		.uleb128 0x410a
+ 925 008c 00       		.byte	0
+ 926 008d 02       		.uleb128 0x2
+ 927 008e 18       		.uleb128 0x18
+ 928 008f 9142     		.uleb128 0x2111
+ 929 0091 18       		.uleb128 0x18
+ 930 0092 00       		.byte	0
+ 931 0093 00       		.byte	0
+ 932 0094 0C       		.uleb128 0xc
+ 933 0095 898201   		.uleb128 0x4109
+ 934 0098 00       		.byte	0
+ 935 0099 11       		.uleb128 0x11
+ 936 009a 01       		.uleb128 0x1
+ 937 009b 31       		.uleb128 0x31
+ 938 009c 13       		.uleb128 0x13
+ 939 009d 00       		.byte	0
+ 940 009e 00       		.byte	0
+ 941 009f 0D       		.uleb128 0xd
+ 942 00a0 898201   		.uleb128 0x4109
+ 943 00a3 01       		.byte	0x1
+ 944 00a4 11       		.uleb128 0x11
+ 945 00a5 01       		.uleb128 0x1
+ 946 00a6 31       		.uleb128 0x31
+ 947 00a7 13       		.uleb128 0x13
+ 948 00a8 00       		.byte	0
+ 949 00a9 00       		.byte	0
+ 950 00aa 0E       		.uleb128 0xe
+ 951 00ab 2E       		.uleb128 0x2e
+ 952 00ac 01       		.byte	0x1
+ 953 00ad 3F       		.uleb128 0x3f
+ 954 00ae 19       		.uleb128 0x19
+ 955 00af 03       		.uleb128 0x3
+ 956 00b0 0E       		.uleb128 0xe
+ 957 00b1 3A       		.uleb128 0x3a
+ 958 00b2 0B       		.uleb128 0xb
+ 959 00b3 3B       		.uleb128 0x3b
+ 960 00b4 0B       		.uleb128 0xb
+ 961 00b5 27       		.uleb128 0x27
+ 962 00b6 19       		.uleb128 0x19
+ 963 00b7 49       		.uleb128 0x49
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 19
+
+
+ 964 00b8 13       		.uleb128 0x13
+ 965 00b9 8701     		.uleb128 0x87
+ 966 00bb 19       		.uleb128 0x19
+ 967 00bc 11       		.uleb128 0x11
+ 968 00bd 01       		.uleb128 0x1
+ 969 00be 12       		.uleb128 0x12
+ 970 00bf 06       		.uleb128 0x6
+ 971 00c0 40       		.uleb128 0x40
+ 972 00c1 18       		.uleb128 0x18
+ 973 00c2 9742     		.uleb128 0x2117
+ 974 00c4 19       		.uleb128 0x19
+ 975 00c5 01       		.uleb128 0x1
+ 976 00c6 13       		.uleb128 0x13
+ 977 00c7 00       		.byte	0
+ 978 00c8 00       		.byte	0
+ 979 00c9 0F       		.uleb128 0xf
+ 980 00ca 34       		.uleb128 0x34
+ 981 00cb 00       		.byte	0
+ 982 00cc 03       		.uleb128 0x3
+ 983 00cd 0E       		.uleb128 0xe
+ 984 00ce 3A       		.uleb128 0x3a
+ 985 00cf 0B       		.uleb128 0xb
+ 986 00d0 3B       		.uleb128 0x3b
+ 987 00d1 05       		.uleb128 0x5
+ 988 00d2 49       		.uleb128 0x49
+ 989 00d3 13       		.uleb128 0x13
+ 990 00d4 3F       		.uleb128 0x3f
+ 991 00d5 19       		.uleb128 0x19
+ 992 00d6 3C       		.uleb128 0x3c
+ 993 00d7 19       		.uleb128 0x19
+ 994 00d8 00       		.byte	0
+ 995 00d9 00       		.byte	0
+ 996 00da 10       		.uleb128 0x10
+ 997 00db 35       		.uleb128 0x35
+ 998 00dc 00       		.byte	0
+ 999 00dd 49       		.uleb128 0x49
+ 1000 00de 13       		.uleb128 0x13
+ 1001 00df 00       		.byte	0
+ 1002 00e0 00       		.byte	0
+ 1003 00e1 11       		.uleb128 0x11
+ 1004 00e2 34       		.uleb128 0x34
+ 1005 00e3 00       		.byte	0
+ 1006 00e4 03       		.uleb128 0x3
+ 1007 00e5 0E       		.uleb128 0xe
+ 1008 00e6 3A       		.uleb128 0x3a
+ 1009 00e7 0B       		.uleb128 0xb
+ 1010 00e8 3B       		.uleb128 0x3b
+ 1011 00e9 0B       		.uleb128 0xb
+ 1012 00ea 49       		.uleb128 0x49
+ 1013 00eb 13       		.uleb128 0x13
+ 1014 00ec 3F       		.uleb128 0x3f
+ 1015 00ed 19       		.uleb128 0x19
+ 1016 00ee 02       		.uleb128 0x2
+ 1017 00ef 18       		.uleb128 0x18
+ 1018 00f0 00       		.byte	0
+ 1019 00f1 00       		.byte	0
+ 1020 00f2 12       		.uleb128 0x12
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 20
+
+
+ 1021 00f3 2E       		.uleb128 0x2e
+ 1022 00f4 00       		.byte	0
+ 1023 00f5 3F       		.uleb128 0x3f
+ 1024 00f6 19       		.uleb128 0x19
+ 1025 00f7 3C       		.uleb128 0x3c
+ 1026 00f8 19       		.uleb128 0x19
+ 1027 00f9 6E       		.uleb128 0x6e
+ 1028 00fa 0E       		.uleb128 0xe
+ 1029 00fb 03       		.uleb128 0x3
+ 1030 00fc 0E       		.uleb128 0xe
+ 1031 00fd 3A       		.uleb128 0x3a
+ 1032 00fe 0B       		.uleb128 0xb
+ 1033 00ff 3B       		.uleb128 0x3b
+ 1034 0100 05       		.uleb128 0x5
+ 1035 0101 00       		.byte	0
+ 1036 0102 00       		.byte	0
+ 1037 0103 13       		.uleb128 0x13
+ 1038 0104 2E       		.uleb128 0x2e
+ 1039 0105 00       		.byte	0
+ 1040 0106 3F       		.uleb128 0x3f
+ 1041 0107 19       		.uleb128 0x19
+ 1042 0108 3C       		.uleb128 0x3c
+ 1043 0109 19       		.uleb128 0x19
+ 1044 010a 6E       		.uleb128 0x6e
+ 1045 010b 0E       		.uleb128 0xe
+ 1046 010c 03       		.uleb128 0x3
+ 1047 010d 0E       		.uleb128 0xe
+ 1048 010e 3A       		.uleb128 0x3a
+ 1049 010f 0B       		.uleb128 0xb
+ 1050 0110 3B       		.uleb128 0x3b
+ 1051 0111 0B       		.uleb128 0xb
+ 1052 0112 00       		.byte	0
+ 1053 0113 00       		.byte	0
+ 1054 0114 00       		.byte	0
+ 1055              		.section	.debug_loc,"",%progbits
+ 1056              	.Ldebug_loc0:
+ 1057              	.LLST0:
+ 1058 0000 00000000 		.4byte	.LVL0
+ 1059 0004 02000000 		.4byte	.LVL1
+ 1060 0008 0100     		.2byte	0x1
+ 1061 000a 50       		.byte	0x50
+ 1062 000b 02000000 		.4byte	.LVL1
+ 1063 000f 60000000 		.4byte	.LFE69
+ 1064 0013 0400     		.2byte	0x4
+ 1065 0015 F3       		.byte	0xf3
+ 1066 0016 01       		.uleb128 0x1
+ 1067 0017 50       		.byte	0x50
+ 1068 0018 9F       		.byte	0x9f
+ 1069 0019 00000000 		.4byte	0
+ 1070 001d 00000000 		.4byte	0
+ 1071              	.LLST1:
+ 1072 0021 00000000 		.4byte	.LVL10
+ 1073 0025 02000000 		.4byte	.LVL11
+ 1074 0029 0100     		.2byte	0x1
+ 1075 002b 50       		.byte	0x50
+ 1076 002c 02000000 		.4byte	.LVL11
+ 1077 0030 60000000 		.4byte	.LFE70
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 21
+
+
+ 1078 0034 0400     		.2byte	0x4
+ 1079 0036 F3       		.byte	0xf3
+ 1080 0037 01       		.uleb128 0x1
+ 1081 0038 50       		.byte	0x50
+ 1082 0039 9F       		.byte	0x9f
+ 1083 003a 00000000 		.4byte	0
+ 1084 003e 00000000 		.4byte	0
+ 1085              		.section	.debug_aranges,"",%progbits
+ 1086 0000 2C000000 		.4byte	0x2c
+ 1087 0004 0200     		.2byte	0x2
+ 1088 0006 00000000 		.4byte	.Ldebug_info0
+ 1089 000a 04       		.byte	0x4
+ 1090 000b 00       		.byte	0
+ 1091 000c 0000     		.2byte	0
+ 1092 000e 0000     		.2byte	0
+ 1093 0010 00000000 		.4byte	.LFB69
+ 1094 0014 60000000 		.4byte	.LFE69-.LFB69
+ 1095 0018 00000000 		.4byte	.LFB70
+ 1096 001c 60000000 		.4byte	.LFE70-.LFB70
+ 1097 0020 00000000 		.4byte	.LFB71
+ 1098 0024 68000000 		.4byte	.LFE71-.LFB71
+ 1099 0028 00000000 		.4byte	0
+ 1100 002c 00000000 		.4byte	0
+ 1101              		.section	.debug_ranges,"",%progbits
+ 1102              	.Ldebug_ranges0:
+ 1103 0000 00000000 		.4byte	.LFB69
+ 1104 0004 60000000 		.4byte	.LFE69
+ 1105 0008 00000000 		.4byte	.LFB70
+ 1106 000c 60000000 		.4byte	.LFE70
+ 1107 0010 00000000 		.4byte	.LFB71
+ 1108 0014 68000000 		.4byte	.LFE71
+ 1109 0018 00000000 		.4byte	0
+ 1110 001c 00000000 		.4byte	0
+ 1111              		.section	.debug_line,"",%progbits
+ 1112              	.Ldebug_line0:
+ 1113 0000 2A020000 		.section	.debug_str,"MS",%progbits,1
+ 1113      0200C901 
+ 1113      00000201 
+ 1113      FB0E0D00 
+ 1113      01010101 
+ 1114              	.LASF4:
+ 1115 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 1115      6E74385F 
+ 1115      7400
+ 1116              	.LASF21:
+ 1117 000a 5469636B 		.ascii	"TickType_t\000"
+ 1117      54797065 
+ 1117      5F7400
+ 1118              	.LASF5:
+ 1119 0015 5F5F696E 		.ascii	"__int32_t\000"
+ 1119      7433325F 
+ 1119      7400
+ 1120              	.LASF3:
+ 1121 001f 73686F72 		.ascii	"short unsigned int\000"
+ 1121      7420756E 
+ 1121      7369676E 
+ 1121      65642069 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 22
+
+
+ 1121      6E7400
+ 1122              	.LASF22:
+ 1123 0032 51756575 		.ascii	"QueueHandle_t\000"
+ 1123      6548616E 
+ 1123      646C655F 
+ 1123      7400
+ 1124              	.LASF39:
+ 1125 0040 76546173 		.ascii	"vTaskStartScheduler\000"
+ 1125      6B537461 
+ 1125      72745363 
+ 1125      68656475 
+ 1125      6C657200 
+ 1126              	.LASF19:
+ 1127 0054 646F7562 		.ascii	"double\000"
+ 1127      6C6500
+ 1128              	.LASF18:
+ 1129 005b 666C6F61 		.ascii	"float\000"
+ 1129      7400
+ 1130              	.LASF1:
+ 1131 0061 756E7369 		.ascii	"unsigned char\000"
+ 1131      676E6564 
+ 1131      20636861 
+ 1131      7200
+ 1132              	.LASF40:
+ 1133 006f 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1133      43313120 
+ 1133      352E342E 
+ 1133      31203230 
+ 1133      31363036 
+ 1134 00a2 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1134      20726576 
+ 1134      6973696F 
+ 1134      6E203233 
+ 1134      37373135 
+ 1135 00d5 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1135      66756E63 
+ 1135      74696F6E 
+ 1135      2D736563 
+ 1135      74696F6E 
+ 1136              	.LASF7:
+ 1137 00fd 5F5F7569 		.ascii	"__uint32_t\000"
+ 1137      6E743332 
+ 1137      5F7400
+ 1138              	.LASF24:
+ 1139 0108 7461736B 		.ascii	"task1\000"
+ 1139      3100
+ 1140              	.LASF25:
+ 1141 010e 7461736B 		.ascii	"task2\000"
+ 1141      3200
+ 1142              	.LASF35:
+ 1143 0114 55415254 		.ascii	"UART_Start\000"
+ 1143      5F537461 
+ 1143      727400
+ 1144              	.LASF27:
+ 1145 011f 75617274 		.ascii	"uart_mutex\000"
+ 1145      5F6D7574 
+ 1145      657800
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 23
+
+
+ 1146              	.LASF8:
+ 1147 012a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1147      20756E73 
+ 1147      69676E65 
+ 1147      6420696E 
+ 1147      7400
+ 1148              	.LASF23:
+ 1149 013c 53656D61 		.ascii	"SemaphoreHandle_t\000"
+ 1149      70686F72 
+ 1149      6548616E 
+ 1149      646C655F 
+ 1149      7400
+ 1150              	.LASF2:
+ 1151 014e 73686F72 		.ascii	"short int\000"
+ 1151      7420696E 
+ 1151      7400
+ 1152              	.LASF26:
+ 1153 0158 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1153      52784275 
+ 1153      66666572 
+ 1153      00
+ 1154              	.LASF43:
+ 1155 0165 51756575 		.ascii	"QueueDefinition\000"
+ 1155      65446566 
+ 1155      696E6974 
+ 1155      696F6E00 
+ 1156              	.LASF11:
+ 1157 0175 756E7369 		.ascii	"unsigned int\000"
+ 1157      676E6564 
+ 1157      20696E74 
+ 1157      00
+ 1158              	.LASF30:
+ 1159 0182 50696E5F 		.ascii	"Pin_LED_Write\000"
+ 1159      4C45445F 
+ 1159      57726974 
+ 1159      6500
+ 1160              	.LASF10:
+ 1161 0190 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1161      206C6F6E 
+ 1161      6720756E 
+ 1161      7369676E 
+ 1161      65642069 
+ 1162              	.LASF15:
+ 1163 01a7 75696E74 		.ascii	"uint8_t\000"
+ 1163      385F7400 
+ 1164              	.LASF34:
+ 1165 01af 46726565 		.ascii	"FreeRTOS_Start\000"
+ 1165      52544F53 
+ 1165      5F537461 
+ 1165      727400
+ 1166              	.LASF29:
+ 1167 01be 50696E5F 		.ascii	"Pin_LED_Read\000"
+ 1167      4C45445F 
+ 1167      52656164 
+ 1167      00
+ 1168              	.LASF44:
+ 1169 01cb 6D61696E 		.ascii	"main\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 24
+
+
+ 1169      00
+ 1170              	.LASF16:
+ 1171 01d0 696E7433 		.ascii	"int32_t\000"
+ 1171      325F7400 
+ 1172              	.LASF13:
+ 1173 01d8 73697A65 		.ascii	"sizetype\000"
+ 1173      74797065 
+ 1173      00
+ 1174              	.LASF9:
+ 1175 01e1 6C6F6E67 		.ascii	"long long int\000"
+ 1175      206C6F6E 
+ 1175      6720696E 
+ 1175      7400
+ 1176              	.LASF41:
+ 1177 01ef 6D61696E 		.ascii	"main.c\000"
+ 1177      2E6300
+ 1178              	.LASF14:
+ 1179 01f6 63686172 		.ascii	"char\000"
+ 1179      00
+ 1180              	.LASF42:
+ 1181 01fb 433A5C49 		.ascii	"C:\\IIITB\\Summer Term\\Summer Term\\freertos_test\\"
+ 1181      49495442 
+ 1181      5C53756D 
+ 1181      6D657220 
+ 1181      5465726D 
+ 1182 022a 3030364D 		.ascii	"006Mutex_Tasks.cydsn\000"
+ 1182      75746578 
+ 1182      5F546173 
+ 1182      6B732E63 
+ 1182      7964736E 
+ 1183              	.LASF32:
+ 1184 023f 78517565 		.ascii	"xQueueGenericSend\000"
+ 1184      75654765 
+ 1184      6E657269 
+ 1184      6353656E 
+ 1184      6400
+ 1185              	.LASF36:
+ 1186 0251 55415254 		.ascii	"UART_ClearTxBuffer\000"
+ 1186      5F436C65 
+ 1186      61725478 
+ 1186      42756666 
+ 1186      657200
+ 1187              	.LASF17:
+ 1188 0264 75696E74 		.ascii	"uint32_t\000"
+ 1188      33325F74 
+ 1188      00
+ 1189              	.LASF6:
+ 1190 026d 6C6F6E67 		.ascii	"long int\000"
+ 1190      20696E74 
+ 1190      00
+ 1191              	.LASF33:
+ 1192 0276 76546173 		.ascii	"vTaskDelay\000"
+ 1192      6B44656C 
+ 1192      617900
+ 1193              	.LASF37:
+ 1194 0281 78517565 		.ascii	"xQueueCreateMutex\000"
+ 1194      75654372 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccRIiLGZ.s 			page 25
+
+
+ 1194      65617465 
+ 1194      4D757465 
+ 1194      7800
+ 1195              	.LASF12:
+ 1196 0293 6C6F6E67 		.ascii	"long double\000"
+ 1196      20646F75 
+ 1196      626C6500 
+ 1197              	.LASF0:
+ 1198 029f 7369676E 		.ascii	"signed char\000"
+ 1198      65642063 
+ 1198      68617200 
+ 1199              	.LASF28:
+ 1200 02ab 78517565 		.ascii	"xQueueSemaphoreTake\000"
+ 1200      75655365 
+ 1200      6D617068 
+ 1200      6F726554 
+ 1200      616B6500 
+ 1201              	.LASF31:
+ 1202 02bf 55415254 		.ascii	"UART_PutString\000"
+ 1202      5F507574 
+ 1202      53747269 
+ 1202      6E6700
+ 1203              	.LASF20:
+ 1204 02ce 42617365 		.ascii	"BaseType_t\000"
+ 1204      54797065 
+ 1204      5F7400
+ 1205              	.LASF38:
+ 1206 02d9 78546173 		.ascii	"xTaskCreate\000"
+ 1206      6B437265 
+ 1206      61746500 
+ 1207              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

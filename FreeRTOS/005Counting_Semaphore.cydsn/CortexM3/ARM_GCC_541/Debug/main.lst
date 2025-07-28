@@ -1,0 +1,2981 @@
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.uart_input_task,"ax",%progbits
+  20              		.align	2
+  21              		.global	uart_input_task
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	uart_input_task, %function
+  25              	uart_input_task:
+  26              	.LFB69:
+  27              		.file 1 "main.c"
+   1:main.c        **** #include <stdio.h>
+   2:main.c        **** #include <stdlib.h>
+   3:main.c        **** #include <string.h>
+   4:main.c        **** #include "project.h"
+   5:main.c        **** #include "FreeRTOS.h"
+   6:main.c        **** #include "task.h"
+   7:main.c        **** #include "semphr.h"
+   8:main.c        **** 
+   9:main.c        **** extern void FreeRTOS_Start();
+  10:main.c        **** 
+  11:main.c        **** SemaphoreHandle_t toggle_semaphore;
+  12:main.c        **** 
+  13:main.c        **** volatile uint8_t led_enabled = 1;
+  14:main.c        **** volatile uint8_t auto_mode = 0;
+  15:main.c        **** volatile uint32_t manual_event_count = 0;
+  16:main.c        **** volatile uint32_t auto_event_count = 0;
+  17:main.c        **** volatile uint32_t total_events_handled = 0;
+  18:main.c        **** 
+  19:main.c        **** void uart_input_task(void *ptr) {
+  28              		.loc 1 19 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 160
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              		.cfi_def_cfa_offset 12
+  35              		.cfi_offset 4, -12
+  36              		.cfi_offset 5, -8
+  37              		.cfi_offset 14, -4
+  38 0002 ABB0     		sub	sp, sp, #172
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 2
+
+
+  39              		.cfi_def_cfa_offset 184
+  40              	.LVL1:
+  20:main.c        ****     char buffer[32];
+  21:main.c        ****     uint8_t index = 0;
+  41              		.loc 1 21 0
+  42 0004 0024     		movs	r4, #0
+  43              	.LVL2:
+  44              	.L18:
+  45              	.LBB2:
+  22:main.c        ****     while (1) {
+  23:main.c        ****         char ch = UART_GetChar();
+  46              		.loc 1 23 0
+  47 0006 FFF7FEFF 		bl	UART_GetChar
+  48              	.LVL3:
+  24:main.c        ****         if (ch != 0u && ch != 0xFF) {
+  49              		.loc 1 24 0
+  50 000a 431E     		subs	r3, r0, #1
+  51 000c DBB2     		uxtb	r3, r3
+  52 000e FD2B     		cmp	r3, #253
+  53 0010 00F2B280 		bhi	.L2
+  25:main.c        ****             if (ch == '\r' || ch == '\n') {
+  54              		.loc 1 25 0
+  55 0014 0D28     		cmp	r0, #13
+  56 0016 02D0     		beq	.L3
+  57              		.loc 1 25 0 is_stmt 0 discriminator 1
+  58 0018 0A28     		cmp	r0, #10
+  59 001a 40F0A280 		bne	.L4
+  60              	.L3:
+  26:main.c        ****                 buffer[index] = '\0';
+  61              		.loc 1 26 0 is_stmt 1
+  62 001e 2AAB     		add	r3, sp, #168
+  63 0020 1C44     		add	r4, r4, r3
+  64              	.LVL4:
+  65 0022 0023     		movs	r3, #0
+  66 0024 04F8203C 		strb	r3, [r4, #-32]
+  67              	.LVL5:
+  27:main.c        ****                 index = 0;
+  28:main.c        **** 
+  29:main.c        ****                 if (strcasecmp(buffer, "toggle") == 0) {
+  68              		.loc 1 29 0
+  69 0028 5549     		ldr	r1, .L23
+  70 002a 22A8     		add	r0, sp, #136
+  71              	.LVL6:
+  72 002c FFF7FEFF 		bl	strcasecmp
+  73              	.LVL7:
+  74 0030 F8B9     		cbnz	r0, .L5
+  30:main.c        ****                     if (led_enabled) {
+  75              		.loc 1 30 0
+  76 0032 544B     		ldr	r3, .L23+4
+  77 0034 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  78 0036 13F0FF0F 		tst	r3, #255
+  79 003a 0DD1     		bne	.L19
+  80 003c 14E0     		b	.L21
+  81              	.LVL8:
+  82              	.L8:
+  83              	.LBB3:
+  31:main.c        ****                         for (int i = 0; i < 3; i++) {
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 3
+
+
+  32:main.c        ****                             xSemaphoreGive(toggle_semaphore);
+  84              		.loc 1 32 0 discriminator 3
+  85 003e 0023     		movs	r3, #0
+  86 0040 1A46     		mov	r2, r3
+  87 0042 1946     		mov	r1, r3
+  88 0044 5048     		ldr	r0, .L23+8
+  89 0046 0068     		ldr	r0, [r0]
+  90 0048 FFF7FEFF 		bl	xQueueGenericSend
+  91              	.LVL9:
+  33:main.c        ****                             manual_event_count++;
+  92              		.loc 1 33 0 discriminator 3
+  93 004c 4F4A     		ldr	r2, .L23+12
+  94 004e 1368     		ldr	r3, [r2]
+  95 0050 0133     		adds	r3, r3, #1
+  96 0052 1360     		str	r3, [r2]
+  31:main.c        ****                         for (int i = 0; i < 3; i++) {
+  97              		.loc 1 31 0 discriminator 3
+  98 0054 0134     		adds	r4, r4, #1
+  99              	.LVL10:
+ 100 0056 00E0     		b	.L6
+ 101              	.LVL11:
+ 102              	.L19:
+ 103              	.LBE3:
+ 104 0058 0024     		movs	r4, #0
+ 105              	.L6:
+ 106              	.LVL12:
+ 107              	.LBB4:
+  31:main.c        ****                         for (int i = 0; i < 3; i++) {
+ 108              		.loc 1 31 0 is_stmt 0 discriminator 1
+ 109 005a 022C     		cmp	r4, #2
+ 110 005c EFDD     		ble	.L8
+ 111              	.LBE4:
+  34:main.c        ****                         }
+  35:main.c        ****                         UART_PutString("\r\n[Manual] 3 toggle events queued\r\n");
+ 112              		.loc 1 35 0 is_stmt 1
+ 113 005e 4C48     		ldr	r0, .L23+16
+ 114 0060 FFF7FEFF 		bl	UART_PutString
+ 115              	.LVL13:
+  27:main.c        **** 
+ 116              		.loc 1 27 0
+ 117 0064 0024     		movs	r4, #0
+ 118              	.LVL14:
+ 119 0066 87E0     		b	.L2
+ 120              	.L21:
+  36:main.c        ****                     } else {
+  37:main.c        ****                         UART_PutString("\r\nLED disabled (sleep mode)\r\n");
+ 121              		.loc 1 37 0
+ 122 0068 4A48     		ldr	r0, .L23+20
+ 123 006a FFF7FEFF 		bl	UART_PutString
+ 124              	.LVL15:
+  27:main.c        **** 
+ 125              		.loc 1 27 0
+ 126 006e 0024     		movs	r4, #0
+ 127 0070 82E0     		b	.L2
+ 128              	.L5:
+  38:main.c        ****                     }
+  39:main.c        ****                 } else if (strcasecmp(buffer, "auto on") == 0) {
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 4
+
+
+ 129              		.loc 1 39 0
+ 130 0072 4949     		ldr	r1, .L23+24
+ 131 0074 22A8     		add	r0, sp, #136
+ 132 0076 FFF7FEFF 		bl	strcasecmp
+ 133              	.LVL16:
+ 134 007a 38B9     		cbnz	r0, .L9
+  40:main.c        ****                     auto_mode = 1;
+ 135              		.loc 1 40 0
+ 136 007c 0122     		movs	r2, #1
+ 137 007e 434B     		ldr	r3, .L23+12
+ 138 0080 1A71     		strb	r2, [r3, #4]
+  41:main.c        ****                     UART_PutString("\r\nAuto events enabled\r\n");
+ 139              		.loc 1 41 0
+ 140 0082 4648     		ldr	r0, .L23+28
+ 141 0084 FFF7FEFF 		bl	UART_PutString
+ 142              	.LVL17:
+  27:main.c        **** 
+ 143              		.loc 1 27 0
+ 144 0088 0024     		movs	r4, #0
+ 145 008a 75E0     		b	.L2
+ 146              	.L9:
+  42:main.c        ****                 } else if (strcasecmp(buffer, "auto off") == 0) {
+ 147              		.loc 1 42 0
+ 148 008c 4449     		ldr	r1, .L23+32
+ 149 008e 22A8     		add	r0, sp, #136
+ 150 0090 FFF7FEFF 		bl	strcasecmp
+ 151              	.LVL18:
+ 152 0094 30B9     		cbnz	r0, .L10
+  43:main.c        ****                     auto_mode = 0;
+ 153              		.loc 1 43 0
+ 154 0096 0024     		movs	r4, #0
+ 155 0098 3C4B     		ldr	r3, .L23+12
+ 156 009a 1C71     		strb	r4, [r3, #4]
+  44:main.c        ****                     UART_PutString("\r\nAuto events disabled\r\n");
+ 157              		.loc 1 44 0
+ 158 009c 4148     		ldr	r0, .L23+36
+ 159 009e FFF7FEFF 		bl	UART_PutString
+ 160              	.LVL19:
+ 161 00a2 69E0     		b	.L2
+ 162              	.L10:
+  45:main.c        ****                 } else if (strcasecmp(buffer, "status") == 0) {
+ 163              		.loc 1 45 0
+ 164 00a4 4049     		ldr	r1, .L23+40
+ 165 00a6 22A8     		add	r0, sp, #136
+ 166 00a8 FFF7FEFF 		bl	strcasecmp
+ 167              	.LVL20:
+ 168 00ac A0B9     		cbnz	r0, .L11
+ 169              	.LBB5:
+  46:main.c        ****                     char status[128];
+  47:main.c        ****                     sprintf(status,
+  48:main.c        ****                         "\r\nLED is %s\r\nManual events: %lu\r\nAuto events: %lu\r\nTotal handled: 
+  49:main.c        ****                         led_Read() ? "ON" : "OFF",
+ 170              		.loc 1 49 0
+ 171 00ae FFF7FEFF 		bl	led_Read
+ 172              	.LVL21:
+  47:main.c        ****                         "\r\nLED is %s\r\nManual events: %lu\r\nAuto events: %lu\r\nTotal handled: 
+ 173              		.loc 1 47 0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 5
+
+
+ 174 00b2 08B1     		cbz	r0, .L20
+ 175 00b4 3D4A     		ldr	r2, .L23+44
+ 176 00b6 00E0     		b	.L12
+ 177              	.L20:
+ 178 00b8 3D4A     		ldr	r2, .L23+48
+ 179              	.L12:
+  47:main.c        ****                         "\r\nLED is %s\r\nManual events: %lu\r\nAuto events: %lu\r\nTotal handled: 
+ 180              		.loc 1 47 0 is_stmt 0 discriminator 4
+ 181 00ba 3449     		ldr	r1, .L23+12
+ 182 00bc 0B68     		ldr	r3, [r1]
+ 183 00be 8868     		ldr	r0, [r1, #8]
+ 184 00c0 C968     		ldr	r1, [r1, #12]
+ 185 00c2 0191     		str	r1, [sp, #4]
+ 186 00c4 0090     		str	r0, [sp]
+ 187 00c6 3B49     		ldr	r1, .L23+52
+ 188 00c8 02A8     		add	r0, sp, #8
+ 189 00ca FFF7FEFF 		bl	sprintf
+ 190              	.LVL22:
+  50:main.c        ****                         manual_event_count,
+  51:main.c        ****                         auto_event_count,
+  52:main.c        ****                         total_events_handled
+  53:main.c        ****                     );
+  54:main.c        ****                     UART_PutString(status);
+ 191              		.loc 1 54 0 is_stmt 1 discriminator 4
+ 192 00ce 02A8     		add	r0, sp, #8
+ 193 00d0 FFF7FEFF 		bl	UART_PutString
+ 194              	.LVL23:
+ 195              	.LBE5:
+  27:main.c        **** 
+ 196              		.loc 1 27 0 discriminator 4
+ 197 00d4 0024     		movs	r4, #0
+ 198 00d6 4FE0     		b	.L2
+ 199              	.L11:
+  55:main.c        ****                 } else if (strcasecmp(buffer, "reset") == 0) {
+ 200              		.loc 1 55 0
+ 201 00d8 3749     		ldr	r1, .L23+56
+ 202 00da 22A8     		add	r0, sp, #136
+ 203 00dc FFF7FEFF 		bl	strcasecmp
+ 204              	.LVL24:
+ 205 00e0 40B9     		cbnz	r0, .L13
+  56:main.c        ****                     manual_event_count = 0;
+ 206              		.loc 1 56 0
+ 207 00e2 2A4B     		ldr	r3, .L23+12
+ 208 00e4 0024     		movs	r4, #0
+ 209 00e6 1C60     		str	r4, [r3]
+  57:main.c        ****                     auto_event_count = 0;
+ 210              		.loc 1 57 0
+ 211 00e8 9C60     		str	r4, [r3, #8]
+  58:main.c        ****                     total_events_handled = 0;
+ 212              		.loc 1 58 0
+ 213 00ea DC60     		str	r4, [r3, #12]
+  59:main.c        ****                     UART_PutString("\r\nCounters reset\r\n");
+ 214              		.loc 1 59 0
+ 215 00ec 3348     		ldr	r0, .L23+60
+ 216 00ee FFF7FEFF 		bl	UART_PutString
+ 217              	.LVL25:
+ 218 00f2 41E0     		b	.L2
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 6
+
+
+ 219              	.L13:
+  60:main.c        ****                 } else if (strcasecmp(buffer, "on") == 0) {
+ 220              		.loc 1 60 0
+ 221 00f4 3249     		ldr	r1, .L23+64
+ 222 00f6 22A8     		add	r0, sp, #136
+ 223 00f8 FFF7FEFF 		bl	strcasecmp
+ 224              	.LVL26:
+ 225 00fc 38B9     		cbnz	r0, .L14
+  61:main.c        ****                     led_Write(1);
+ 226              		.loc 1 61 0
+ 227 00fe 0120     		movs	r0, #1
+ 228 0100 FFF7FEFF 		bl	led_Write
+ 229              	.LVL27:
+  62:main.c        ****                     UART_PutString("\r\nLED forced ON\r\n");
+ 230              		.loc 1 62 0
+ 231 0104 2F48     		ldr	r0, .L23+68
+ 232 0106 FFF7FEFF 		bl	UART_PutString
+ 233              	.LVL28:
+  27:main.c        **** 
+ 234              		.loc 1 27 0
+ 235 010a 0024     		movs	r4, #0
+ 236 010c 34E0     		b	.L2
+ 237              	.L14:
+  63:main.c        ****                 } else if (strcasecmp(buffer, "off") == 0) {
+ 238              		.loc 1 63 0
+ 239 010e 2E49     		ldr	r1, .L23+72
+ 240 0110 22A8     		add	r0, sp, #136
+ 241 0112 FFF7FEFF 		bl	strcasecmp
+ 242              	.LVL29:
+ 243 0116 30B9     		cbnz	r0, .L15
+  64:main.c        ****                     led_Write(0);
+ 244              		.loc 1 64 0
+ 245 0118 FFF7FEFF 		bl	led_Write
+ 246              	.LVL30:
+  65:main.c        ****                     UART_PutString("\r\nLED forced OFF\r\n");
+ 247              		.loc 1 65 0
+ 248 011c 2B48     		ldr	r0, .L23+76
+ 249 011e FFF7FEFF 		bl	UART_PutString
+ 250              	.LVL31:
+  27:main.c        **** 
+ 251              		.loc 1 27 0
+ 252 0122 0024     		movs	r4, #0
+ 253 0124 28E0     		b	.L2
+ 254              	.L15:
+  66:main.c        ****                 } else if (strcasecmp(buffer, "sleep") == 0) {
+ 255              		.loc 1 66 0
+ 256 0126 2A49     		ldr	r1, .L23+80
+ 257 0128 22A8     		add	r0, sp, #136
+ 258 012a FFF7FEFF 		bl	strcasecmp
+ 259              	.LVL32:
+ 260 012e 30B9     		cbnz	r0, .L16
+  67:main.c        ****                     led_enabled = 0;
+ 261              		.loc 1 67 0
+ 262 0130 0024     		movs	r4, #0
+ 263 0132 144B     		ldr	r3, .L23+4
+ 264 0134 1C70     		strb	r4, [r3]
+  68:main.c        ****                     UART_PutString("\r\nLED sleep mode activated\r\n");
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 7
+
+
+ 265              		.loc 1 68 0
+ 266 0136 2748     		ldr	r0, .L23+84
+ 267 0138 FFF7FEFF 		bl	UART_PutString
+ 268              	.LVL33:
+ 269 013c 1CE0     		b	.L2
+ 270              	.L16:
+  69:main.c        ****                 } else if (strcasecmp(buffer, "normal") == 0) {
+ 271              		.loc 1 69 0
+ 272 013e 2649     		ldr	r1, .L23+88
+ 273 0140 22A8     		add	r0, sp, #136
+ 274 0142 FFF7FEFF 		bl	strcasecmp
+ 275              	.LVL34:
+ 276 0146 38B9     		cbnz	r0, .L17
+  70:main.c        ****                     led_enabled = 1;
+ 277              		.loc 1 70 0
+ 278 0148 0122     		movs	r2, #1
+ 279 014a 0E4B     		ldr	r3, .L23+4
+ 280 014c 1A70     		strb	r2, [r3]
+  71:main.c        ****                     UART_PutString("\r\nLED toggle re-enabled\r\n");
+ 281              		.loc 1 71 0
+ 282 014e 2348     		ldr	r0, .L23+92
+ 283 0150 FFF7FEFF 		bl	UART_PutString
+ 284              	.LVL35:
+  27:main.c        **** 
+ 285              		.loc 1 27 0
+ 286 0154 0024     		movs	r4, #0
+ 287 0156 0FE0     		b	.L2
+ 288              	.L17:
+  72:main.c        ****                 } else {
+  73:main.c        ****                     UART_PutString("\r\nUnknown command\r\n");
+ 289              		.loc 1 73 0
+ 290 0158 2148     		ldr	r0, .L23+96
+ 291 015a FFF7FEFF 		bl	UART_PutString
+ 292              	.LVL36:
+  27:main.c        **** 
+ 293              		.loc 1 27 0
+ 294 015e 0024     		movs	r4, #0
+ 295 0160 0AE0     		b	.L2
+ 296              	.LVL37:
+ 297              	.L4:
+  74:main.c        ****                 }
+  75:main.c        ****             } else if (index < sizeof(buffer) - 1) {
+ 298              		.loc 1 75 0
+ 299 0162 1E2C     		cmp	r4, #30
+ 300 0164 08D8     		bhi	.L2
+  76:main.c        ****                 buffer[index++] = ch;
+ 301              		.loc 1 76 0
+ 302 0166 651C     		adds	r5, r4, #1
+ 303 0168 EDB2     		uxtb	r5, r5
+ 304              	.LVL38:
+ 305 016a 2AAB     		add	r3, sp, #168
+ 306 016c 1C44     		add	r4, r4, r3
+ 307 016e 04F8200C 		strb	r0, [r4, #-32]
+  77:main.c        ****                 UART_PutChar(ch);
+ 308              		.loc 1 77 0
+ 309 0172 FFF7FEFF 		bl	UART_PutChar
+ 310              	.LVL39:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 8
+
+
+  76:main.c        ****                 buffer[index++] = ch;
+ 311              		.loc 1 76 0
+ 312 0176 2C46     		mov	r4, r5
+ 313              	.LVL40:
+ 314              	.L2:
+  78:main.c        ****             }
+  79:main.c        ****         }
+  80:main.c        ****         vTaskDelay(10);
+ 315              		.loc 1 80 0
+ 316 0178 0A20     		movs	r0, #10
+ 317 017a FFF7FEFF 		bl	vTaskDelay
+ 318              	.LVL41:
+ 319              	.LBE2:
+  81:main.c        ****     }
+ 320              		.loc 1 81 0
+ 321 017e 42E7     		b	.L18
+ 322              	.L24:
+ 323              		.align	2
+ 324              	.L23:
+ 325 0180 08000000 		.word	.LC2
+ 326 0184 00000000 		.word	.LANCHOR0
+ 327 0188 00000000 		.word	toggle_semaphore
+ 328 018c 00000000 		.word	.LANCHOR1
+ 329 0190 10000000 		.word	.LC3
+ 330 0194 34000000 		.word	.LC4
+ 331 0198 54000000 		.word	.LC5
+ 332 019c 5C000000 		.word	.LC6
+ 333 01a0 74000000 		.word	.LC7
+ 334 01a4 80000000 		.word	.LC8
+ 335 01a8 9C000000 		.word	.LC9
+ 336 01ac 00000000 		.word	.LC0
+ 337 01b0 04000000 		.word	.LC1
+ 338 01b4 A4000000 		.word	.LC10
+ 339 01b8 EC000000 		.word	.LC11
+ 340 01bc F4000000 		.word	.LC12
+ 341 01c0 08010000 		.word	.LC13
+ 342 01c4 0C010000 		.word	.LC14
+ 343 01c8 20010000 		.word	.LC15
+ 344 01cc 24010000 		.word	.LC16
+ 345 01d0 38010000 		.word	.LC17
+ 346 01d4 40010000 		.word	.LC18
+ 347 01d8 60010000 		.word	.LC19
+ 348 01dc 68010000 		.word	.LC20
+ 349 01e0 84010000 		.word	.LC21
+ 350              		.cfi_endproc
+ 351              	.LFE69:
+ 352              		.size	uart_input_task, .-uart_input_task
+ 353              		.section	.text.auto_event_task,"ax",%progbits
+ 354              		.align	2
+ 355              		.global	auto_event_task
+ 356              		.thumb
+ 357              		.thumb_func
+ 358              		.type	auto_event_task, %function
+ 359              	auto_event_task:
+ 360              	.LFB71:
+  82:main.c        **** }
+  83:main.c        **** 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 9
+
+
+  84:main.c        **** void led_task(void *ptr) {
+  85:main.c        ****     while (1) {
+  86:main.c        ****         if (xSemaphoreTake(toggle_semaphore, portMAX_DELAY) == pdTRUE) {
+  87:main.c        ****             if (led_enabled) {
+  88:main.c        ****                 led_Write(!led_Read());
+  89:main.c        ****                 total_events_handled++;
+  90:main.c        ****                 char msg[64];
+  91:main.c        ****                 sprintf(msg, "Event #%lu -> LED %s\r\n",
+  92:main.c        ****                         total_events_handled,
+  93:main.c        ****                         led_Read() ? "ON" : "OFF");
+  94:main.c        ****                 UART_PutString(msg);
+  95:main.c        ****             } else {
+  96:main.c        ****                 UART_PutString("Event ignored (LED in sleep mode)\r\n");
+  97:main.c        ****             }
+  98:main.c        ****             vTaskDelay(250);
+  99:main.c        ****         }
+ 100:main.c        ****     }
+ 101:main.c        **** }
+ 102:main.c        **** 
+ 103:main.c        **** void auto_event_task(void *ptr) {
+ 361              		.loc 1 103 0
+ 362              		.cfi_startproc
+ 363              		@ Volatile: function does not return.
+ 364              		@ args = 0, pretend = 0, frame = 0
+ 365              		@ frame_needed = 0, uses_anonymous_args = 0
+ 366              	.LVL42:
+ 367 0000 08B5     		push	{r3, lr}
+ 368              		.cfi_def_cfa_offset 8
+ 369              		.cfi_offset 3, -8
+ 370              		.cfi_offset 14, -4
+ 371              	.LVL43:
+ 372              	.L27:
+ 104:main.c        ****     while (1) {
+ 105:main.c        ****         if (auto_mode) {
+ 373              		.loc 1 105 0
+ 374 0002 0A4B     		ldr	r3, .L29
+ 375 0004 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 376 0006 13F0FF0F 		tst	r3, #255
+ 377 000a 0AD0     		beq	.L26
+ 106:main.c        ****             xSemaphoreGive(toggle_semaphore);
+ 378              		.loc 1 106 0
+ 379 000c 0023     		movs	r3, #0
+ 380 000e 1A46     		mov	r2, r3
+ 381 0010 1946     		mov	r1, r3
+ 382 0012 0748     		ldr	r0, .L29+4
+ 383 0014 0068     		ldr	r0, [r0]
+ 384 0016 FFF7FEFF 		bl	xQueueGenericSend
+ 385              	.LVL44:
+ 107:main.c        ****             auto_event_count++;
+ 386              		.loc 1 107 0
+ 387 001a 044A     		ldr	r2, .L29
+ 388 001c 9368     		ldr	r3, [r2, #8]
+ 389 001e 0133     		adds	r3, r3, #1
+ 390 0020 9360     		str	r3, [r2, #8]
+ 391              	.L26:
+ 108:main.c        ****         }
+ 109:main.c        ****         vTaskDelay(1000); // One auto event every second
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 10
+
+
+ 392              		.loc 1 109 0
+ 393 0022 4FF47A70 		mov	r0, #1000
+ 394 0026 FFF7FEFF 		bl	vTaskDelay
+ 395              	.LVL45:
+ 110:main.c        ****     }
+ 396              		.loc 1 110 0
+ 397 002a EAE7     		b	.L27
+ 398              	.L30:
+ 399              		.align	2
+ 400              	.L29:
+ 401 002c 00000000 		.word	.LANCHOR1
+ 402 0030 00000000 		.word	toggle_semaphore
+ 403              		.cfi_endproc
+ 404              	.LFE71:
+ 405              		.size	auto_event_task, .-auto_event_task
+ 406              		.section	.text.led_task,"ax",%progbits
+ 407              		.align	2
+ 408              		.global	led_task
+ 409              		.thumb
+ 410              		.thumb_func
+ 411              		.type	led_task, %function
+ 412              	led_task:
+ 413              	.LFB70:
+  84:main.c        ****     while (1) {
+ 414              		.loc 1 84 0
+ 415              		.cfi_startproc
+ 416              		@ args = 0, pretend = 0, frame = 64
+ 417              		@ frame_needed = 0, uses_anonymous_args = 0
+ 418              	.LVL46:
+ 419 0000 10B5     		push	{r4, lr}
+ 420              		.cfi_def_cfa_offset 8
+ 421              		.cfi_offset 4, -8
+ 422              		.cfi_offset 14, -4
+ 423 0002 90B0     		sub	sp, sp, #64
+ 424              		.cfi_def_cfa_offset 72
+ 425              	.LVL47:
+ 426              	.L32:
+  86:main.c        ****             if (led_enabled) {
+ 427              		.loc 1 86 0
+ 428 0004 4FF0FF31 		mov	r1, #-1
+ 429 0008 164B     		ldr	r3, .L39
+ 430 000a 1868     		ldr	r0, [r3]
+ 431 000c FFF7FEFF 		bl	xQueueSemaphoreTake
+ 432              	.LVL48:
+ 433 0010 0128     		cmp	r0, #1
+ 434 0012 F7D1     		bne	.L32
+  87:main.c        ****                 led_Write(!led_Read());
+ 435              		.loc 1 87 0
+ 436 0014 144B     		ldr	r3, .L39+4
+ 437 0016 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 438 0018 13F0FF0F 		tst	r3, #255
+ 439 001c 1AD0     		beq	.L33
+ 440              	.LBB6:
+  88:main.c        ****                 total_events_handled++;
+ 441              		.loc 1 88 0
+ 442 001e FFF7FEFF 		bl	led_Read
+ 443              	.LVL49:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 11
+
+
+ 444 0022 B0FA80F0 		clz	r0, r0
+ 445 0026 4009     		lsrs	r0, r0, #5
+ 446 0028 FFF7FEFF 		bl	led_Write
+ 447              	.LVL50:
+  89:main.c        ****                 char msg[64];
+ 448              		.loc 1 89 0
+ 449 002c 0F4B     		ldr	r3, .L39+8
+ 450 002e DA68     		ldr	r2, [r3, #12]
+ 451 0030 0132     		adds	r2, r2, #1
+ 452 0032 DA60     		str	r2, [r3, #12]
+  91:main.c        ****                         total_events_handled,
+ 453              		.loc 1 91 0
+ 454 0034 DC68     		ldr	r4, [r3, #12]
+  93:main.c        ****                 UART_PutString(msg);
+ 455              		.loc 1 93 0
+ 456 0036 FFF7FEFF 		bl	led_Read
+ 457              	.LVL51:
+  91:main.c        ****                         total_events_handled,
+ 458              		.loc 1 91 0
+ 459 003a 08B1     		cbz	r0, .L37
+ 460 003c 0C4B     		ldr	r3, .L39+12
+ 461 003e 00E0     		b	.L34
+ 462              	.L37:
+ 463 0040 0C4B     		ldr	r3, .L39+16
+ 464              	.L34:
+  91:main.c        ****                         total_events_handled,
+ 465              		.loc 1 91 0 is_stmt 0 discriminator 4
+ 466 0042 2246     		mov	r2, r4
+ 467 0044 0C49     		ldr	r1, .L39+20
+ 468 0046 6846     		mov	r0, sp
+ 469 0048 FFF7FEFF 		bl	sprintf
+ 470              	.LVL52:
+  94:main.c        ****             } else {
+ 471              		.loc 1 94 0 is_stmt 1 discriminator 4
+ 472 004c 6846     		mov	r0, sp
+ 473 004e FFF7FEFF 		bl	UART_PutString
+ 474              	.LVL53:
+ 475              	.LBE6:
+ 476 0052 02E0     		b	.L35
+ 477              	.L33:
+  96:main.c        ****             }
+ 478              		.loc 1 96 0
+ 479 0054 0948     		ldr	r0, .L39+24
+ 480 0056 FFF7FEFF 		bl	UART_PutString
+ 481              	.LVL54:
+ 482              	.L35:
+  98:main.c        ****         }
+ 483              		.loc 1 98 0
+ 484 005a FA20     		movs	r0, #250
+ 485 005c FFF7FEFF 		bl	vTaskDelay
+ 486              	.LVL55:
+ 487 0060 D0E7     		b	.L32
+ 488              	.L40:
+ 489 0062 00BF     		.align	2
+ 490              	.L39:
+ 491 0064 00000000 		.word	toggle_semaphore
+ 492 0068 00000000 		.word	.LANCHOR0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 12
+
+
+ 493 006c 00000000 		.word	.LANCHOR1
+ 494 0070 00000000 		.word	.LC0
+ 495 0074 04000000 		.word	.LC1
+ 496 0078 98010000 		.word	.LC22
+ 497 007c B0010000 		.word	.LC23
+ 498              		.cfi_endproc
+ 499              	.LFE70:
+ 500              		.size	led_task, .-led_task
+ 501              		.section	.text.main,"ax",%progbits
+ 502              		.align	2
+ 503              		.global	main
+ 504              		.thumb
+ 505              		.thumb_func
+ 506              		.type	main, %function
+ 507              	main:
+ 508              	.LFB72:
+ 111:main.c        **** }
+ 112:main.c        **** 
+ 113:main.c        **** int main(void) {
+ 509              		.loc 1 113 0
+ 510              		.cfi_startproc
+ 511              		@ Volatile: function does not return.
+ 512              		@ args = 0, pretend = 0, frame = 0
+ 513              		@ frame_needed = 0, uses_anonymous_args = 0
+ 514 0000 00B5     		push	{lr}
+ 515              		.cfi_def_cfa_offset 4
+ 516              		.cfi_offset 14, -4
+ 517 0002 83B0     		sub	sp, sp, #12
+ 518              		.cfi_def_cfa_offset 16
+ 114:main.c        ****     CyGlobalIntEnable;
+ 519              		.loc 1 114 0
+ 520              		.syntax unified
+ 521              	@ 114 "main.c" 1
+ 522 0004 62B6     		CPSIE   i
+ 523              	@ 0 "" 2
+ 115:main.c        ****     FreeRTOS_Start();
+ 524              		.loc 1 115 0
+ 525              		.thumb
+ 526              		.syntax unified
+ 527 0006 FFF7FEFF 		bl	FreeRTOS_Start
+ 528              	.LVL56:
+ 116:main.c        ****     UART_Start();
+ 529              		.loc 1 116 0
+ 530 000a FFF7FEFF 		bl	UART_Start
+ 531              	.LVL57:
+ 117:main.c        ****     UART_ClearTxBuffer();
+ 532              		.loc 1 117 0
+ 533 000e FFF7FEFF 		bl	UART_ClearTxBuffer
+ 534              	.LVL58:
+ 118:main.c        **** 
+ 119:main.c        ****     toggle_semaphore = xSemaphoreCreateCounting(50, 0); // Increase count cap
+ 535              		.loc 1 119 0
+ 536 0012 0021     		movs	r1, #0
+ 537 0014 3220     		movs	r0, #50
+ 538 0016 FFF7FEFF 		bl	xQueueCreateCountingSemaphore
+ 539              	.LVL59:
+ 540 001a 184C     		ldr	r4, .L46
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 13
+
+
+ 541 001c 2060     		str	r0, [r4]
+ 120:main.c        **** 
+ 121:main.c        ****     UART_PutString("Commands:\r\n");
+ 542              		.loc 1 121 0
+ 543 001e 1848     		ldr	r0, .L46+4
+ 544 0020 FFF7FEFF 		bl	UART_PutString
+ 545              	.LVL60:
+ 122:main.c        ****     UART_PutString(" toggle, on, off, status, reset\r\n");
+ 546              		.loc 1 122 0
+ 547 0024 1748     		ldr	r0, .L46+8
+ 548 0026 FFF7FEFF 		bl	UART_PutString
+ 549              	.LVL61:
+ 123:main.c        ****     UART_PutString(" auto on, auto off, sleep, normal\r\n");
+ 550              		.loc 1 123 0
+ 551 002a 1748     		ldr	r0, .L46+12
+ 552 002c FFF7FEFF 		bl	UART_PutString
+ 553              	.LVL62:
+ 124:main.c        **** 
+ 125:main.c        ****     if(toggle_semaphore == NULL) {
+ 554              		.loc 1 125 0
+ 555 0030 2368     		ldr	r3, [r4]
+ 556 0032 1BB9     		cbnz	r3, .L42
+ 126:main.c        ****         UART_PutString("Semaphore creation failed\r\n");
+ 557              		.loc 1 126 0
+ 558 0034 1548     		ldr	r0, .L46+16
+ 559 0036 FFF7FEFF 		bl	UART_PutString
+ 560              	.LVL63:
+ 561              	.L43:
+ 562 003a FEE7     		b	.L43
+ 563              	.L42:
+ 127:main.c        ****         while(1);
+ 128:main.c        ****     }
+ 129:main.c        **** 
+ 130:main.c        ****     xTaskCreate(uart_input_task, "UART Task", 300, NULL, 3, NULL);
+ 564              		.loc 1 130 0
+ 565 003c 0024     		movs	r4, #0
+ 566 003e 0194     		str	r4, [sp, #4]
+ 567 0040 0323     		movs	r3, #3
+ 568 0042 0093     		str	r3, [sp]
+ 569 0044 2346     		mov	r3, r4
+ 570 0046 4FF49672 		mov	r2, #300
+ 571 004a 1149     		ldr	r1, .L46+20
+ 572 004c 1148     		ldr	r0, .L46+24
+ 573 004e FFF7FEFF 		bl	xTaskCreate
+ 574              	.LVL64:
+ 131:main.c        ****     xTaskCreate(led_task, "LED Task", 200, NULL, 2, NULL);
+ 575              		.loc 1 131 0
+ 576 0052 0194     		str	r4, [sp, #4]
+ 577 0054 0223     		movs	r3, #2
+ 578 0056 0093     		str	r3, [sp]
+ 579 0058 2346     		mov	r3, r4
+ 580 005a C822     		movs	r2, #200
+ 581 005c 0E49     		ldr	r1, .L46+28
+ 582 005e 0F48     		ldr	r0, .L46+32
+ 583 0060 FFF7FEFF 		bl	xTaskCreate
+ 584              	.LVL65:
+ 132:main.c        ****     xTaskCreate(auto_event_task, "Auto Task", 200, NULL, 1, NULL);
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 14
+
+
+ 585              		.loc 1 132 0
+ 586 0064 0194     		str	r4, [sp, #4]
+ 587 0066 0123     		movs	r3, #1
+ 588 0068 0093     		str	r3, [sp]
+ 589 006a 2346     		mov	r3, r4
+ 590 006c C822     		movs	r2, #200
+ 591 006e 0C49     		ldr	r1, .L46+36
+ 592 0070 0C48     		ldr	r0, .L46+40
+ 593 0072 FFF7FEFF 		bl	xTaskCreate
+ 594              	.LVL66:
+ 133:main.c        **** 
+ 134:main.c        ****     vTaskStartScheduler();
+ 595              		.loc 1 134 0
+ 596 0076 FFF7FEFF 		bl	vTaskStartScheduler
+ 597              	.LVL67:
+ 598              	.L44:
+ 599 007a FEE7     		b	.L44
+ 600              	.L47:
+ 601              		.align	2
+ 602              	.L46:
+ 603 007c 00000000 		.word	toggle_semaphore
+ 604 0080 D4010000 		.word	.LC24
+ 605 0084 E0010000 		.word	.LC25
+ 606 0088 04020000 		.word	.LC26
+ 607 008c 28020000 		.word	.LC27
+ 608 0090 44020000 		.word	.LC28
+ 609 0094 00000000 		.word	uart_input_task
+ 610 0098 50020000 		.word	.LC29
+ 611 009c 00000000 		.word	led_task
+ 612 00a0 5C020000 		.word	.LC30
+ 613 00a4 00000000 		.word	auto_event_task
+ 614              		.cfi_endproc
+ 615              	.LFE72:
+ 616              		.size	main, .-main
+ 617              		.global	total_events_handled
+ 618              		.global	auto_event_count
+ 619              		.global	manual_event_count
+ 620              		.global	auto_mode
+ 621              		.global	led_enabled
+ 622              		.comm	toggle_semaphore,4,4
+ 623              		.data
+ 624              		.set	.LANCHOR0,. + 0
+ 625              		.type	led_enabled, %object
+ 626              		.size	led_enabled, 1
+ 627              	led_enabled:
+ 628 0000 01       		.byte	1
+ 629              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 630              		.align	2
+ 631              	.LC0:
+ 632 0000 4F4E00   		.ascii	"ON\000"
+ 633 0003 00       		.space	1
+ 634              	.LC1:
+ 635 0004 4F464600 		.ascii	"OFF\000"
+ 636              	.LC2:
+ 637 0008 746F6767 		.ascii	"toggle\000"
+ 637      6C6500
+ 638 000f 00       		.space	1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 15
+
+
+ 639              	.LC3:
+ 640 0010 0D0A5B4D 		.ascii	"\015\012[Manual] 3 toggle events queued\015\012\000"
+ 640      616E7561 
+ 640      6C5D2033 
+ 640      20746F67 
+ 640      676C6520 
+ 641              	.LC4:
+ 642 0034 0D0A4C45 		.ascii	"\015\012LED disabled (sleep mode)\015\012\000"
+ 642      44206469 
+ 642      7361626C 
+ 642      65642028 
+ 642      736C6565 
+ 643 0052 0000     		.space	2
+ 644              	.LC5:
+ 645 0054 6175746F 		.ascii	"auto on\000"
+ 645      206F6E00 
+ 646              	.LC6:
+ 647 005c 0D0A4175 		.ascii	"\015\012Auto events enabled\015\012\000"
+ 647      746F2065 
+ 647      76656E74 
+ 647      7320656E 
+ 647      61626C65 
+ 648              	.LC7:
+ 649 0074 6175746F 		.ascii	"auto off\000"
+ 649      206F6666 
+ 649      00
+ 650 007d 000000   		.space	3
+ 651              	.LC8:
+ 652 0080 0D0A4175 		.ascii	"\015\012Auto events disabled\015\012\000"
+ 652      746F2065 
+ 652      76656E74 
+ 652      73206469 
+ 652      7361626C 
+ 653 0099 000000   		.space	3
+ 654              	.LC9:
+ 655 009c 73746174 		.ascii	"status\000"
+ 655      757300
+ 656 00a3 00       		.space	1
+ 657              	.LC10:
+ 658 00a4 0D0A4C45 		.ascii	"\015\012LED is %s\015\012Manual events: %lu\015\012"
+ 658      44206973 
+ 658      2025730D 
+ 658      0A4D616E 
+ 658      75616C20 
+ 659 00c5 4175746F 		.ascii	"Auto events: %lu\015\012Total handled: %lu\015\012\000"
+ 659      20657665 
+ 659      6E74733A 
+ 659      20256C75 
+ 659      0D0A546F 
+ 660              	.LC11:
+ 661 00ec 72657365 		.ascii	"reset\000"
+ 661      7400
+ 662 00f2 0000     		.space	2
+ 663              	.LC12:
+ 664 00f4 0D0A436F 		.ascii	"\015\012Counters reset\015\012\000"
+ 664      756E7465 
+ 664      72732072 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 16
+
+
+ 664      65736574 
+ 664      0D0A00
+ 665 0107 00       		.space	1
+ 666              	.LC13:
+ 667 0108 6F6E00   		.ascii	"on\000"
+ 668 010b 00       		.space	1
+ 669              	.LC14:
+ 670 010c 0D0A4C45 		.ascii	"\015\012LED forced ON\015\012\000"
+ 670      4420666F 
+ 670      72636564 
+ 670      204F4E0D 
+ 670      0A00
+ 671 011e 0000     		.space	2
+ 672              	.LC15:
+ 673 0120 6F666600 		.ascii	"off\000"
+ 674              	.LC16:
+ 675 0124 0D0A4C45 		.ascii	"\015\012LED forced OFF\015\012\000"
+ 675      4420666F 
+ 675      72636564 
+ 675      204F4646 
+ 675      0D0A00
+ 676 0137 00       		.space	1
+ 677              	.LC17:
+ 678 0138 736C6565 		.ascii	"sleep\000"
+ 678      7000
+ 679 013e 0000     		.space	2
+ 680              	.LC18:
+ 681 0140 0D0A4C45 		.ascii	"\015\012LED sleep mode activated\015\012\000"
+ 681      4420736C 
+ 681      65657020 
+ 681      6D6F6465 
+ 681      20616374 
+ 682 015d 000000   		.space	3
+ 683              	.LC19:
+ 684 0160 6E6F726D 		.ascii	"normal\000"
+ 684      616C00
+ 685 0167 00       		.space	1
+ 686              	.LC20:
+ 687 0168 0D0A4C45 		.ascii	"\015\012LED toggle re-enabled\015\012\000"
+ 687      4420746F 
+ 687      67676C65 
+ 687      2072652D 
+ 687      656E6162 
+ 688 0182 0000     		.space	2
+ 689              	.LC21:
+ 690 0184 0D0A556E 		.ascii	"\015\012Unknown command\015\012\000"
+ 690      6B6E6F77 
+ 690      6E20636F 
+ 690      6D6D616E 
+ 690      640D0A00 
+ 691              	.LC22:
+ 692 0198 4576656E 		.ascii	"Event #%lu -> LED %s\015\012\000"
+ 692      74202325 
+ 692      6C75202D 
+ 692      3E204C45 
+ 692      44202573 
+ 693 01af 00       		.space	1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 17
+
+
+ 694              	.LC23:
+ 695 01b0 4576656E 		.ascii	"Event ignored (LED in sleep mode)\015\012\000"
+ 695      74206967 
+ 695      6E6F7265 
+ 695      6420284C 
+ 695      45442069 
+ 696              	.LC24:
+ 697 01d4 436F6D6D 		.ascii	"Commands:\015\012\000"
+ 697      616E6473 
+ 697      3A0D0A00 
+ 698              	.LC25:
+ 699 01e0 20746F67 		.ascii	" toggle, on, off, status, reset\015\012\000"
+ 699      676C652C 
+ 699      206F6E2C 
+ 699      206F6666 
+ 699      2C207374 
+ 700 0202 0000     		.space	2
+ 701              	.LC26:
+ 702 0204 20617574 		.ascii	" auto on, auto off, sleep, normal\015\012\000"
+ 702      6F206F6E 
+ 702      2C206175 
+ 702      746F206F 
+ 702      66662C20 
+ 703              	.LC27:
+ 704 0228 53656D61 		.ascii	"Semaphore creation failed\015\012\000"
+ 704      70686F72 
+ 704      65206372 
+ 704      65617469 
+ 704      6F6E2066 
+ 705              	.LC28:
+ 706 0244 55415254 		.ascii	"UART Task\000"
+ 706      20546173 
+ 706      6B00
+ 707 024e 0000     		.space	2
+ 708              	.LC29:
+ 709 0250 4C454420 		.ascii	"LED Task\000"
+ 709      5461736B 
+ 709      00
+ 710 0259 000000   		.space	3
+ 711              	.LC30:
+ 712 025c 4175746F 		.ascii	"Auto Task\000"
+ 712      20546173 
+ 712      6B00
+ 713              		.bss
+ 714              		.align	2
+ 715              		.set	.LANCHOR1,. + 0
+ 716              		.type	manual_event_count, %object
+ 717              		.size	manual_event_count, 4
+ 718              	manual_event_count:
+ 719 0000 00000000 		.space	4
+ 720              		.type	auto_mode, %object
+ 721              		.size	auto_mode, 1
+ 722              	auto_mode:
+ 723 0004 00       		.space	1
+ 724 0005 000000   		.space	3
+ 725              		.type	auto_event_count, %object
+ 726              		.size	auto_event_count, 4
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 18
+
+
+ 727              	auto_event_count:
+ 728 0008 00000000 		.space	4
+ 729              		.type	total_events_handled, %object
+ 730              		.size	total_events_handled, 4
+ 731              	total_events_handled:
+ 732 000c 00000000 		.space	4
+ 733              		.text
+ 734              	.Letext0:
+ 735              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 736              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 737              		.file 4 "..\\FreeRTOS\\Source\\portable\\GCC\\ARM_CM3/portmacro.h"
+ 738              		.file 5 "..\\FreeRTOS\\Source\\include/queue.h"
+ 739              		.file 6 "..\\FreeRTOS\\Source\\include/semphr.h"
+ 740              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+ 741              		.file 8 "Generated_Source\\PSoC5/led.h"
+ 742              		.file 9 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 743              		.file 10 "Generated_Source\\PSoC5/UART.h"
+ 744              		.file 11 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4
+ 745              		.file 12 "..\\FreeRTOS\\Source\\include/task.h"
+ 746              		.section	.debug_info,"",%progbits
+ 747              	.Ldebug_info0:
+ 748 0000 F1070000 		.4byte	0x7f1
+ 749 0004 0400     		.2byte	0x4
+ 750 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 751 000a 04       		.byte	0x4
+ 752 000b 01       		.uleb128 0x1
+ 753 000c 21010000 		.4byte	.LASF53
+ 754 0010 0C       		.byte	0xc
+ 755 0011 CE020000 		.4byte	.LASF54
+ 756 0015 15000000 		.4byte	.LASF55
+ 757 0019 18000000 		.4byte	.Ldebug_ranges0+0x18
+ 758 001d 00000000 		.4byte	0
+ 759 0021 00000000 		.4byte	.Ldebug_line0
+ 760 0025 02       		.uleb128 0x2
+ 761 0026 01       		.byte	0x1
+ 762 0027 06       		.byte	0x6
+ 763 0028 53030000 		.4byte	.LASF0
+ 764 002c 03       		.uleb128 0x3
+ 765 002d 00000000 		.4byte	.LASF4
+ 766 0031 02       		.byte	0x2
+ 767 0032 1D       		.byte	0x1d
+ 768 0033 37000000 		.4byte	0x37
+ 769 0037 02       		.uleb128 0x2
+ 770 0038 01       		.byte	0x1
+ 771 0039 08       		.byte	0x8
+ 772 003a EE010000 		.4byte	.LASF1
+ 773 003e 02       		.uleb128 0x2
+ 774 003f 02       		.byte	0x2
+ 775 0040 05       		.byte	0x5
+ 776 0041 15020000 		.4byte	.LASF2
+ 777 0045 02       		.uleb128 0x2
+ 778 0046 02       		.byte	0x2
+ 779 0047 07       		.byte	0x7
+ 780 0048 A9000000 		.4byte	.LASF3
+ 781 004c 03       		.uleb128 0x3
+ 782 004d 60000000 		.4byte	.LASF5
+ 783 0051 02       		.byte	0x2
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 19
+
+
+ 784 0052 3F       		.byte	0x3f
+ 785 0053 57000000 		.4byte	0x57
+ 786 0057 02       		.uleb128 0x2
+ 787 0058 04       		.byte	0x4
+ 788 0059 05       		.byte	0x5
+ 789 005a 33030000 		.4byte	.LASF6
+ 790 005e 03       		.uleb128 0x3
+ 791 005f AF010000 		.4byte	.LASF7
+ 792 0063 02       		.byte	0x2
+ 793 0064 41       		.byte	0x41
+ 794 0065 69000000 		.4byte	0x69
+ 795 0069 02       		.uleb128 0x2
+ 796 006a 04       		.byte	0x4
+ 797 006b 07       		.byte	0x7
+ 798 006c BA010000 		.4byte	.LASF8
+ 799 0070 02       		.uleb128 0x2
+ 800 0071 08       		.byte	0x8
+ 801 0072 05       		.byte	0x5
+ 802 0073 AB020000 		.4byte	.LASF9
+ 803 0077 02       		.uleb128 0x2
+ 804 0078 08       		.byte	0x8
+ 805 0079 07       		.byte	0x7
+ 806 007a 52020000 		.4byte	.LASF10
+ 807 007e 04       		.uleb128 0x4
+ 808 007f 04       		.byte	0x4
+ 809 0080 05       		.byte	0x5
+ 810 0081 696E7400 		.ascii	"int\000"
+ 811 0085 02       		.uleb128 0x2
+ 812 0086 04       		.byte	0x4
+ 813 0087 07       		.byte	0x7
+ 814 0088 3C020000 		.4byte	.LASF11
+ 815 008c 02       		.uleb128 0x2
+ 816 008d 08       		.byte	0x8
+ 817 008e 04       		.byte	0x4
+ 818 008f 47030000 		.4byte	.LASF12
+ 819 0093 05       		.uleb128 0x5
+ 820 0094 04       		.byte	0x4
+ 821 0095 02       		.uleb128 0x2
+ 822 0096 04       		.byte	0x4
+ 823 0097 07       		.byte	0x7
+ 824 0098 A2020000 		.4byte	.LASF13
+ 825 009c 02       		.uleb128 0x2
+ 826 009d 01       		.byte	0x1
+ 827 009e 08       		.byte	0x8
+ 828 009f D5020000 		.4byte	.LASF14
+ 829 00a3 03       		.uleb128 0x3
+ 830 00a4 69020000 		.4byte	.LASF15
+ 831 00a8 03       		.byte	0x3
+ 832 00a9 18       		.byte	0x18
+ 833 00aa 2C000000 		.4byte	0x2c
+ 834 00ae 03       		.uleb128 0x3
+ 835 00af 8D020000 		.4byte	.LASF16
+ 836 00b3 03       		.byte	0x3
+ 837 00b4 2C       		.byte	0x2c
+ 838 00b5 4C000000 		.4byte	0x4c
+ 839 00b9 03       		.uleb128 0x3
+ 840 00ba 2A030000 		.4byte	.LASF17
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 20
+
+
+ 841 00be 03       		.byte	0x3
+ 842 00bf 30       		.byte	0x30
+ 843 00c0 5E000000 		.4byte	0x5e
+ 844 00c4 02       		.uleb128 0x2
+ 845 00c5 04       		.byte	0x4
+ 846 00c6 04       		.byte	0x4
+ 847 00c7 08010000 		.4byte	.LASF18
+ 848 00cb 02       		.uleb128 0x2
+ 849 00cc 08       		.byte	0x8
+ 850 00cd 04       		.byte	0x4
+ 851 00ce FC010000 		.4byte	.LASF19
+ 852 00d2 06       		.uleb128 0x6
+ 853 00d3 B9000000 		.4byte	0xb9
+ 854 00d7 06       		.uleb128 0x6
+ 855 00d8 A3000000 		.4byte	0xa3
+ 856 00dc 03       		.uleb128 0x3
+ 857 00dd 8C030000 		.4byte	.LASF20
+ 858 00e1 04       		.byte	0x4
+ 859 00e2 38       		.byte	0x38
+ 860 00e3 57000000 		.4byte	0x57
+ 861 00e7 03       		.uleb128 0x3
+ 862 00e8 0A000000 		.4byte	.LASF21
+ 863 00ec 04       		.byte	0x4
+ 864 00ed 3F       		.byte	0x3f
+ 865 00ee B9000000 		.4byte	0xb9
+ 866 00f2 03       		.uleb128 0x3
+ 867 00f3 BC000000 		.4byte	.LASF22
+ 868 00f7 05       		.byte	0x5
+ 869 00f8 30       		.byte	0x30
+ 870 00f9 FD000000 		.4byte	0xfd
+ 871 00fd 07       		.uleb128 0x7
+ 872 00fe 04       		.byte	0x4
+ 873 00ff 03010000 		.4byte	0x103
+ 874 0103 08       		.uleb128 0x8
+ 875 0104 2C020000 		.4byte	.LASF56
+ 876 0108 03       		.uleb128 0x3
+ 877 0109 03020000 		.4byte	.LASF23
+ 878 010d 06       		.byte	0x6
+ 879 010e 25       		.byte	0x25
+ 880 010f F2000000 		.4byte	0xf2
+ 881 0113 09       		.uleb128 0x9
+ 882 0114 DE000000 		.4byte	.LASF27
+ 883 0118 01       		.byte	0x1
+ 884 0119 13       		.byte	0x13
+ 885 011a 00000000 		.4byte	.LFB69
+ 886 011e E4010000 		.4byte	.LFE69-.LFB69
+ 887 0122 01       		.uleb128 0x1
+ 888 0123 9C       		.byte	0x9c
+ 889 0124 1A040000 		.4byte	0x41a
+ 890 0128 0A       		.uleb128 0xa
+ 891 0129 70747200 		.ascii	"ptr\000"
+ 892 012d 01       		.byte	0x1
+ 893 012e 13       		.byte	0x13
+ 894 012f 93000000 		.4byte	0x93
+ 895 0133 00000000 		.4byte	.LLST0
+ 896 0137 0B       		.uleb128 0xb
+ 897 0138 FF020000 		.4byte	.LASF24
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 21
+
+
+ 898 013c 01       		.byte	0x1
+ 899 013d 14       		.byte	0x14
+ 900 013e 1A040000 		.4byte	0x41a
+ 901 0142 02       		.uleb128 0x2
+ 902 0143 91       		.byte	0x91
+ 903 0144 50       		.sleb128 -48
+ 904 0145 0C       		.uleb128 0xc
+ 905 0146 DA020000 		.4byte	.LASF25
+ 906 014a 01       		.byte	0x1
+ 907 014b 15       		.byte	0x15
+ 908 014c A3000000 		.4byte	0xa3
+ 909 0150 21000000 		.4byte	.LLST1
+ 910 0154 0D       		.uleb128 0xd
+ 911 0155 06000000 		.4byte	.LBB2
+ 912 0159 78010000 		.4byte	.LBE2-.LBB2
+ 913 015d 0E       		.uleb128 0xe
+ 914 015e 636800   		.ascii	"ch\000"
+ 915 0161 01       		.byte	0x1
+ 916 0162 17       		.byte	0x17
+ 917 0163 9C000000 		.4byte	0x9c
+ 918 0167 6D000000 		.4byte	.LLST2
+ 919 016b 0F       		.uleb128 0xf
+ 920 016c 00000000 		.4byte	.Ldebug_ranges0+0
+ 921 0170 9B010000 		.4byte	0x19b
+ 922 0174 0E       		.uleb128 0xe
+ 923 0175 6900     		.ascii	"i\000"
+ 924 0177 01       		.byte	0x1
+ 925 0178 1F       		.byte	0x1f
+ 926 0179 7E000000 		.4byte	0x7e
+ 927 017d 8B000000 		.4byte	.LLST3
+ 928 0181 10       		.uleb128 0x10
+ 929 0182 4C000000 		.4byte	.LVL9
+ 930 0186 3E070000 		.4byte	0x73e
+ 931 018a 11       		.uleb128 0x11
+ 932 018b 01       		.uleb128 0x1
+ 933 018c 51       		.byte	0x51
+ 934 018d 01       		.uleb128 0x1
+ 935 018e 30       		.byte	0x30
+ 936 018f 11       		.uleb128 0x11
+ 937 0190 01       		.uleb128 0x1
+ 938 0191 52       		.byte	0x52
+ 939 0192 01       		.uleb128 0x1
+ 940 0193 30       		.byte	0x30
+ 941 0194 11       		.uleb128 0x11
+ 942 0195 01       		.uleb128 0x1
+ 943 0196 53       		.byte	0x53
+ 944 0197 01       		.uleb128 0x1
+ 945 0198 30       		.byte	0x30
+ 946 0199 00       		.byte	0
+ 947 019a 00       		.byte	0
+ 948 019b 12       		.uleb128 0x12
+ 949 019c AE000000 		.4byte	.LBB5
+ 950 01a0 26000000 		.4byte	.LBE5-.LBB5
+ 951 01a4 F0010000 		.4byte	0x1f0
+ 952 01a8 0B       		.uleb128 0xb
+ 953 01a9 F7000000 		.4byte	.LASF26
+ 954 01ad 01       		.byte	0x1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 22
+
+
+ 955 01ae 2E       		.byte	0x2e
+ 956 01af 2A040000 		.4byte	0x42a
+ 957 01b3 03       		.uleb128 0x3
+ 958 01b4 91       		.byte	0x91
+ 959 01b5 D07E     		.sleb128 -176
+ 960 01b7 13       		.uleb128 0x13
+ 961 01b8 B2000000 		.4byte	.LVL21
+ 962 01bc 4A070000 		.4byte	0x74a
+ 963 01c0 14       		.uleb128 0x14
+ 964 01c1 CE000000 		.4byte	.LVL22
+ 965 01c5 55070000 		.4byte	0x755
+ 966 01c9 DE010000 		.4byte	0x1de
+ 967 01cd 11       		.uleb128 0x11
+ 968 01ce 01       		.uleb128 0x1
+ 969 01cf 50       		.byte	0x50
+ 970 01d0 03       		.uleb128 0x3
+ 971 01d1 91       		.byte	0x91
+ 972 01d2 D07E     		.sleb128 -176
+ 973 01d4 11       		.uleb128 0x11
+ 974 01d5 01       		.uleb128 0x1
+ 975 01d6 51       		.byte	0x51
+ 976 01d7 05       		.uleb128 0x5
+ 977 01d8 03       		.byte	0x3
+ 978 01d9 A4000000 		.4byte	.LC10
+ 979 01dd 00       		.byte	0
+ 980 01de 10       		.uleb128 0x10
+ 981 01df D4000000 		.4byte	.LVL23
+ 982 01e3 60070000 		.4byte	0x760
+ 983 01e7 11       		.uleb128 0x11
+ 984 01e8 01       		.uleb128 0x1
+ 985 01e9 50       		.byte	0x50
+ 986 01ea 03       		.uleb128 0x3
+ 987 01eb 91       		.byte	0x91
+ 988 01ec D07E     		.sleb128 -176
+ 989 01ee 00       		.byte	0
+ 990 01ef 00       		.byte	0
+ 991 01f0 13       		.uleb128 0x13
+ 992 01f1 0A000000 		.4byte	.LVL3
+ 993 01f5 6B070000 		.4byte	0x76b
+ 994 01f9 14       		.uleb128 0x14
+ 995 01fa 30000000 		.4byte	.LVL7
+ 996 01fe 76070000 		.4byte	0x776
+ 997 0202 16020000 		.4byte	0x216
+ 998 0206 11       		.uleb128 0x11
+ 999 0207 01       		.uleb128 0x1
+ 1000 0208 50       		.byte	0x50
+ 1001 0209 02       		.uleb128 0x2
+ 1002 020a 91       		.byte	0x91
+ 1003 020b 50       		.sleb128 -48
+ 1004 020c 11       		.uleb128 0x11
+ 1005 020d 01       		.uleb128 0x1
+ 1006 020e 51       		.byte	0x51
+ 1007 020f 05       		.uleb128 0x5
+ 1008 0210 03       		.byte	0x3
+ 1009 0211 08000000 		.4byte	.LC2
+ 1010 0215 00       		.byte	0
+ 1011 0216 14       		.uleb128 0x14
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 23
+
+
+ 1012 0217 64000000 		.4byte	.LVL13
+ 1013 021b 60070000 		.4byte	0x760
+ 1014 021f 2D020000 		.4byte	0x22d
+ 1015 0223 11       		.uleb128 0x11
+ 1016 0224 01       		.uleb128 0x1
+ 1017 0225 50       		.byte	0x50
+ 1018 0226 05       		.uleb128 0x5
+ 1019 0227 03       		.byte	0x3
+ 1020 0228 10000000 		.4byte	.LC3
+ 1021 022c 00       		.byte	0
+ 1022 022d 14       		.uleb128 0x14
+ 1023 022e 6E000000 		.4byte	.LVL15
+ 1024 0232 60070000 		.4byte	0x760
+ 1025 0236 44020000 		.4byte	0x244
+ 1026 023a 11       		.uleb128 0x11
+ 1027 023b 01       		.uleb128 0x1
+ 1028 023c 50       		.byte	0x50
+ 1029 023d 05       		.uleb128 0x5
+ 1030 023e 03       		.byte	0x3
+ 1031 023f 34000000 		.4byte	.LC4
+ 1032 0243 00       		.byte	0
+ 1033 0244 14       		.uleb128 0x14
+ 1034 0245 7A000000 		.4byte	.LVL16
+ 1035 0249 76070000 		.4byte	0x776
+ 1036 024d 61020000 		.4byte	0x261
+ 1037 0251 11       		.uleb128 0x11
+ 1038 0252 01       		.uleb128 0x1
+ 1039 0253 50       		.byte	0x50
+ 1040 0254 02       		.uleb128 0x2
+ 1041 0255 91       		.byte	0x91
+ 1042 0256 50       		.sleb128 -48
+ 1043 0257 11       		.uleb128 0x11
+ 1044 0258 01       		.uleb128 0x1
+ 1045 0259 51       		.byte	0x51
+ 1046 025a 05       		.uleb128 0x5
+ 1047 025b 03       		.byte	0x3
+ 1048 025c 54000000 		.4byte	.LC5
+ 1049 0260 00       		.byte	0
+ 1050 0261 14       		.uleb128 0x14
+ 1051 0262 88000000 		.4byte	.LVL17
+ 1052 0266 60070000 		.4byte	0x760
+ 1053 026a 78020000 		.4byte	0x278
+ 1054 026e 11       		.uleb128 0x11
+ 1055 026f 01       		.uleb128 0x1
+ 1056 0270 50       		.byte	0x50
+ 1057 0271 05       		.uleb128 0x5
+ 1058 0272 03       		.byte	0x3
+ 1059 0273 5C000000 		.4byte	.LC6
+ 1060 0277 00       		.byte	0
+ 1061 0278 14       		.uleb128 0x14
+ 1062 0279 94000000 		.4byte	.LVL18
+ 1063 027d 76070000 		.4byte	0x776
+ 1064 0281 95020000 		.4byte	0x295
+ 1065 0285 11       		.uleb128 0x11
+ 1066 0286 01       		.uleb128 0x1
+ 1067 0287 50       		.byte	0x50
+ 1068 0288 02       		.uleb128 0x2
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 24
+
+
+ 1069 0289 91       		.byte	0x91
+ 1070 028a 50       		.sleb128 -48
+ 1071 028b 11       		.uleb128 0x11
+ 1072 028c 01       		.uleb128 0x1
+ 1073 028d 51       		.byte	0x51
+ 1074 028e 05       		.uleb128 0x5
+ 1075 028f 03       		.byte	0x3
+ 1076 0290 74000000 		.4byte	.LC7
+ 1077 0294 00       		.byte	0
+ 1078 0295 14       		.uleb128 0x14
+ 1079 0296 A2000000 		.4byte	.LVL19
+ 1080 029a 60070000 		.4byte	0x760
+ 1081 029e AC020000 		.4byte	0x2ac
+ 1082 02a2 11       		.uleb128 0x11
+ 1083 02a3 01       		.uleb128 0x1
+ 1084 02a4 50       		.byte	0x50
+ 1085 02a5 05       		.uleb128 0x5
+ 1086 02a6 03       		.byte	0x3
+ 1087 02a7 80000000 		.4byte	.LC8
+ 1088 02ab 00       		.byte	0
+ 1089 02ac 14       		.uleb128 0x14
+ 1090 02ad AC000000 		.4byte	.LVL20
+ 1091 02b1 76070000 		.4byte	0x776
+ 1092 02b5 C9020000 		.4byte	0x2c9
+ 1093 02b9 11       		.uleb128 0x11
+ 1094 02ba 01       		.uleb128 0x1
+ 1095 02bb 50       		.byte	0x50
+ 1096 02bc 02       		.uleb128 0x2
+ 1097 02bd 91       		.byte	0x91
+ 1098 02be 50       		.sleb128 -48
+ 1099 02bf 11       		.uleb128 0x11
+ 1100 02c0 01       		.uleb128 0x1
+ 1101 02c1 51       		.byte	0x51
+ 1102 02c2 05       		.uleb128 0x5
+ 1103 02c3 03       		.byte	0x3
+ 1104 02c4 9C000000 		.4byte	.LC9
+ 1105 02c8 00       		.byte	0
+ 1106 02c9 14       		.uleb128 0x14
+ 1107 02ca E0000000 		.4byte	.LVL24
+ 1108 02ce 76070000 		.4byte	0x776
+ 1109 02d2 E6020000 		.4byte	0x2e6
+ 1110 02d6 11       		.uleb128 0x11
+ 1111 02d7 01       		.uleb128 0x1
+ 1112 02d8 50       		.byte	0x50
+ 1113 02d9 02       		.uleb128 0x2
+ 1114 02da 91       		.byte	0x91
+ 1115 02db 50       		.sleb128 -48
+ 1116 02dc 11       		.uleb128 0x11
+ 1117 02dd 01       		.uleb128 0x1
+ 1118 02de 51       		.byte	0x51
+ 1119 02df 05       		.uleb128 0x5
+ 1120 02e0 03       		.byte	0x3
+ 1121 02e1 EC000000 		.4byte	.LC11
+ 1122 02e5 00       		.byte	0
+ 1123 02e6 14       		.uleb128 0x14
+ 1124 02e7 F2000000 		.4byte	.LVL25
+ 1125 02eb 60070000 		.4byte	0x760
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 25
+
+
+ 1126 02ef FD020000 		.4byte	0x2fd
+ 1127 02f3 11       		.uleb128 0x11
+ 1128 02f4 01       		.uleb128 0x1
+ 1129 02f5 50       		.byte	0x50
+ 1130 02f6 05       		.uleb128 0x5
+ 1131 02f7 03       		.byte	0x3
+ 1132 02f8 F4000000 		.4byte	.LC12
+ 1133 02fc 00       		.byte	0
+ 1134 02fd 14       		.uleb128 0x14
+ 1135 02fe FC000000 		.4byte	.LVL26
+ 1136 0302 76070000 		.4byte	0x776
+ 1137 0306 1A030000 		.4byte	0x31a
+ 1138 030a 11       		.uleb128 0x11
+ 1139 030b 01       		.uleb128 0x1
+ 1140 030c 50       		.byte	0x50
+ 1141 030d 02       		.uleb128 0x2
+ 1142 030e 91       		.byte	0x91
+ 1143 030f 50       		.sleb128 -48
+ 1144 0310 11       		.uleb128 0x11
+ 1145 0311 01       		.uleb128 0x1
+ 1146 0312 51       		.byte	0x51
+ 1147 0313 05       		.uleb128 0x5
+ 1148 0314 03       		.byte	0x3
+ 1149 0315 08010000 		.4byte	.LC13
+ 1150 0319 00       		.byte	0
+ 1151 031a 14       		.uleb128 0x14
+ 1152 031b 04010000 		.4byte	.LVL27
+ 1153 031f 81070000 		.4byte	0x781
+ 1154 0323 2D030000 		.4byte	0x32d
+ 1155 0327 11       		.uleb128 0x11
+ 1156 0328 01       		.uleb128 0x1
+ 1157 0329 50       		.byte	0x50
+ 1158 032a 01       		.uleb128 0x1
+ 1159 032b 31       		.byte	0x31
+ 1160 032c 00       		.byte	0
+ 1161 032d 14       		.uleb128 0x14
+ 1162 032e 0A010000 		.4byte	.LVL28
+ 1163 0332 60070000 		.4byte	0x760
+ 1164 0336 44030000 		.4byte	0x344
+ 1165 033a 11       		.uleb128 0x11
+ 1166 033b 01       		.uleb128 0x1
+ 1167 033c 50       		.byte	0x50
+ 1168 033d 05       		.uleb128 0x5
+ 1169 033e 03       		.byte	0x3
+ 1170 033f 0C010000 		.4byte	.LC14
+ 1171 0343 00       		.byte	0
+ 1172 0344 14       		.uleb128 0x14
+ 1173 0345 16010000 		.4byte	.LVL29
+ 1174 0349 76070000 		.4byte	0x776
+ 1175 034d 61030000 		.4byte	0x361
+ 1176 0351 11       		.uleb128 0x11
+ 1177 0352 01       		.uleb128 0x1
+ 1178 0353 50       		.byte	0x50
+ 1179 0354 02       		.uleb128 0x2
+ 1180 0355 91       		.byte	0x91
+ 1181 0356 50       		.sleb128 -48
+ 1182 0357 11       		.uleb128 0x11
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 26
+
+
+ 1183 0358 01       		.uleb128 0x1
+ 1184 0359 51       		.byte	0x51
+ 1185 035a 05       		.uleb128 0x5
+ 1186 035b 03       		.byte	0x3
+ 1187 035c 20010000 		.4byte	.LC15
+ 1188 0360 00       		.byte	0
+ 1189 0361 13       		.uleb128 0x13
+ 1190 0362 1C010000 		.4byte	.LVL30
+ 1191 0366 81070000 		.4byte	0x781
+ 1192 036a 14       		.uleb128 0x14
+ 1193 036b 22010000 		.4byte	.LVL31
+ 1194 036f 60070000 		.4byte	0x760
+ 1195 0373 81030000 		.4byte	0x381
+ 1196 0377 11       		.uleb128 0x11
+ 1197 0378 01       		.uleb128 0x1
+ 1198 0379 50       		.byte	0x50
+ 1199 037a 05       		.uleb128 0x5
+ 1200 037b 03       		.byte	0x3
+ 1201 037c 24010000 		.4byte	.LC16
+ 1202 0380 00       		.byte	0
+ 1203 0381 14       		.uleb128 0x14
+ 1204 0382 2E010000 		.4byte	.LVL32
+ 1205 0386 76070000 		.4byte	0x776
+ 1206 038a 9E030000 		.4byte	0x39e
+ 1207 038e 11       		.uleb128 0x11
+ 1208 038f 01       		.uleb128 0x1
+ 1209 0390 50       		.byte	0x50
+ 1210 0391 02       		.uleb128 0x2
+ 1211 0392 91       		.byte	0x91
+ 1212 0393 50       		.sleb128 -48
+ 1213 0394 11       		.uleb128 0x11
+ 1214 0395 01       		.uleb128 0x1
+ 1215 0396 51       		.byte	0x51
+ 1216 0397 05       		.uleb128 0x5
+ 1217 0398 03       		.byte	0x3
+ 1218 0399 38010000 		.4byte	.LC17
+ 1219 039d 00       		.byte	0
+ 1220 039e 14       		.uleb128 0x14
+ 1221 039f 3C010000 		.4byte	.LVL33
+ 1222 03a3 60070000 		.4byte	0x760
+ 1223 03a7 B5030000 		.4byte	0x3b5
+ 1224 03ab 11       		.uleb128 0x11
+ 1225 03ac 01       		.uleb128 0x1
+ 1226 03ad 50       		.byte	0x50
+ 1227 03ae 05       		.uleb128 0x5
+ 1228 03af 03       		.byte	0x3
+ 1229 03b0 40010000 		.4byte	.LC18
+ 1230 03b4 00       		.byte	0
+ 1231 03b5 14       		.uleb128 0x14
+ 1232 03b6 46010000 		.4byte	.LVL34
+ 1233 03ba 76070000 		.4byte	0x776
+ 1234 03be D2030000 		.4byte	0x3d2
+ 1235 03c2 11       		.uleb128 0x11
+ 1236 03c3 01       		.uleb128 0x1
+ 1237 03c4 50       		.byte	0x50
+ 1238 03c5 02       		.uleb128 0x2
+ 1239 03c6 91       		.byte	0x91
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 27
+
+
+ 1240 03c7 50       		.sleb128 -48
+ 1241 03c8 11       		.uleb128 0x11
+ 1242 03c9 01       		.uleb128 0x1
+ 1243 03ca 51       		.byte	0x51
+ 1244 03cb 05       		.uleb128 0x5
+ 1245 03cc 03       		.byte	0x3
+ 1246 03cd 60010000 		.4byte	.LC19
+ 1247 03d1 00       		.byte	0
+ 1248 03d2 14       		.uleb128 0x14
+ 1249 03d3 54010000 		.4byte	.LVL35
+ 1250 03d7 60070000 		.4byte	0x760
+ 1251 03db E9030000 		.4byte	0x3e9
+ 1252 03df 11       		.uleb128 0x11
+ 1253 03e0 01       		.uleb128 0x1
+ 1254 03e1 50       		.byte	0x50
+ 1255 03e2 05       		.uleb128 0x5
+ 1256 03e3 03       		.byte	0x3
+ 1257 03e4 68010000 		.4byte	.LC20
+ 1258 03e8 00       		.byte	0
+ 1259 03e9 14       		.uleb128 0x14
+ 1260 03ea 5E010000 		.4byte	.LVL36
+ 1261 03ee 60070000 		.4byte	0x760
+ 1262 03f2 00040000 		.4byte	0x400
+ 1263 03f6 11       		.uleb128 0x11
+ 1264 03f7 01       		.uleb128 0x1
+ 1265 03f8 50       		.byte	0x50
+ 1266 03f9 05       		.uleb128 0x5
+ 1267 03fa 03       		.byte	0x3
+ 1268 03fb 84010000 		.4byte	.LC21
+ 1269 03ff 00       		.byte	0
+ 1270 0400 13       		.uleb128 0x13
+ 1271 0401 76010000 		.4byte	.LVL39
+ 1272 0405 8C070000 		.4byte	0x78c
+ 1273 0409 10       		.uleb128 0x10
+ 1274 040a 7E010000 		.4byte	.LVL41
+ 1275 040e 97070000 		.4byte	0x797
+ 1276 0412 11       		.uleb128 0x11
+ 1277 0413 01       		.uleb128 0x1
+ 1278 0414 50       		.byte	0x50
+ 1279 0415 01       		.uleb128 0x1
+ 1280 0416 3A       		.byte	0x3a
+ 1281 0417 00       		.byte	0
+ 1282 0418 00       		.byte	0
+ 1283 0419 00       		.byte	0
+ 1284 041a 15       		.uleb128 0x15
+ 1285 041b 9C000000 		.4byte	0x9c
+ 1286 041f 2A040000 		.4byte	0x42a
+ 1287 0423 16       		.uleb128 0x16
+ 1288 0424 95000000 		.4byte	0x95
+ 1289 0428 1F       		.byte	0x1f
+ 1290 0429 00       		.byte	0
+ 1291 042a 15       		.uleb128 0x15
+ 1292 042b 9C000000 		.4byte	0x9c
+ 1293 042f 3A040000 		.4byte	0x43a
+ 1294 0433 16       		.uleb128 0x16
+ 1295 0434 95000000 		.4byte	0x95
+ 1296 0438 7F       		.byte	0x7f
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 28
+
+
+ 1297 0439 00       		.byte	0
+ 1298 043a 09       		.uleb128 0x9
+ 1299 043b 88000000 		.4byte	.LASF28
+ 1300 043f 01       		.byte	0x1
+ 1301 0440 67       		.byte	0x67
+ 1302 0441 00000000 		.4byte	.LFB71
+ 1303 0445 34000000 		.4byte	.LFE71-.LFB71
+ 1304 0449 01       		.uleb128 0x1
+ 1305 044a 9C       		.byte	0x9c
+ 1306 044b 8D040000 		.4byte	0x48d
+ 1307 044f 0A       		.uleb128 0xa
+ 1308 0450 70747200 		.ascii	"ptr\000"
+ 1309 0454 01       		.byte	0x1
+ 1310 0455 67       		.byte	0x67
+ 1311 0456 93000000 		.4byte	0x93
+ 1312 045a A9000000 		.4byte	.LLST4
+ 1313 045e 14       		.uleb128 0x14
+ 1314 045f 1A000000 		.4byte	.LVL44
+ 1315 0463 3E070000 		.4byte	0x73e
+ 1316 0467 7B040000 		.4byte	0x47b
+ 1317 046b 11       		.uleb128 0x11
+ 1318 046c 01       		.uleb128 0x1
+ 1319 046d 51       		.byte	0x51
+ 1320 046e 01       		.uleb128 0x1
+ 1321 046f 30       		.byte	0x30
+ 1322 0470 11       		.uleb128 0x11
+ 1323 0471 01       		.uleb128 0x1
+ 1324 0472 52       		.byte	0x52
+ 1325 0473 01       		.uleb128 0x1
+ 1326 0474 30       		.byte	0x30
+ 1327 0475 11       		.uleb128 0x11
+ 1328 0476 01       		.uleb128 0x1
+ 1329 0477 53       		.byte	0x53
+ 1330 0478 01       		.uleb128 0x1
+ 1331 0479 30       		.byte	0x30
+ 1332 047a 00       		.byte	0
+ 1333 047b 10       		.uleb128 0x10
+ 1334 047c 2A000000 		.4byte	.LVL45
+ 1335 0480 97070000 		.4byte	0x797
+ 1336 0484 11       		.uleb128 0x11
+ 1337 0485 01       		.uleb128 0x1
+ 1338 0486 50       		.byte	0x50
+ 1339 0487 03       		.uleb128 0x3
+ 1340 0488 0A       		.byte	0xa
+ 1341 0489 E803     		.2byte	0x3e8
+ 1342 048b 00       		.byte	0
+ 1343 048c 00       		.byte	0
+ 1344 048d 09       		.uleb128 0x9
+ 1345 048e 49020000 		.4byte	.LASF29
+ 1346 0492 01       		.byte	0x1
+ 1347 0493 54       		.byte	0x54
+ 1348 0494 00000000 		.4byte	.LFB70
+ 1349 0498 80000000 		.4byte	.LFE70-.LFB70
+ 1350 049c 01       		.uleb128 0x1
+ 1351 049d 9C       		.byte	0x9c
+ 1352 049e 58050000 		.4byte	0x558
+ 1353 04a2 0A       		.uleb128 0xa
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 29
+
+
+ 1354 04a3 70747200 		.ascii	"ptr\000"
+ 1355 04a7 01       		.byte	0x1
+ 1356 04a8 54       		.byte	0x54
+ 1357 04a9 93000000 		.4byte	0x93
+ 1358 04ad CA000000 		.4byte	.LLST5
+ 1359 04b1 12       		.uleb128 0x12
+ 1360 04b2 1E000000 		.4byte	.LBB6
+ 1361 04b6 34000000 		.4byte	.LBE6-.LBB6
+ 1362 04ba 1C050000 		.4byte	0x51c
+ 1363 04be 17       		.uleb128 0x17
+ 1364 04bf 6D736700 		.ascii	"msg\000"
+ 1365 04c3 01       		.byte	0x1
+ 1366 04c4 5A       		.byte	0x5a
+ 1367 04c5 58050000 		.4byte	0x558
+ 1368 04c9 03       		.uleb128 0x3
+ 1369 04ca 91       		.byte	0x91
+ 1370 04cb B87F     		.sleb128 -72
+ 1371 04cd 13       		.uleb128 0x13
+ 1372 04ce 22000000 		.4byte	.LVL49
+ 1373 04d2 4A070000 		.4byte	0x74a
+ 1374 04d6 13       		.uleb128 0x13
+ 1375 04d7 2C000000 		.4byte	.LVL50
+ 1376 04db 81070000 		.4byte	0x781
+ 1377 04df 13       		.uleb128 0x13
+ 1378 04e0 3A000000 		.4byte	.LVL51
+ 1379 04e4 4A070000 		.4byte	0x74a
+ 1380 04e8 14       		.uleb128 0x14
+ 1381 04e9 4C000000 		.4byte	.LVL52
+ 1382 04ed 55070000 		.4byte	0x755
+ 1383 04f1 0B050000 		.4byte	0x50b
+ 1384 04f5 11       		.uleb128 0x11
+ 1385 04f6 01       		.uleb128 0x1
+ 1386 04f7 50       		.byte	0x50
+ 1387 04f8 02       		.uleb128 0x2
+ 1388 04f9 7D       		.byte	0x7d
+ 1389 04fa 00       		.sleb128 0
+ 1390 04fb 11       		.uleb128 0x11
+ 1391 04fc 01       		.uleb128 0x1
+ 1392 04fd 51       		.byte	0x51
+ 1393 04fe 05       		.uleb128 0x5
+ 1394 04ff 03       		.byte	0x3
+ 1395 0500 98010000 		.4byte	.LC22
+ 1396 0504 11       		.uleb128 0x11
+ 1397 0505 01       		.uleb128 0x1
+ 1398 0506 52       		.byte	0x52
+ 1399 0507 02       		.uleb128 0x2
+ 1400 0508 74       		.byte	0x74
+ 1401 0509 00       		.sleb128 0
+ 1402 050a 00       		.byte	0
+ 1403 050b 10       		.uleb128 0x10
+ 1404 050c 52000000 		.4byte	.LVL53
+ 1405 0510 60070000 		.4byte	0x760
+ 1406 0514 11       		.uleb128 0x11
+ 1407 0515 01       		.uleb128 0x1
+ 1408 0516 50       		.byte	0x50
+ 1409 0517 02       		.uleb128 0x2
+ 1410 0518 7D       		.byte	0x7d
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 30
+
+
+ 1411 0519 00       		.sleb128 0
+ 1412 051a 00       		.byte	0
+ 1413 051b 00       		.byte	0
+ 1414 051c 14       		.uleb128 0x14
+ 1415 051d 10000000 		.4byte	.LVL48
+ 1416 0521 A3070000 		.4byte	0x7a3
+ 1417 0525 30050000 		.4byte	0x530
+ 1418 0529 11       		.uleb128 0x11
+ 1419 052a 01       		.uleb128 0x1
+ 1420 052b 51       		.byte	0x51
+ 1421 052c 02       		.uleb128 0x2
+ 1422 052d 09       		.byte	0x9
+ 1423 052e FF       		.byte	0xff
+ 1424 052f 00       		.byte	0
+ 1425 0530 14       		.uleb128 0x14
+ 1426 0531 5A000000 		.4byte	.LVL54
+ 1427 0535 60070000 		.4byte	0x760
+ 1428 0539 47050000 		.4byte	0x547
+ 1429 053d 11       		.uleb128 0x11
+ 1430 053e 01       		.uleb128 0x1
+ 1431 053f 50       		.byte	0x50
+ 1432 0540 05       		.uleb128 0x5
+ 1433 0541 03       		.byte	0x3
+ 1434 0542 B0010000 		.4byte	.LC23
+ 1435 0546 00       		.byte	0
+ 1436 0547 10       		.uleb128 0x10
+ 1437 0548 60000000 		.4byte	.LVL55
+ 1438 054c 97070000 		.4byte	0x797
+ 1439 0550 11       		.uleb128 0x11
+ 1440 0551 01       		.uleb128 0x1
+ 1441 0552 50       		.byte	0x50
+ 1442 0553 02       		.uleb128 0x2
+ 1443 0554 08       		.byte	0x8
+ 1444 0555 FA       		.byte	0xfa
+ 1445 0556 00       		.byte	0
+ 1446 0557 00       		.byte	0
+ 1447 0558 15       		.uleb128 0x15
+ 1448 0559 9C000000 		.4byte	0x9c
+ 1449 055d 68050000 		.4byte	0x568
+ 1450 0561 16       		.uleb128 0x16
+ 1451 0562 95000000 		.4byte	0x95
+ 1452 0566 3F       		.byte	0x3f
+ 1453 0567 00       		.byte	0
+ 1454 0568 18       		.uleb128 0x18
+ 1455 0569 88020000 		.4byte	.LASF57
+ 1456 056d 01       		.byte	0x1
+ 1457 056e 71       		.byte	0x71
+ 1458 056f 7E000000 		.4byte	0x7e
+ 1459 0573 00000000 		.4byte	.LFB72
+ 1460 0577 A8000000 		.4byte	.LFE72-.LFB72
+ 1461 057b 01       		.uleb128 0x1
+ 1462 057c 9C       		.byte	0x9c
+ 1463 057d C7060000 		.4byte	0x6c7
+ 1464 0581 13       		.uleb128 0x13
+ 1465 0582 0A000000 		.4byte	.LVL56
+ 1466 0586 AF070000 		.4byte	0x7af
+ 1467 058a 13       		.uleb128 0x13
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 31
+
+
+ 1468 058b 0E000000 		.4byte	.LVL57
+ 1469 058f BA070000 		.4byte	0x7ba
+ 1470 0593 13       		.uleb128 0x13
+ 1471 0594 12000000 		.4byte	.LVL58
+ 1472 0598 C5070000 		.4byte	0x7c5
+ 1473 059c 14       		.uleb128 0x14
+ 1474 059d 1A000000 		.4byte	.LVL59
+ 1475 05a1 D0070000 		.4byte	0x7d0
+ 1476 05a5 B5050000 		.4byte	0x5b5
+ 1477 05a9 11       		.uleb128 0x11
+ 1478 05aa 01       		.uleb128 0x1
+ 1479 05ab 50       		.byte	0x50
+ 1480 05ac 02       		.uleb128 0x2
+ 1481 05ad 08       		.byte	0x8
+ 1482 05ae 32       		.byte	0x32
+ 1483 05af 11       		.uleb128 0x11
+ 1484 05b0 01       		.uleb128 0x1
+ 1485 05b1 51       		.byte	0x51
+ 1486 05b2 01       		.uleb128 0x1
+ 1487 05b3 30       		.byte	0x30
+ 1488 05b4 00       		.byte	0
+ 1489 05b5 14       		.uleb128 0x14
+ 1490 05b6 24000000 		.4byte	.LVL60
+ 1491 05ba 60070000 		.4byte	0x760
+ 1492 05be CC050000 		.4byte	0x5cc
+ 1493 05c2 11       		.uleb128 0x11
+ 1494 05c3 01       		.uleb128 0x1
+ 1495 05c4 50       		.byte	0x50
+ 1496 05c5 05       		.uleb128 0x5
+ 1497 05c6 03       		.byte	0x3
+ 1498 05c7 D4010000 		.4byte	.LC24
+ 1499 05cb 00       		.byte	0
+ 1500 05cc 14       		.uleb128 0x14
+ 1501 05cd 2A000000 		.4byte	.LVL61
+ 1502 05d1 60070000 		.4byte	0x760
+ 1503 05d5 E3050000 		.4byte	0x5e3
+ 1504 05d9 11       		.uleb128 0x11
+ 1505 05da 01       		.uleb128 0x1
+ 1506 05db 50       		.byte	0x50
+ 1507 05dc 05       		.uleb128 0x5
+ 1508 05dd 03       		.byte	0x3
+ 1509 05de E0010000 		.4byte	.LC25
+ 1510 05e2 00       		.byte	0
+ 1511 05e3 14       		.uleb128 0x14
+ 1512 05e4 30000000 		.4byte	.LVL62
+ 1513 05e8 60070000 		.4byte	0x760
+ 1514 05ec FA050000 		.4byte	0x5fa
+ 1515 05f0 11       		.uleb128 0x11
+ 1516 05f1 01       		.uleb128 0x1
+ 1517 05f2 50       		.byte	0x50
+ 1518 05f3 05       		.uleb128 0x5
+ 1519 05f4 03       		.byte	0x3
+ 1520 05f5 04020000 		.4byte	.LC26
+ 1521 05f9 00       		.byte	0
+ 1522 05fa 14       		.uleb128 0x14
+ 1523 05fb 3A000000 		.4byte	.LVL63
+ 1524 05ff 60070000 		.4byte	0x760
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 32
+
+
+ 1525 0603 11060000 		.4byte	0x611
+ 1526 0607 11       		.uleb128 0x11
+ 1527 0608 01       		.uleb128 0x1
+ 1528 0609 50       		.byte	0x50
+ 1529 060a 05       		.uleb128 0x5
+ 1530 060b 03       		.byte	0x3
+ 1531 060c 28020000 		.4byte	.LC27
+ 1532 0610 00       		.byte	0
+ 1533 0611 14       		.uleb128 0x14
+ 1534 0612 52000000 		.4byte	.LVL64
+ 1535 0616 DC070000 		.4byte	0x7dc
+ 1536 061a 4B060000 		.4byte	0x64b
+ 1537 061e 11       		.uleb128 0x11
+ 1538 061f 01       		.uleb128 0x1
+ 1539 0620 50       		.byte	0x50
+ 1540 0621 05       		.uleb128 0x5
+ 1541 0622 03       		.byte	0x3
+ 1542 0623 00000000 		.4byte	uart_input_task
+ 1543 0627 11       		.uleb128 0x11
+ 1544 0628 01       		.uleb128 0x1
+ 1545 0629 51       		.byte	0x51
+ 1546 062a 05       		.uleb128 0x5
+ 1547 062b 03       		.byte	0x3
+ 1548 062c 44020000 		.4byte	.LC28
+ 1549 0630 11       		.uleb128 0x11
+ 1550 0631 01       		.uleb128 0x1
+ 1551 0632 52       		.byte	0x52
+ 1552 0633 03       		.uleb128 0x3
+ 1553 0634 0A       		.byte	0xa
+ 1554 0635 2C01     		.2byte	0x12c
+ 1555 0637 11       		.uleb128 0x11
+ 1556 0638 01       		.uleb128 0x1
+ 1557 0639 53       		.byte	0x53
+ 1558 063a 02       		.uleb128 0x2
+ 1559 063b 74       		.byte	0x74
+ 1560 063c 00       		.sleb128 0
+ 1561 063d 11       		.uleb128 0x11
+ 1562 063e 02       		.uleb128 0x2
+ 1563 063f 7D       		.byte	0x7d
+ 1564 0640 00       		.sleb128 0
+ 1565 0641 01       		.uleb128 0x1
+ 1566 0642 33       		.byte	0x33
+ 1567 0643 11       		.uleb128 0x11
+ 1568 0644 02       		.uleb128 0x2
+ 1569 0645 7D       		.byte	0x7d
+ 1570 0646 04       		.sleb128 4
+ 1571 0647 02       		.uleb128 0x2
+ 1572 0648 74       		.byte	0x74
+ 1573 0649 00       		.sleb128 0
+ 1574 064a 00       		.byte	0
+ 1575 064b 14       		.uleb128 0x14
+ 1576 064c 64000000 		.4byte	.LVL65
+ 1577 0650 DC070000 		.4byte	0x7dc
+ 1578 0654 84060000 		.4byte	0x684
+ 1579 0658 11       		.uleb128 0x11
+ 1580 0659 01       		.uleb128 0x1
+ 1581 065a 50       		.byte	0x50
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 33
+
+
+ 1582 065b 05       		.uleb128 0x5
+ 1583 065c 03       		.byte	0x3
+ 1584 065d 00000000 		.4byte	led_task
+ 1585 0661 11       		.uleb128 0x11
+ 1586 0662 01       		.uleb128 0x1
+ 1587 0663 51       		.byte	0x51
+ 1588 0664 05       		.uleb128 0x5
+ 1589 0665 03       		.byte	0x3
+ 1590 0666 50020000 		.4byte	.LC29
+ 1591 066a 11       		.uleb128 0x11
+ 1592 066b 01       		.uleb128 0x1
+ 1593 066c 52       		.byte	0x52
+ 1594 066d 02       		.uleb128 0x2
+ 1595 066e 08       		.byte	0x8
+ 1596 066f C8       		.byte	0xc8
+ 1597 0670 11       		.uleb128 0x11
+ 1598 0671 01       		.uleb128 0x1
+ 1599 0672 53       		.byte	0x53
+ 1600 0673 02       		.uleb128 0x2
+ 1601 0674 74       		.byte	0x74
+ 1602 0675 00       		.sleb128 0
+ 1603 0676 11       		.uleb128 0x11
+ 1604 0677 02       		.uleb128 0x2
+ 1605 0678 7D       		.byte	0x7d
+ 1606 0679 00       		.sleb128 0
+ 1607 067a 01       		.uleb128 0x1
+ 1608 067b 32       		.byte	0x32
+ 1609 067c 11       		.uleb128 0x11
+ 1610 067d 02       		.uleb128 0x2
+ 1611 067e 7D       		.byte	0x7d
+ 1612 067f 04       		.sleb128 4
+ 1613 0680 02       		.uleb128 0x2
+ 1614 0681 74       		.byte	0x74
+ 1615 0682 00       		.sleb128 0
+ 1616 0683 00       		.byte	0
+ 1617 0684 14       		.uleb128 0x14
+ 1618 0685 76000000 		.4byte	.LVL66
+ 1619 0689 DC070000 		.4byte	0x7dc
+ 1620 068d BD060000 		.4byte	0x6bd
+ 1621 0691 11       		.uleb128 0x11
+ 1622 0692 01       		.uleb128 0x1
+ 1623 0693 50       		.byte	0x50
+ 1624 0694 05       		.uleb128 0x5
+ 1625 0695 03       		.byte	0x3
+ 1626 0696 00000000 		.4byte	auto_event_task
+ 1627 069a 11       		.uleb128 0x11
+ 1628 069b 01       		.uleb128 0x1
+ 1629 069c 51       		.byte	0x51
+ 1630 069d 05       		.uleb128 0x5
+ 1631 069e 03       		.byte	0x3
+ 1632 069f 5C020000 		.4byte	.LC30
+ 1633 06a3 11       		.uleb128 0x11
+ 1634 06a4 01       		.uleb128 0x1
+ 1635 06a5 52       		.byte	0x52
+ 1636 06a6 02       		.uleb128 0x2
+ 1637 06a7 08       		.byte	0x8
+ 1638 06a8 C8       		.byte	0xc8
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 34
+
+
+ 1639 06a9 11       		.uleb128 0x11
+ 1640 06aa 01       		.uleb128 0x1
+ 1641 06ab 53       		.byte	0x53
+ 1642 06ac 02       		.uleb128 0x2
+ 1643 06ad 74       		.byte	0x74
+ 1644 06ae 00       		.sleb128 0
+ 1645 06af 11       		.uleb128 0x11
+ 1646 06b0 02       		.uleb128 0x2
+ 1647 06b1 7D       		.byte	0x7d
+ 1648 06b2 00       		.sleb128 0
+ 1649 06b3 01       		.uleb128 0x1
+ 1650 06b4 31       		.byte	0x31
+ 1651 06b5 11       		.uleb128 0x11
+ 1652 06b6 02       		.uleb128 0x2
+ 1653 06b7 7D       		.byte	0x7d
+ 1654 06b8 04       		.sleb128 4
+ 1655 06b9 02       		.uleb128 0x2
+ 1656 06ba 74       		.byte	0x74
+ 1657 06bb 00       		.sleb128 0
+ 1658 06bc 00       		.byte	0
+ 1659 06bd 13       		.uleb128 0x13
+ 1660 06be 7A000000 		.4byte	.LVL67
+ 1661 06c2 E8070000 		.4byte	0x7e8
+ 1662 06c6 00       		.byte	0
+ 1663 06c7 19       		.uleb128 0x19
+ 1664 06c8 1F020000 		.4byte	.LASF30
+ 1665 06cc 07       		.byte	0x7
+ 1666 06cd 1207     		.2byte	0x712
+ 1667 06cf D3060000 		.4byte	0x6d3
+ 1668 06d3 06       		.uleb128 0x6
+ 1669 06d4 AE000000 		.4byte	0xae
+ 1670 06d8 1A       		.uleb128 0x1a
+ 1671 06d9 19030000 		.4byte	.LASF31
+ 1672 06dd 01       		.byte	0x1
+ 1673 06de 0B       		.byte	0xb
+ 1674 06df 08010000 		.4byte	0x108
+ 1675 06e3 05       		.uleb128 0x5
+ 1676 06e4 03       		.byte	0x3
+ 1677 06e5 00000000 		.4byte	toggle_semaphore
+ 1678 06e9 1A       		.uleb128 0x1a
+ 1679 06ea D7010000 		.4byte	.LASF32
+ 1680 06ee 01       		.byte	0x1
+ 1681 06ef 0D       		.byte	0xd
+ 1682 06f0 D7000000 		.4byte	0xd7
+ 1683 06f4 05       		.uleb128 0x5
+ 1684 06f5 03       		.byte	0x3
+ 1685 06f6 00000000 		.4byte	led_enabled
+ 1686 06fa 1A       		.uleb128 0x1a
+ 1687 06fb 73030000 		.4byte	.LASF33
+ 1688 06ff 01       		.byte	0x1
+ 1689 0700 0E       		.byte	0xe
+ 1690 0701 D7000000 		.4byte	0xd7
+ 1691 0705 05       		.uleb128 0x5
+ 1692 0706 03       		.byte	0x3
+ 1693 0707 00000000 		.4byte	auto_mode
+ 1694 070b 1A       		.uleb128 0x1a
+ 1695 070c 06030000 		.4byte	.LASF34
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 35
+
+
+ 1696 0710 01       		.byte	0x1
+ 1697 0711 0F       		.byte	0xf
+ 1698 0712 D2000000 		.4byte	0xd2
+ 1699 0716 05       		.uleb128 0x5
+ 1700 0717 03       		.byte	0x3
+ 1701 0718 00000000 		.4byte	manual_event_count
+ 1702 071c 1A       		.uleb128 0x1a
+ 1703 071d 98000000 		.4byte	.LASF35
+ 1704 0721 01       		.byte	0x1
+ 1705 0722 10       		.byte	0x10
+ 1706 0723 D2000000 		.4byte	0xd2
+ 1707 0727 05       		.uleb128 0x5
+ 1708 0728 03       		.byte	0x3
+ 1709 0729 00000000 		.4byte	auto_event_count
+ 1710 072d 1A       		.uleb128 0x1a
+ 1711 072e B9020000 		.4byte	.LASF36
+ 1712 0732 01       		.byte	0x1
+ 1713 0733 11       		.byte	0x11
+ 1714 0734 D2000000 		.4byte	0xd2
+ 1715 0738 05       		.uleb128 0x5
+ 1716 0739 03       		.byte	0x3
+ 1717 073a 00000000 		.4byte	total_events_handled
+ 1718 073e 1B       		.uleb128 0x1b
+ 1719 073f ED020000 		.4byte	.LASF37
+ 1720 0743 ED020000 		.4byte	.LASF37
+ 1721 0747 05       		.byte	0x5
+ 1722 0748 8A02     		.2byte	0x28a
+ 1723 074a 1C       		.uleb128 0x1c
+ 1724 074b EE000000 		.4byte	.LASF38
+ 1725 074f EE000000 		.4byte	.LASF38
+ 1726 0753 08       		.byte	0x8
+ 1727 0754 29       		.byte	0x29
+ 1728 0755 1C       		.uleb128 0x1c
+ 1729 0756 80020000 		.4byte	.LASF39
+ 1730 075a 80020000 		.4byte	.LASF39
+ 1731 075e 09       		.byte	0x9
+ 1732 075f E7       		.byte	0xe7
+ 1733 0760 1C       		.uleb128 0x1c
+ 1734 0761 7D030000 		.4byte	.LASF40
+ 1735 0765 7D030000 		.4byte	.LASF40
+ 1736 0769 0A       		.byte	0xa
+ 1737 076a 8B       		.byte	0x8b
+ 1738 076b 1C       		.uleb128 0x1c
+ 1739 076c E0020000 		.4byte	.LASF41
+ 1740 0770 E0020000 		.4byte	.LASF41
+ 1741 0774 0A       		.byte	0xa
+ 1742 0775 71       		.byte	0x71
+ 1743 0776 1C       		.uleb128 0x1c
+ 1744 0777 E3010000 		.4byte	.LASF42
+ 1745 077b E3010000 		.4byte	.LASF42
+ 1746 077f 0B       		.byte	0xb
+ 1747 0780 50       		.byte	0x50
+ 1748 0781 1C       		.uleb128 0x1c
+ 1749 0782 FE000000 		.4byte	.LASF43
+ 1750 0786 FE000000 		.4byte	.LASF43
+ 1751 078a 08       		.byte	0x8
+ 1752 078b 26       		.byte	0x26
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 36
+
+
+ 1753 078c 1C       		.uleb128 0x1c
+ 1754 078d 95020000 		.4byte	.LASF44
+ 1755 0791 95020000 		.4byte	.LASF44
+ 1756 0795 0A       		.byte	0xa
+ 1757 0796 8A       		.byte	0x8a
+ 1758 0797 1B       		.uleb128 0x1b
+ 1759 0798 3C030000 		.4byte	.LASF45
+ 1760 079c 3C030000 		.4byte	.LASF45
+ 1761 07a0 0C       		.byte	0xc
+ 1762 07a1 F602     		.2byte	0x2f6
+ 1763 07a3 1B       		.uleb128 0x1b
+ 1764 07a4 5F030000 		.4byte	.LASF46
+ 1765 07a8 5F030000 		.4byte	.LASF46
+ 1766 07ac 05       		.byte	0x5
+ 1767 07ad 8A05     		.2byte	0x58a
+ 1768 07af 1C       		.uleb128 0x1c
+ 1769 07b0 71020000 		.4byte	.LASF47
+ 1770 07b4 71020000 		.4byte	.LASF47
+ 1771 07b8 01       		.byte	0x1
+ 1772 07b9 09       		.byte	0x9
+ 1773 07ba 1C       		.uleb128 0x1c
+ 1774 07bb CC010000 		.4byte	.LASF48
+ 1775 07bf CC010000 		.4byte	.LASF48
+ 1776 07c3 0A       		.byte	0xa
+ 1777 07c4 54       		.byte	0x54
+ 1778 07c5 1C       		.uleb128 0x1c
+ 1779 07c6 0E010000 		.4byte	.LASF49
+ 1780 07ca 0E010000 		.4byte	.LASF49
+ 1781 07ce 0A       		.byte	0xa
+ 1782 07cf 8F       		.byte	0x8f
+ 1783 07d0 1B       		.uleb128 0x1b
+ 1784 07d1 6A000000 		.4byte	.LASF50
+ 1785 07d5 6A000000 		.4byte	.LASF50
+ 1786 07d9 05       		.byte	0x5
+ 1787 07da 8805     		.2byte	0x588
+ 1788 07dc 1B       		.uleb128 0x1b
+ 1789 07dd 97030000 		.4byte	.LASF51
+ 1790 07e1 97030000 		.4byte	.LASF51
+ 1791 07e5 0C       		.byte	0xc
+ 1792 07e6 4A01     		.2byte	0x14a
+ 1793 07e8 1B       		.uleb128 0x1b
+ 1794 07e9 CA000000 		.4byte	.LASF52
+ 1795 07ed CA000000 		.4byte	.LASF52
+ 1796 07f1 0C       		.byte	0xc
+ 1797 07f2 9704     		.2byte	0x497
+ 1798 07f4 00       		.byte	0
+ 1799              		.section	.debug_abbrev,"",%progbits
+ 1800              	.Ldebug_abbrev0:
+ 1801 0000 01       		.uleb128 0x1
+ 1802 0001 11       		.uleb128 0x11
+ 1803 0002 01       		.byte	0x1
+ 1804 0003 25       		.uleb128 0x25
+ 1805 0004 0E       		.uleb128 0xe
+ 1806 0005 13       		.uleb128 0x13
+ 1807 0006 0B       		.uleb128 0xb
+ 1808 0007 03       		.uleb128 0x3
+ 1809 0008 0E       		.uleb128 0xe
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 37
+
+
+ 1810 0009 1B       		.uleb128 0x1b
+ 1811 000a 0E       		.uleb128 0xe
+ 1812 000b 55       		.uleb128 0x55
+ 1813 000c 17       		.uleb128 0x17
+ 1814 000d 11       		.uleb128 0x11
+ 1815 000e 01       		.uleb128 0x1
+ 1816 000f 10       		.uleb128 0x10
+ 1817 0010 17       		.uleb128 0x17
+ 1818 0011 00       		.byte	0
+ 1819 0012 00       		.byte	0
+ 1820 0013 02       		.uleb128 0x2
+ 1821 0014 24       		.uleb128 0x24
+ 1822 0015 00       		.byte	0
+ 1823 0016 0B       		.uleb128 0xb
+ 1824 0017 0B       		.uleb128 0xb
+ 1825 0018 3E       		.uleb128 0x3e
+ 1826 0019 0B       		.uleb128 0xb
+ 1827 001a 03       		.uleb128 0x3
+ 1828 001b 0E       		.uleb128 0xe
+ 1829 001c 00       		.byte	0
+ 1830 001d 00       		.byte	0
+ 1831 001e 03       		.uleb128 0x3
+ 1832 001f 16       		.uleb128 0x16
+ 1833 0020 00       		.byte	0
+ 1834 0021 03       		.uleb128 0x3
+ 1835 0022 0E       		.uleb128 0xe
+ 1836 0023 3A       		.uleb128 0x3a
+ 1837 0024 0B       		.uleb128 0xb
+ 1838 0025 3B       		.uleb128 0x3b
+ 1839 0026 0B       		.uleb128 0xb
+ 1840 0027 49       		.uleb128 0x49
+ 1841 0028 13       		.uleb128 0x13
+ 1842 0029 00       		.byte	0
+ 1843 002a 00       		.byte	0
+ 1844 002b 04       		.uleb128 0x4
+ 1845 002c 24       		.uleb128 0x24
+ 1846 002d 00       		.byte	0
+ 1847 002e 0B       		.uleb128 0xb
+ 1848 002f 0B       		.uleb128 0xb
+ 1849 0030 3E       		.uleb128 0x3e
+ 1850 0031 0B       		.uleb128 0xb
+ 1851 0032 03       		.uleb128 0x3
+ 1852 0033 08       		.uleb128 0x8
+ 1853 0034 00       		.byte	0
+ 1854 0035 00       		.byte	0
+ 1855 0036 05       		.uleb128 0x5
+ 1856 0037 0F       		.uleb128 0xf
+ 1857 0038 00       		.byte	0
+ 1858 0039 0B       		.uleb128 0xb
+ 1859 003a 0B       		.uleb128 0xb
+ 1860 003b 00       		.byte	0
+ 1861 003c 00       		.byte	0
+ 1862 003d 06       		.uleb128 0x6
+ 1863 003e 35       		.uleb128 0x35
+ 1864 003f 00       		.byte	0
+ 1865 0040 49       		.uleb128 0x49
+ 1866 0041 13       		.uleb128 0x13
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 38
+
+
+ 1867 0042 00       		.byte	0
+ 1868 0043 00       		.byte	0
+ 1869 0044 07       		.uleb128 0x7
+ 1870 0045 0F       		.uleb128 0xf
+ 1871 0046 00       		.byte	0
+ 1872 0047 0B       		.uleb128 0xb
+ 1873 0048 0B       		.uleb128 0xb
+ 1874 0049 49       		.uleb128 0x49
+ 1875 004a 13       		.uleb128 0x13
+ 1876 004b 00       		.byte	0
+ 1877 004c 00       		.byte	0
+ 1878 004d 08       		.uleb128 0x8
+ 1879 004e 13       		.uleb128 0x13
+ 1880 004f 00       		.byte	0
+ 1881 0050 03       		.uleb128 0x3
+ 1882 0051 0E       		.uleb128 0xe
+ 1883 0052 3C       		.uleb128 0x3c
+ 1884 0053 19       		.uleb128 0x19
+ 1885 0054 00       		.byte	0
+ 1886 0055 00       		.byte	0
+ 1887 0056 09       		.uleb128 0x9
+ 1888 0057 2E       		.uleb128 0x2e
+ 1889 0058 01       		.byte	0x1
+ 1890 0059 3F       		.uleb128 0x3f
+ 1891 005a 19       		.uleb128 0x19
+ 1892 005b 03       		.uleb128 0x3
+ 1893 005c 0E       		.uleb128 0xe
+ 1894 005d 3A       		.uleb128 0x3a
+ 1895 005e 0B       		.uleb128 0xb
+ 1896 005f 3B       		.uleb128 0x3b
+ 1897 0060 0B       		.uleb128 0xb
+ 1898 0061 27       		.uleb128 0x27
+ 1899 0062 19       		.uleb128 0x19
+ 1900 0063 8701     		.uleb128 0x87
+ 1901 0065 19       		.uleb128 0x19
+ 1902 0066 11       		.uleb128 0x11
+ 1903 0067 01       		.uleb128 0x1
+ 1904 0068 12       		.uleb128 0x12
+ 1905 0069 06       		.uleb128 0x6
+ 1906 006a 40       		.uleb128 0x40
+ 1907 006b 18       		.uleb128 0x18
+ 1908 006c 9742     		.uleb128 0x2117
+ 1909 006e 19       		.uleb128 0x19
+ 1910 006f 01       		.uleb128 0x1
+ 1911 0070 13       		.uleb128 0x13
+ 1912 0071 00       		.byte	0
+ 1913 0072 00       		.byte	0
+ 1914 0073 0A       		.uleb128 0xa
+ 1915 0074 05       		.uleb128 0x5
+ 1916 0075 00       		.byte	0
+ 1917 0076 03       		.uleb128 0x3
+ 1918 0077 08       		.uleb128 0x8
+ 1919 0078 3A       		.uleb128 0x3a
+ 1920 0079 0B       		.uleb128 0xb
+ 1921 007a 3B       		.uleb128 0x3b
+ 1922 007b 0B       		.uleb128 0xb
+ 1923 007c 49       		.uleb128 0x49
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 39
+
+
+ 1924 007d 13       		.uleb128 0x13
+ 1925 007e 02       		.uleb128 0x2
+ 1926 007f 17       		.uleb128 0x17
+ 1927 0080 00       		.byte	0
+ 1928 0081 00       		.byte	0
+ 1929 0082 0B       		.uleb128 0xb
+ 1930 0083 34       		.uleb128 0x34
+ 1931 0084 00       		.byte	0
+ 1932 0085 03       		.uleb128 0x3
+ 1933 0086 0E       		.uleb128 0xe
+ 1934 0087 3A       		.uleb128 0x3a
+ 1935 0088 0B       		.uleb128 0xb
+ 1936 0089 3B       		.uleb128 0x3b
+ 1937 008a 0B       		.uleb128 0xb
+ 1938 008b 49       		.uleb128 0x49
+ 1939 008c 13       		.uleb128 0x13
+ 1940 008d 02       		.uleb128 0x2
+ 1941 008e 18       		.uleb128 0x18
+ 1942 008f 00       		.byte	0
+ 1943 0090 00       		.byte	0
+ 1944 0091 0C       		.uleb128 0xc
+ 1945 0092 34       		.uleb128 0x34
+ 1946 0093 00       		.byte	0
+ 1947 0094 03       		.uleb128 0x3
+ 1948 0095 0E       		.uleb128 0xe
+ 1949 0096 3A       		.uleb128 0x3a
+ 1950 0097 0B       		.uleb128 0xb
+ 1951 0098 3B       		.uleb128 0x3b
+ 1952 0099 0B       		.uleb128 0xb
+ 1953 009a 49       		.uleb128 0x49
+ 1954 009b 13       		.uleb128 0x13
+ 1955 009c 02       		.uleb128 0x2
+ 1956 009d 17       		.uleb128 0x17
+ 1957 009e 00       		.byte	0
+ 1958 009f 00       		.byte	0
+ 1959 00a0 0D       		.uleb128 0xd
+ 1960 00a1 0B       		.uleb128 0xb
+ 1961 00a2 01       		.byte	0x1
+ 1962 00a3 11       		.uleb128 0x11
+ 1963 00a4 01       		.uleb128 0x1
+ 1964 00a5 12       		.uleb128 0x12
+ 1965 00a6 06       		.uleb128 0x6
+ 1966 00a7 00       		.byte	0
+ 1967 00a8 00       		.byte	0
+ 1968 00a9 0E       		.uleb128 0xe
+ 1969 00aa 34       		.uleb128 0x34
+ 1970 00ab 00       		.byte	0
+ 1971 00ac 03       		.uleb128 0x3
+ 1972 00ad 08       		.uleb128 0x8
+ 1973 00ae 3A       		.uleb128 0x3a
+ 1974 00af 0B       		.uleb128 0xb
+ 1975 00b0 3B       		.uleb128 0x3b
+ 1976 00b1 0B       		.uleb128 0xb
+ 1977 00b2 49       		.uleb128 0x49
+ 1978 00b3 13       		.uleb128 0x13
+ 1979 00b4 02       		.uleb128 0x2
+ 1980 00b5 17       		.uleb128 0x17
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 40
+
+
+ 1981 00b6 00       		.byte	0
+ 1982 00b7 00       		.byte	0
+ 1983 00b8 0F       		.uleb128 0xf
+ 1984 00b9 0B       		.uleb128 0xb
+ 1985 00ba 01       		.byte	0x1
+ 1986 00bb 55       		.uleb128 0x55
+ 1987 00bc 17       		.uleb128 0x17
+ 1988 00bd 01       		.uleb128 0x1
+ 1989 00be 13       		.uleb128 0x13
+ 1990 00bf 00       		.byte	0
+ 1991 00c0 00       		.byte	0
+ 1992 00c1 10       		.uleb128 0x10
+ 1993 00c2 898201   		.uleb128 0x4109
+ 1994 00c5 01       		.byte	0x1
+ 1995 00c6 11       		.uleb128 0x11
+ 1996 00c7 01       		.uleb128 0x1
+ 1997 00c8 31       		.uleb128 0x31
+ 1998 00c9 13       		.uleb128 0x13
+ 1999 00ca 00       		.byte	0
+ 2000 00cb 00       		.byte	0
+ 2001 00cc 11       		.uleb128 0x11
+ 2002 00cd 8A8201   		.uleb128 0x410a
+ 2003 00d0 00       		.byte	0
+ 2004 00d1 02       		.uleb128 0x2
+ 2005 00d2 18       		.uleb128 0x18
+ 2006 00d3 9142     		.uleb128 0x2111
+ 2007 00d5 18       		.uleb128 0x18
+ 2008 00d6 00       		.byte	0
+ 2009 00d7 00       		.byte	0
+ 2010 00d8 12       		.uleb128 0x12
+ 2011 00d9 0B       		.uleb128 0xb
+ 2012 00da 01       		.byte	0x1
+ 2013 00db 11       		.uleb128 0x11
+ 2014 00dc 01       		.uleb128 0x1
+ 2015 00dd 12       		.uleb128 0x12
+ 2016 00de 06       		.uleb128 0x6
+ 2017 00df 01       		.uleb128 0x1
+ 2018 00e0 13       		.uleb128 0x13
+ 2019 00e1 00       		.byte	0
+ 2020 00e2 00       		.byte	0
+ 2021 00e3 13       		.uleb128 0x13
+ 2022 00e4 898201   		.uleb128 0x4109
+ 2023 00e7 00       		.byte	0
+ 2024 00e8 11       		.uleb128 0x11
+ 2025 00e9 01       		.uleb128 0x1
+ 2026 00ea 31       		.uleb128 0x31
+ 2027 00eb 13       		.uleb128 0x13
+ 2028 00ec 00       		.byte	0
+ 2029 00ed 00       		.byte	0
+ 2030 00ee 14       		.uleb128 0x14
+ 2031 00ef 898201   		.uleb128 0x4109
+ 2032 00f2 01       		.byte	0x1
+ 2033 00f3 11       		.uleb128 0x11
+ 2034 00f4 01       		.uleb128 0x1
+ 2035 00f5 31       		.uleb128 0x31
+ 2036 00f6 13       		.uleb128 0x13
+ 2037 00f7 01       		.uleb128 0x1
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 41
+
+
+ 2038 00f8 13       		.uleb128 0x13
+ 2039 00f9 00       		.byte	0
+ 2040 00fa 00       		.byte	0
+ 2041 00fb 15       		.uleb128 0x15
+ 2042 00fc 01       		.uleb128 0x1
+ 2043 00fd 01       		.byte	0x1
+ 2044 00fe 49       		.uleb128 0x49
+ 2045 00ff 13       		.uleb128 0x13
+ 2046 0100 01       		.uleb128 0x1
+ 2047 0101 13       		.uleb128 0x13
+ 2048 0102 00       		.byte	0
+ 2049 0103 00       		.byte	0
+ 2050 0104 16       		.uleb128 0x16
+ 2051 0105 21       		.uleb128 0x21
+ 2052 0106 00       		.byte	0
+ 2053 0107 49       		.uleb128 0x49
+ 2054 0108 13       		.uleb128 0x13
+ 2055 0109 2F       		.uleb128 0x2f
+ 2056 010a 0B       		.uleb128 0xb
+ 2057 010b 00       		.byte	0
+ 2058 010c 00       		.byte	0
+ 2059 010d 17       		.uleb128 0x17
+ 2060 010e 34       		.uleb128 0x34
+ 2061 010f 00       		.byte	0
+ 2062 0110 03       		.uleb128 0x3
+ 2063 0111 08       		.uleb128 0x8
+ 2064 0112 3A       		.uleb128 0x3a
+ 2065 0113 0B       		.uleb128 0xb
+ 2066 0114 3B       		.uleb128 0x3b
+ 2067 0115 0B       		.uleb128 0xb
+ 2068 0116 49       		.uleb128 0x49
+ 2069 0117 13       		.uleb128 0x13
+ 2070 0118 02       		.uleb128 0x2
+ 2071 0119 18       		.uleb128 0x18
+ 2072 011a 00       		.byte	0
+ 2073 011b 00       		.byte	0
+ 2074 011c 18       		.uleb128 0x18
+ 2075 011d 2E       		.uleb128 0x2e
+ 2076 011e 01       		.byte	0x1
+ 2077 011f 3F       		.uleb128 0x3f
+ 2078 0120 19       		.uleb128 0x19
+ 2079 0121 03       		.uleb128 0x3
+ 2080 0122 0E       		.uleb128 0xe
+ 2081 0123 3A       		.uleb128 0x3a
+ 2082 0124 0B       		.uleb128 0xb
+ 2083 0125 3B       		.uleb128 0x3b
+ 2084 0126 0B       		.uleb128 0xb
+ 2085 0127 27       		.uleb128 0x27
+ 2086 0128 19       		.uleb128 0x19
+ 2087 0129 49       		.uleb128 0x49
+ 2088 012a 13       		.uleb128 0x13
+ 2089 012b 8701     		.uleb128 0x87
+ 2090 012d 19       		.uleb128 0x19
+ 2091 012e 11       		.uleb128 0x11
+ 2092 012f 01       		.uleb128 0x1
+ 2093 0130 12       		.uleb128 0x12
+ 2094 0131 06       		.uleb128 0x6
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 42
+
+
+ 2095 0132 40       		.uleb128 0x40
+ 2096 0133 18       		.uleb128 0x18
+ 2097 0134 9742     		.uleb128 0x2117
+ 2098 0136 19       		.uleb128 0x19
+ 2099 0137 01       		.uleb128 0x1
+ 2100 0138 13       		.uleb128 0x13
+ 2101 0139 00       		.byte	0
+ 2102 013a 00       		.byte	0
+ 2103 013b 19       		.uleb128 0x19
+ 2104 013c 34       		.uleb128 0x34
+ 2105 013d 00       		.byte	0
+ 2106 013e 03       		.uleb128 0x3
+ 2107 013f 0E       		.uleb128 0xe
+ 2108 0140 3A       		.uleb128 0x3a
+ 2109 0141 0B       		.uleb128 0xb
+ 2110 0142 3B       		.uleb128 0x3b
+ 2111 0143 05       		.uleb128 0x5
+ 2112 0144 49       		.uleb128 0x49
+ 2113 0145 13       		.uleb128 0x13
+ 2114 0146 3F       		.uleb128 0x3f
+ 2115 0147 19       		.uleb128 0x19
+ 2116 0148 3C       		.uleb128 0x3c
+ 2117 0149 19       		.uleb128 0x19
+ 2118 014a 00       		.byte	0
+ 2119 014b 00       		.byte	0
+ 2120 014c 1A       		.uleb128 0x1a
+ 2121 014d 34       		.uleb128 0x34
+ 2122 014e 00       		.byte	0
+ 2123 014f 03       		.uleb128 0x3
+ 2124 0150 0E       		.uleb128 0xe
+ 2125 0151 3A       		.uleb128 0x3a
+ 2126 0152 0B       		.uleb128 0xb
+ 2127 0153 3B       		.uleb128 0x3b
+ 2128 0154 0B       		.uleb128 0xb
+ 2129 0155 49       		.uleb128 0x49
+ 2130 0156 13       		.uleb128 0x13
+ 2131 0157 3F       		.uleb128 0x3f
+ 2132 0158 19       		.uleb128 0x19
+ 2133 0159 02       		.uleb128 0x2
+ 2134 015a 18       		.uleb128 0x18
+ 2135 015b 00       		.byte	0
+ 2136 015c 00       		.byte	0
+ 2137 015d 1B       		.uleb128 0x1b
+ 2138 015e 2E       		.uleb128 0x2e
+ 2139 015f 00       		.byte	0
+ 2140 0160 3F       		.uleb128 0x3f
+ 2141 0161 19       		.uleb128 0x19
+ 2142 0162 3C       		.uleb128 0x3c
+ 2143 0163 19       		.uleb128 0x19
+ 2144 0164 6E       		.uleb128 0x6e
+ 2145 0165 0E       		.uleb128 0xe
+ 2146 0166 03       		.uleb128 0x3
+ 2147 0167 0E       		.uleb128 0xe
+ 2148 0168 3A       		.uleb128 0x3a
+ 2149 0169 0B       		.uleb128 0xb
+ 2150 016a 3B       		.uleb128 0x3b
+ 2151 016b 05       		.uleb128 0x5
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 43
+
+
+ 2152 016c 00       		.byte	0
+ 2153 016d 00       		.byte	0
+ 2154 016e 1C       		.uleb128 0x1c
+ 2155 016f 2E       		.uleb128 0x2e
+ 2156 0170 00       		.byte	0
+ 2157 0171 3F       		.uleb128 0x3f
+ 2158 0172 19       		.uleb128 0x19
+ 2159 0173 3C       		.uleb128 0x3c
+ 2160 0174 19       		.uleb128 0x19
+ 2161 0175 6E       		.uleb128 0x6e
+ 2162 0176 0E       		.uleb128 0xe
+ 2163 0177 03       		.uleb128 0x3
+ 2164 0178 0E       		.uleb128 0xe
+ 2165 0179 3A       		.uleb128 0x3a
+ 2166 017a 0B       		.uleb128 0xb
+ 2167 017b 3B       		.uleb128 0x3b
+ 2168 017c 0B       		.uleb128 0xb
+ 2169 017d 00       		.byte	0
+ 2170 017e 00       		.byte	0
+ 2171 017f 00       		.byte	0
+ 2172              		.section	.debug_loc,"",%progbits
+ 2173              	.Ldebug_loc0:
+ 2174              	.LLST0:
+ 2175 0000 00000000 		.4byte	.LVL0
+ 2176 0004 06000000 		.4byte	.LVL2
+ 2177 0008 0100     		.2byte	0x1
+ 2178 000a 50       		.byte	0x50
+ 2179 000b 06000000 		.4byte	.LVL2
+ 2180 000f E4010000 		.4byte	.LFE69
+ 2181 0013 0400     		.2byte	0x4
+ 2182 0015 F3       		.byte	0xf3
+ 2183 0016 01       		.uleb128 0x1
+ 2184 0017 50       		.byte	0x50
+ 2185 0018 9F       		.byte	0x9f
+ 2186 0019 00000000 		.4byte	0
+ 2187 001d 00000000 		.4byte	0
+ 2188              	.LLST1:
+ 2189 0021 04000000 		.4byte	.LVL1
+ 2190 0025 06000000 		.4byte	.LVL2
+ 2191 0029 0200     		.2byte	0x2
+ 2192 002b 30       		.byte	0x30
+ 2193 002c 9F       		.byte	0x9f
+ 2194 002d 06000000 		.4byte	.LVL2
+ 2195 0031 22000000 		.4byte	.LVL4
+ 2196 0035 0100     		.2byte	0x1
+ 2197 0037 54       		.byte	0x54
+ 2198 0038 28000000 		.4byte	.LVL5
+ 2199 003c 62010000 		.4byte	.LVL37
+ 2200 0040 0200     		.2byte	0x2
+ 2201 0042 30       		.byte	0x30
+ 2202 0043 9F       		.byte	0x9f
+ 2203 0044 62010000 		.4byte	.LVL37
+ 2204 0048 6A010000 		.4byte	.LVL38
+ 2205 004c 0100     		.2byte	0x1
+ 2206 004e 54       		.byte	0x54
+ 2207 004f 6A010000 		.4byte	.LVL38
+ 2208 0053 78010000 		.4byte	.LVL40
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 44
+
+
+ 2209 0057 0100     		.2byte	0x1
+ 2210 0059 55       		.byte	0x55
+ 2211 005a 78010000 		.4byte	.LVL40
+ 2212 005e E4010000 		.4byte	.LFE69
+ 2213 0062 0100     		.2byte	0x1
+ 2214 0064 54       		.byte	0x54
+ 2215 0065 00000000 		.4byte	0
+ 2216 0069 00000000 		.4byte	0
+ 2217              	.LLST2:
+ 2218 006d 0A000000 		.4byte	.LVL3
+ 2219 0071 2C000000 		.4byte	.LVL6
+ 2220 0075 0100     		.2byte	0x1
+ 2221 0077 50       		.byte	0x50
+ 2222 0078 62010000 		.4byte	.LVL37
+ 2223 007c 75010000 		.4byte	.LVL39-1
+ 2224 0080 0100     		.2byte	0x1
+ 2225 0082 50       		.byte	0x50
+ 2226 0083 00000000 		.4byte	0
+ 2227 0087 00000000 		.4byte	0
+ 2228              	.LLST3:
+ 2229 008b 3E000000 		.4byte	.LVL8
+ 2230 008f 58000000 		.4byte	.LVL11
+ 2231 0093 0100     		.2byte	0x1
+ 2232 0095 54       		.byte	0x54
+ 2233 0096 5A000000 		.4byte	.LVL12
+ 2234 009a 66000000 		.4byte	.LVL14
+ 2235 009e 0100     		.2byte	0x1
+ 2236 00a0 54       		.byte	0x54
+ 2237 00a1 00000000 		.4byte	0
+ 2238 00a5 00000000 		.4byte	0
+ 2239              	.LLST4:
+ 2240 00a9 00000000 		.4byte	.LVL42
+ 2241 00ad 02000000 		.4byte	.LVL43
+ 2242 00b1 0100     		.2byte	0x1
+ 2243 00b3 50       		.byte	0x50
+ 2244 00b4 02000000 		.4byte	.LVL43
+ 2245 00b8 34000000 		.4byte	.LFE71
+ 2246 00bc 0400     		.2byte	0x4
+ 2247 00be F3       		.byte	0xf3
+ 2248 00bf 01       		.uleb128 0x1
+ 2249 00c0 50       		.byte	0x50
+ 2250 00c1 9F       		.byte	0x9f
+ 2251 00c2 00000000 		.4byte	0
+ 2252 00c6 00000000 		.4byte	0
+ 2253              	.LLST5:
+ 2254 00ca 00000000 		.4byte	.LVL46
+ 2255 00ce 04000000 		.4byte	.LVL47
+ 2256 00d2 0100     		.2byte	0x1
+ 2257 00d4 50       		.byte	0x50
+ 2258 00d5 04000000 		.4byte	.LVL47
+ 2259 00d9 80000000 		.4byte	.LFE70
+ 2260 00dd 0400     		.2byte	0x4
+ 2261 00df F3       		.byte	0xf3
+ 2262 00e0 01       		.uleb128 0x1
+ 2263 00e1 50       		.byte	0x50
+ 2264 00e2 9F       		.byte	0x9f
+ 2265 00e3 00000000 		.4byte	0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 45
+
+
+ 2266 00e7 00000000 		.4byte	0
+ 2267              		.section	.debug_aranges,"",%progbits
+ 2268 0000 34000000 		.4byte	0x34
+ 2269 0004 0200     		.2byte	0x2
+ 2270 0006 00000000 		.4byte	.Ldebug_info0
+ 2271 000a 04       		.byte	0x4
+ 2272 000b 00       		.byte	0
+ 2273 000c 0000     		.2byte	0
+ 2274 000e 0000     		.2byte	0
+ 2275 0010 00000000 		.4byte	.LFB69
+ 2276 0014 E4010000 		.4byte	.LFE69-.LFB69
+ 2277 0018 00000000 		.4byte	.LFB71
+ 2278 001c 34000000 		.4byte	.LFE71-.LFB71
+ 2279 0020 00000000 		.4byte	.LFB70
+ 2280 0024 80000000 		.4byte	.LFE70-.LFB70
+ 2281 0028 00000000 		.4byte	.LFB72
+ 2282 002c A8000000 		.4byte	.LFE72-.LFB72
+ 2283 0030 00000000 		.4byte	0
+ 2284 0034 00000000 		.4byte	0
+ 2285              		.section	.debug_ranges,"",%progbits
+ 2286              	.Ldebug_ranges0:
+ 2287 0000 3E000000 		.4byte	.LBB3
+ 2288 0004 58000000 		.4byte	.LBE3
+ 2289 0008 5A000000 		.4byte	.LBB4
+ 2290 000c 5E000000 		.4byte	.LBE4
+ 2291 0010 00000000 		.4byte	0
+ 2292 0014 00000000 		.4byte	0
+ 2293 0018 00000000 		.4byte	.LFB69
+ 2294 001c E4010000 		.4byte	.LFE69
+ 2295 0020 00000000 		.4byte	.LFB71
+ 2296 0024 34000000 		.4byte	.LFE71
+ 2297 0028 00000000 		.4byte	.LFB70
+ 2298 002c 80000000 		.4byte	.LFE70
+ 2299 0030 00000000 		.4byte	.LFB72
+ 2300 0034 A8000000 		.4byte	.LFE72
+ 2301 0038 00000000 		.4byte	0
+ 2302 003c 00000000 		.4byte	0
+ 2303              		.section	.debug_line,"",%progbits
+ 2304              	.Ldebug_line0:
+ 2305 0000 30030000 		.section	.debug_str,"MS",%progbits,1
+ 2305      02004402 
+ 2305      00000201 
+ 2305      FB0E0D00 
+ 2305      01010101 
+ 2306              	.LASF4:
+ 2307 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 2307      6E74385F 
+ 2307      7400
+ 2308              	.LASF21:
+ 2309 000a 5469636B 		.ascii	"TickType_t\000"
+ 2309      54797065 
+ 2309      5F7400
+ 2310              	.LASF55:
+ 2311 0015 433A5C49 		.ascii	"C:\\IIITB\\Summer Term\\Summer Term\\freertos_test\\"
+ 2311      49495442 
+ 2311      5C53756D 
+ 2311      6D657220 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 46
+
+
+ 2311      5465726D 
+ 2312 0044 30303543 		.ascii	"005Counting_Semaphore.cydsn\000"
+ 2312      6F756E74 
+ 2312      696E675F 
+ 2312      53656D61 
+ 2312      70686F72 
+ 2313              	.LASF5:
+ 2314 0060 5F5F696E 		.ascii	"__int32_t\000"
+ 2314      7433325F 
+ 2314      7400
+ 2315              	.LASF50:
+ 2316 006a 78517565 		.ascii	"xQueueCreateCountingSemaphore\000"
+ 2316      75654372 
+ 2316      65617465 
+ 2316      436F756E 
+ 2316      74696E67 
+ 2317              	.LASF28:
+ 2318 0088 6175746F 		.ascii	"auto_event_task\000"
+ 2318      5F657665 
+ 2318      6E745F74 
+ 2318      61736B00 
+ 2319              	.LASF35:
+ 2320 0098 6175746F 		.ascii	"auto_event_count\000"
+ 2320      5F657665 
+ 2320      6E745F63 
+ 2320      6F756E74 
+ 2320      00
+ 2321              	.LASF3:
+ 2322 00a9 73686F72 		.ascii	"short unsigned int\000"
+ 2322      7420756E 
+ 2322      7369676E 
+ 2322      65642069 
+ 2322      6E7400
+ 2323              	.LASF22:
+ 2324 00bc 51756575 		.ascii	"QueueHandle_t\000"
+ 2324      6548616E 
+ 2324      646C655F 
+ 2324      7400
+ 2325              	.LASF52:
+ 2326 00ca 76546173 		.ascii	"vTaskStartScheduler\000"
+ 2326      6B537461 
+ 2326      72745363 
+ 2326      68656475 
+ 2326      6C657200 
+ 2327              	.LASF27:
+ 2328 00de 75617274 		.ascii	"uart_input_task\000"
+ 2328      5F696E70 
+ 2328      75745F74 
+ 2328      61736B00 
+ 2329              	.LASF38:
+ 2330 00ee 6C65645F 		.ascii	"led_Read\000"
+ 2330      52656164 
+ 2330      00
+ 2331              	.LASF26:
+ 2332 00f7 73746174 		.ascii	"status\000"
+ 2332      757300
+ 2333              	.LASF43:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 47
+
+
+ 2334 00fe 6C65645F 		.ascii	"led_Write\000"
+ 2334      57726974 
+ 2334      6500
+ 2335              	.LASF18:
+ 2336 0108 666C6F61 		.ascii	"float\000"
+ 2336      7400
+ 2337              	.LASF49:
+ 2338 010e 55415254 		.ascii	"UART_ClearTxBuffer\000"
+ 2338      5F436C65 
+ 2338      61725478 
+ 2338      42756666 
+ 2338      657200
+ 2339              	.LASF53:
+ 2340 0121 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 2340      43313120 
+ 2340      352E342E 
+ 2340      31203230 
+ 2340      31363036 
+ 2341 0154 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 2341      20726576 
+ 2341      6973696F 
+ 2341      6E203233 
+ 2341      37373135 
+ 2342 0187 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 2342      66756E63 
+ 2342      74696F6E 
+ 2342      2D736563 
+ 2342      74696F6E 
+ 2343              	.LASF7:
+ 2344 01af 5F5F7569 		.ascii	"__uint32_t\000"
+ 2344      6E743332 
+ 2344      5F7400
+ 2345              	.LASF8:
+ 2346 01ba 6C6F6E67 		.ascii	"long unsigned int\000"
+ 2346      20756E73 
+ 2346      69676E65 
+ 2346      6420696E 
+ 2346      7400
+ 2347              	.LASF48:
+ 2348 01cc 55415254 		.ascii	"UART_Start\000"
+ 2348      5F537461 
+ 2348      727400
+ 2349              	.LASF32:
+ 2350 01d7 6C65645F 		.ascii	"led_enabled\000"
+ 2350      656E6162 
+ 2350      6C656400 
+ 2351              	.LASF42:
+ 2352 01e3 73747263 		.ascii	"strcasecmp\000"
+ 2352      61736563 
+ 2352      6D7000
+ 2353              	.LASF1:
+ 2354 01ee 756E7369 		.ascii	"unsigned char\000"
+ 2354      676E6564 
+ 2354      20636861 
+ 2354      7200
+ 2355              	.LASF19:
+ 2356 01fc 646F7562 		.ascii	"double\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 48
+
+
+ 2356      6C6500
+ 2357              	.LASF23:
+ 2358 0203 53656D61 		.ascii	"SemaphoreHandle_t\000"
+ 2358      70686F72 
+ 2358      6548616E 
+ 2358      646C655F 
+ 2358      7400
+ 2359              	.LASF2:
+ 2360 0215 73686F72 		.ascii	"short int\000"
+ 2360      7420696E 
+ 2360      7400
+ 2361              	.LASF30:
+ 2362 021f 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 2362      52784275 
+ 2362      66666572 
+ 2362      00
+ 2363              	.LASF56:
+ 2364 022c 51756575 		.ascii	"QueueDefinition\000"
+ 2364      65446566 
+ 2364      696E6974 
+ 2364      696F6E00 
+ 2365              	.LASF11:
+ 2366 023c 756E7369 		.ascii	"unsigned int\000"
+ 2366      676E6564 
+ 2366      20696E74 
+ 2366      00
+ 2367              	.LASF29:
+ 2368 0249 6C65645F 		.ascii	"led_task\000"
+ 2368      7461736B 
+ 2368      00
+ 2369              	.LASF10:
+ 2370 0252 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 2370      206C6F6E 
+ 2370      6720756E 
+ 2370      7369676E 
+ 2370      65642069 
+ 2371              	.LASF15:
+ 2372 0269 75696E74 		.ascii	"uint8_t\000"
+ 2372      385F7400 
+ 2373              	.LASF47:
+ 2374 0271 46726565 		.ascii	"FreeRTOS_Start\000"
+ 2374      52544F53 
+ 2374      5F537461 
+ 2374      727400
+ 2375              	.LASF39:
+ 2376 0280 73707269 		.ascii	"sprintf\000"
+ 2376      6E746600 
+ 2377              	.LASF57:
+ 2378 0288 6D61696E 		.ascii	"main\000"
+ 2378      00
+ 2379              	.LASF16:
+ 2380 028d 696E7433 		.ascii	"int32_t\000"
+ 2380      325F7400 
+ 2381              	.LASF44:
+ 2382 0295 55415254 		.ascii	"UART_PutChar\000"
+ 2382      5F507574 
+ 2382      43686172 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 49
+
+
+ 2382      00
+ 2383              	.LASF13:
+ 2384 02a2 73697A65 		.ascii	"sizetype\000"
+ 2384      74797065 
+ 2384      00
+ 2385              	.LASF9:
+ 2386 02ab 6C6F6E67 		.ascii	"long long int\000"
+ 2386      206C6F6E 
+ 2386      6720696E 
+ 2386      7400
+ 2387              	.LASF36:
+ 2388 02b9 746F7461 		.ascii	"total_events_handled\000"
+ 2388      6C5F6576 
+ 2388      656E7473 
+ 2388      5F68616E 
+ 2388      646C6564 
+ 2389              	.LASF54:
+ 2390 02ce 6D61696E 		.ascii	"main.c\000"
+ 2390      2E6300
+ 2391              	.LASF14:
+ 2392 02d5 63686172 		.ascii	"char\000"
+ 2392      00
+ 2393              	.LASF25:
+ 2394 02da 696E6465 		.ascii	"index\000"
+ 2394      7800
+ 2395              	.LASF41:
+ 2396 02e0 55415254 		.ascii	"UART_GetChar\000"
+ 2396      5F476574 
+ 2396      43686172 
+ 2396      00
+ 2397              	.LASF37:
+ 2398 02ed 78517565 		.ascii	"xQueueGenericSend\000"
+ 2398      75654765 
+ 2398      6E657269 
+ 2398      6353656E 
+ 2398      6400
+ 2399              	.LASF24:
+ 2400 02ff 62756666 		.ascii	"buffer\000"
+ 2400      657200
+ 2401              	.LASF34:
+ 2402 0306 6D616E75 		.ascii	"manual_event_count\000"
+ 2402      616C5F65 
+ 2402      76656E74 
+ 2402      5F636F75 
+ 2402      6E7400
+ 2403              	.LASF31:
+ 2404 0319 746F6767 		.ascii	"toggle_semaphore\000"
+ 2404      6C655F73 
+ 2404      656D6170 
+ 2404      686F7265 
+ 2404      00
+ 2405              	.LASF17:
+ 2406 032a 75696E74 		.ascii	"uint32_t\000"
+ 2406      33325F74 
+ 2406      00
+ 2407              	.LASF6:
+ 2408 0333 6C6F6E67 		.ascii	"long int\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\ccBxkHhd.s 			page 50
+
+
+ 2408      20696E74 
+ 2408      00
+ 2409              	.LASF45:
+ 2410 033c 76546173 		.ascii	"vTaskDelay\000"
+ 2410      6B44656C 
+ 2410      617900
+ 2411              	.LASF12:
+ 2412 0347 6C6F6E67 		.ascii	"long double\000"
+ 2412      20646F75 
+ 2412      626C6500 
+ 2413              	.LASF0:
+ 2414 0353 7369676E 		.ascii	"signed char\000"
+ 2414      65642063 
+ 2414      68617200 
+ 2415              	.LASF46:
+ 2416 035f 78517565 		.ascii	"xQueueSemaphoreTake\000"
+ 2416      75655365 
+ 2416      6D617068 
+ 2416      6F726554 
+ 2416      616B6500 
+ 2417              	.LASF33:
+ 2418 0373 6175746F 		.ascii	"auto_mode\000"
+ 2418      5F6D6F64 
+ 2418      6500
+ 2419              	.LASF40:
+ 2420 037d 55415254 		.ascii	"UART_PutString\000"
+ 2420      5F507574 
+ 2420      53747269 
+ 2420      6E6700
+ 2421              	.LASF20:
+ 2422 038c 42617365 		.ascii	"BaseType_t\000"
+ 2422      54797065 
+ 2422      5F7400
+ 2423              	.LASF51:
+ 2424 0397 78546173 		.ascii	"xTaskCreate\000"
+ 2424      6B437265 
+ 2424      61746500 
+ 2425              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

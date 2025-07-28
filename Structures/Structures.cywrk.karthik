@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWrkspcCustomData" version="4">
+<CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997 type_name="CyDesigner.Common.Base.CyCustomData" version="2">
+<userData>
+<dataGuid v="1b906a0f-a7b6-4e4d-a428-82f98b53cb35">
+<CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35 type_name="CyDesigner.Common.ProjMgmt.GUI.CyExplorerWindow+CyExplorerWindowState" version="3" SelectedTab="Source">
+<TreeKeys>
+<v>Source</v>
+<v>Components</v>
+<v>Output</v>
+</TreeKeys>
+<TreeStates>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="Structures\Struct_with_3_sensors">
+<ExpandedNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\TopDesign</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Pins</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Analog</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Clocks</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Interrupts</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\DMA</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\System</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Directives</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Flash Security</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\EEPROM</v>
+<v>Structures\Struct_with_3_sensors\Header Files</v>
+<v>Structures\Struct_with_3_sensors\Header Files\cyapicallbacks.h</v>
+<v>Structures\Struct_with_3_sensors\Source Files</v>
+<v>Structures\Struct_with_3_sensors\Source Files\main.c</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\TopDesign</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Pins</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Analog</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Clocks</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Interrupts</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\DMA</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\System</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Directives</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\Flash Security</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.cydwr\EEPROM</v>
+<v>Structures\Struct_with_3_sensors\Header Files</v>
+<v>Structures\Struct_with_3_sensors\Header Files\cyapicallbacks.h</v>
+<v>Structures\Struct_with_3_sensors\Source Files</v>
+<v>Structures\Struct_with_3_sensors\Source Files\main.c</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cy_boot</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\Em_EEPROM_Dynamic</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\UART</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\UART_IntClock</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cycodeshareexport.ld</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cycodeshareimport.ld</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cycodeshareimport.scat</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydevice.h</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydevice_trm.h</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydevicegnu.inc</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydevicegnu_trm.inc</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydeviceiar.inc</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydeviceiar_trm.inc</v>
+<v>Structures\Struct_with_3_sensors\Generated_Source\PSoC5\cydevicerv.inc</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\TopDesign</v>
+<v>Structures\Struct_with_3_sensors\TopDesign\TopDesign.cysch</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\TopDesign</v>
+<v>Structures\Struct_with_3_sensors\TopDesign\TopDesign.cysch</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\CortexM3</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_INT.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_IntClock.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_PM.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.elf</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.hex</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.map</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.gpdsc</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.rpt</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors_timing.html</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\CortexM3</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\Cm3Start.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cy_em_eeprom.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyBootAsmGnu.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyDmac.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyfitter_cfg.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyFlash.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CyLib.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cymetadata.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyPm.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\CySpc.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\cyutils.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\main.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_BOOT.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_INT.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_IntClock.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Listing Files\UART_PM.lst</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.elf</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.hex</v>
+<v>Structures\Struct_with_3_sensors\CortexM3\ARM_GCC_541\Debug\Struct_with_3_sensors.map</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.gpdsc</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors.rpt</v>
+<v>Structures\Struct_with_3_sensors\Struct_with_3_sensors_timing.html</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStates>
+<TreeKeysV2>
+<v>Datasheet</v>
+</TreeKeysV2>
+<TreeStatesV2>
+<CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237 type_name="CyDesigner.Common.Base.Controls.CyTreeViewState" version="1" SelectedNodeId="">
+<ExpandedNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\PSoC 5LP Architecture TRM</v>
+<v>Structures\Struct_with_3_sensors\CY8C58LP Family Datasheet</v>
+<v>Structures\Struct_with_3_sensors\System Reference Guides</v>
+<v>Structures\Struct_with_3_sensors\System Reference Guides\cy_boot_v6_0</v>
+<v>Structures\Struct_with_3_sensors\cy_pins_v2_20</v>
+<v>Structures\Struct_with_3_sensors\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>Structures\Struct_with_3_sensors\UART_v2_50.pdf</v>
+</ExpandedNodeIds>
+<VisibleNodeIds>
+<v>Structures</v>
+<v>Structures\Struct_with_3_sensors</v>
+<v>Structures\Struct_with_3_sensors\PSoC 5LP Architecture TRM</v>
+<v>Structures\Struct_with_3_sensors\CY8C58LP Family Datasheet</v>
+<v>Structures\Struct_with_3_sensors\System Reference Guides</v>
+<v>Structures\Struct_with_3_sensors\System Reference Guides\cy_boot_v6_0</v>
+<v>Structures\Struct_with_3_sensors\cy_pins_v2_20</v>
+<v>Structures\Struct_with_3_sensors\cy_pins_v2_20\cy_pins_v2_20.pdf</v>
+<v>Structures\Struct_with_3_sensors\UART_v2_50.pdf</v>
+</VisibleNodeIds>
+</CyGuid_2a325b3b-c96a-4e9f-b7a0-2c44ecb5f237>
+</TreeStatesV2>
+</CyGuid_1b906a0f-a7b6-4e4d-a428-82f98b53cb35>
+</dataGuid>
+<dataGuid v="5f2be1a5-0687-4501-bb8c-cf21cb8211bf">
+<CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf type_name="CyDesigner.Common.ProjMgmt.GUI.CyBookmarkData" version="1">
+<indicators />
+</CyGuid_5f2be1a5-0687-4501-bb8c-cf21cb8211bf>
+</dataGuid>
+</userData>
+</CyGuid_fdba8dfd-b15b-4469-9bbb-9e40c3e70997>
+<Unloaded />
+<OpenDocs>
+<name v=".\Struct_with_3_sensors.cydsn\TopDesign\TopDesign.cysch" />
+<name v=".\Struct_with_3_sensors.cydsn\Struct_with_3_sensors.cydwr" />
+<name v=".\Struct_with_3_sensors.cydsn\main.c" />
+</OpenDocs>
+<OpenDocsLayout><![CDATA[<?xml version="1.0"?><!--
+
+  Actipro Docking/MDI for WinForms
+  Copyright (c) 2001-2016 Actipro Software LLC.  All rights reserved.
+  http://www.actiprosoftware.com
+
+--><DocumentLayout Version="1.0"><LayoutData><TabbedMdiRootContainer Orientation="Horizontal"><TabbedMdiContainer Size="858, 420" SelectedTabbedMdiWindow="83b002b2-c3b3-4ff3-a390-53d443957699"><ToolWindow Key="Start Page:bd4649ab-da6b-4d04-a663-c722b8bf99db:Start Page" Guid="2fde3128-e02c-4229-9e42-8d99982c5118" /><DocumentWindow Key="C:\IIITB\Summer Term\Summer Term\Structures\Struct_with_3_sensors.cydsn\TopDesign\TopDesign.cysch" Guid="83b002b2-c3b3-4ff3-a390-53d443957699" /><DocumentWindow Key="C:\IIITB\Summer Term\Summer Term\Structures\Struct_with_3_sensors.cydsn\Struct_with_3_sensors.cydwr" Guid="2e4d5854-a1ab-413c-aba9-ba4d461c8705" /><DocumentWindow Key="C:\IIITB\Summer Term\Summer Term\Structures\Struct_with_3_sensors.cydsn\main.c" Guid="aef3a3f5-45ae-4766-b67b-83aa0c6de6e9" /></TabbedMdiContainer></TabbedMdiRootContainer><FloatingContainers /></LayoutData></DocumentLayout>]]></OpenDocsLayout>
+<config v="" />
+<AutoUpdate v="true" />
+</CyGuid_843a90a4-0c4b-4e44-991d-05e7fb117a21>
+</CyXmlSerializer>

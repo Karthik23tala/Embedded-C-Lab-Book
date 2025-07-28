@@ -1,0 +1,860 @@
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.main,"ax",%progbits
+  20              		.align	2
+  21              		.global	main
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	main, %function
+  25              	main:
+  26              	.LFB64:
+  27              		.file 1 "main.c"
+   1:main.c        **** #include <project.h>
+   2:main.c        **** #include <stdio.h>
+   3:main.c        **** 
+   4:main.c        **** typedef union {
+   5:main.c        ****     float f;
+   6:main.c        ****     uint8_t bytes[4];
+   7:main.c        **** } FloatUnion;
+   8:main.c        **** 
+   9:main.c        **** int main(void) {
+  28              		.loc 1 9 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 32
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 00B5     		push	{lr}
+  33              		.cfi_def_cfa_offset 4
+  34              		.cfi_offset 14, -4
+  35 0002 89B0     		sub	sp, sp, #36
+  36              		.cfi_def_cfa_offset 40
+  10:main.c        ****     CyGlobalIntEnable;
+  37              		.loc 1 10 0
+  38              		.syntax unified
+  39              	@ 10 "main.c" 1
+  40 0004 62B6     		CPSIE   i
+  41              	@ 0 "" 2
+  11:main.c        ****     UART_Start();
+  42              		.loc 1 11 0
+  43              		.thumb
+  44              		.syntax unified
+  45 0006 FFF7FEFF 		bl	UART_Start
+  46              	.LVL0:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 2
+
+
+  47              	.L2:
+  48              	.LBB2:
+  12:main.c        **** 
+  13:main.c        ****     FloatUnion sensorData;
+  14:main.c        ****     sensorData.f = 23.75f;
+  15:main.c        **** 
+  16:main.c        ****     char buffer[32];
+  17:main.c        **** 
+  18:main.c        ****     for (;;) {
+  19:main.c        ****         int intPart = (int)sensorData.f;
+  20:main.c        ****         int fracPart = (int)((sensorData.f - intPart) * 100);  // 2 decimal digits
+  21:main.c        **** 
+  22:main.c        ****         sprintf(buffer, "Float value: %d.%02d\r\n", intPart, fracPart);
+  49              		.loc 1 22 0 discriminator 1
+  50 000a 4B23     		movs	r3, #75
+  51 000c 1722     		movs	r2, #23
+  52 000e 0649     		ldr	r1, .L4
+  53 0010 6846     		mov	r0, sp
+  54 0012 FFF7FEFF 		bl	sprintf
+  55              	.LVL1:
+  23:main.c        ****         UART_PutString(buffer);
+  56              		.loc 1 23 0 discriminator 1
+  57 0016 6846     		mov	r0, sp
+  58 0018 FFF7FEFF 		bl	UART_PutString
+  59              	.LVL2:
+  24:main.c        **** 
+  25:main.c        ****         CyDelay(1000);
+  60              		.loc 1 25 0 discriminator 1
+  61 001c 4FF47A70 		mov	r0, #1000
+  62 0020 FFF7FEFF 		bl	CyDelay
+  63              	.LVL3:
+  64 0024 F1E7     		b	.L2
+  65              	.L5:
+  66 0026 00BF     		.align	2
+  67              	.L4:
+  68 0028 00000000 		.word	.LC0
+  69              	.LBE2:
+  70              		.cfi_endproc
+  71              	.LFE64:
+  72              		.size	main, .-main
+  73              		.section	.rodata.str1.4,"aMS",%progbits,1
+  74              		.align	2
+  75              	.LC0:
+  76 0000 466C6F61 		.ascii	"Float value: %d.%02d\015\012\000"
+  76      74207661 
+  76      6C75653A 
+  76      2025642E 
+  76      25303264 
+  77              		.text
+  78              	.Letext0:
+  79              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+  80              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+  81              		.file 4 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+  82              		.file 5 "Generated_Source\\PSoC5/UART.h"
+  83              		.file 6 "Generated_Source\\PSoC5/CyLib.h"
+  84              		.file 7 "Generated_Source\\PSoC5/core_cm3.h"
+  85              		.section	.debug_info,"",%progbits
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 3
+
+
+  86              	.Ldebug_info0:
+  87 0000 EB010000 		.4byte	0x1eb
+  88 0004 0400     		.2byte	0x4
+  89 0006 00000000 		.4byte	.Ldebug_abbrev0
+  90 000a 04       		.byte	0x4
+  91 000b 01       		.uleb128 0x1
+  92 000c 3C000000 		.4byte	.LASF27
+  93 0010 0C       		.byte	0xc
+  94 0011 AC010000 		.4byte	.LASF28
+  95 0015 0E010000 		.4byte	.LASF29
+  96 0019 00000000 		.4byte	.Ldebug_ranges0+0
+  97 001d 00000000 		.4byte	0
+  98 0021 00000000 		.4byte	.Ldebug_line0
+  99 0025 02       		.uleb128 0x2
+ 100 0026 01       		.byte	0x1
+ 101 0027 06       		.byte	0x6
+ 102 0028 22000000 		.4byte	.LASF0
+ 103 002c 03       		.uleb128 0x3
+ 104 002d 00000000 		.4byte	.LASF4
+ 105 0031 02       		.byte	0x2
+ 106 0032 1D       		.byte	0x1d
+ 107 0033 37000000 		.4byte	0x37
+ 108 0037 02       		.uleb128 0x2
+ 109 0038 01       		.byte	0x1
+ 110 0039 08       		.byte	0x8
+ 111 003a 2E000000 		.4byte	.LASF1
+ 112 003e 02       		.uleb128 0x2
+ 113 003f 02       		.byte	0x2
+ 114 0040 05       		.byte	0x5
+ 115 0041 C1010000 		.4byte	.LASF2
+ 116 0045 02       		.uleb128 0x2
+ 117 0046 02       		.byte	0x2
+ 118 0047 07       		.byte	0x7
+ 119 0048 DC000000 		.4byte	.LASF3
+ 120 004c 03       		.uleb128 0x3
+ 121 004d 0A000000 		.4byte	.LASF5
+ 122 0051 02       		.byte	0x2
+ 123 0052 3F       		.byte	0x3f
+ 124 0053 57000000 		.4byte	0x57
+ 125 0057 02       		.uleb128 0x2
+ 126 0058 04       		.byte	0x4
+ 127 0059 05       		.byte	0x5
+ 128 005a D2010000 		.4byte	.LASF6
+ 129 005e 02       		.uleb128 0x2
+ 130 005f 04       		.byte	0x4
+ 131 0060 07       		.byte	0x7
+ 132 0061 CA000000 		.4byte	.LASF7
+ 133 0065 02       		.uleb128 0x2
+ 134 0066 08       		.byte	0x8
+ 135 0067 05       		.byte	0x5
+ 136 0068 9E010000 		.4byte	.LASF8
+ 137 006c 02       		.uleb128 0x2
+ 138 006d 08       		.byte	0x8
+ 139 006e 07       		.byte	0x7
+ 140 006f 63010000 		.4byte	.LASF9
+ 141 0073 04       		.uleb128 0x4
+ 142 0074 04       		.byte	0x4
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 4
+
+
+ 143 0075 05       		.byte	0x5
+ 144 0076 696E7400 		.ascii	"int\000"
+ 145 007a 02       		.uleb128 0x2
+ 146 007b 04       		.byte	0x4
+ 147 007c 07       		.byte	0x7
+ 148 007d 56010000 		.4byte	.LASF10
+ 149 0081 03       		.uleb128 0x3
+ 150 0082 7A010000 		.4byte	.LASF11
+ 151 0086 03       		.byte	0x3
+ 152 0087 18       		.byte	0x18
+ 153 0088 2C000000 		.4byte	0x2c
+ 154 008c 03       		.uleb128 0x3
+ 155 008d 82010000 		.4byte	.LASF12
+ 156 0091 03       		.byte	0x3
+ 157 0092 2C       		.byte	0x2c
+ 158 0093 4C000000 		.4byte	0x4c
+ 159 0097 02       		.uleb128 0x2
+ 160 0098 04       		.byte	0x4
+ 161 0099 04       		.byte	0x4
+ 162 009a 1C000000 		.4byte	.LASF13
+ 163 009e 02       		.uleb128 0x2
+ 164 009f 08       		.byte	0x8
+ 165 00a0 04       		.byte	0x4
+ 166 00a1 07010000 		.4byte	.LASF14
+ 167 00a5 02       		.uleb128 0x2
+ 168 00a6 01       		.byte	0x1
+ 169 00a7 08       		.byte	0x8
+ 170 00a8 B3010000 		.4byte	.LASF15
+ 171 00ac 02       		.uleb128 0x2
+ 172 00ad 08       		.byte	0x8
+ 173 00ae 04       		.byte	0x4
+ 174 00af E1010000 		.4byte	.LASF16
+ 175 00b3 02       		.uleb128 0x2
+ 176 00b4 04       		.byte	0x4
+ 177 00b5 07       		.byte	0x7
+ 178 00b6 8A010000 		.4byte	.LASF17
+ 179 00ba 05       		.uleb128 0x5
+ 180 00bb 04       		.byte	0x4
+ 181 00bc 01       		.byte	0x1
+ 182 00bd 04       		.byte	0x4
+ 183 00be D7000000 		.4byte	0xd7
+ 184 00c2 06       		.uleb128 0x6
+ 185 00c3 6600     		.ascii	"f\000"
+ 186 00c5 01       		.byte	0x1
+ 187 00c6 05       		.byte	0x5
+ 188 00c7 97000000 		.4byte	0x97
+ 189 00cb 07       		.uleb128 0x7
+ 190 00cc DB010000 		.4byte	.LASF18
+ 191 00d0 01       		.byte	0x1
+ 192 00d1 06       		.byte	0x6
+ 193 00d2 D7000000 		.4byte	0xd7
+ 194 00d6 00       		.byte	0
+ 195 00d7 08       		.uleb128 0x8
+ 196 00d8 81000000 		.4byte	0x81
+ 197 00dc E7000000 		.4byte	0xe7
+ 198 00e0 09       		.uleb128 0x9
+ 199 00e1 B3000000 		.4byte	0xb3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 5
+
+
+ 200 00e5 03       		.byte	0x3
+ 201 00e6 00       		.byte	0
+ 202 00e7 03       		.uleb128 0x3
+ 203 00e8 93010000 		.4byte	.LASF19
+ 204 00ec 01       		.byte	0x1
+ 205 00ed 07       		.byte	0x7
+ 206 00ee BA000000 		.4byte	0xba
+ 207 00f2 0A       		.uleb128 0xa
+ 208 00f3 51010000 		.4byte	.LASF30
+ 209 00f7 01       		.byte	0x1
+ 210 00f8 09       		.byte	0x9
+ 211 00f9 73000000 		.4byte	0x73
+ 212 00fd 00000000 		.4byte	.LFB64
+ 213 0101 2C000000 		.4byte	.LFE64-.LFB64
+ 214 0105 01       		.uleb128 0x1
+ 215 0106 9C       		.byte	0x9c
+ 216 0107 A1010000 		.4byte	0x1a1
+ 217 010b 0B       		.uleb128 0xb
+ 218 010c ED010000 		.4byte	.LASF31
+ 219 0110 01       		.byte	0x1
+ 220 0111 0D       		.byte	0xd
+ 221 0112 E7000000 		.4byte	0xe7
+ 222 0116 0C       		.uleb128 0xc
+ 223 0117 CB010000 		.4byte	.LASF20
+ 224 011b 01       		.byte	0x1
+ 225 011c 10       		.byte	0x10
+ 226 011d A1010000 		.4byte	0x1a1
+ 227 0121 02       		.uleb128 0x2
+ 228 0122 91       		.byte	0x91
+ 229 0123 58       		.sleb128 -40
+ 230 0124 0D       		.uleb128 0xd
+ 231 0125 0A000000 		.4byte	.LBB2
+ 232 0129 22000000 		.4byte	.LBE2-.LBB2
+ 233 012d 97010000 		.4byte	0x197
+ 234 0131 0E       		.uleb128 0xe
+ 235 0132 14000000 		.4byte	.LASF21
+ 236 0136 01       		.byte	0x1
+ 237 0137 13       		.byte	0x13
+ 238 0138 73000000 		.4byte	0x73
+ 239 013c 17       		.byte	0x17
+ 240 013d 0E       		.uleb128 0xe
+ 241 013e B8010000 		.4byte	.LASF22
+ 242 0142 01       		.byte	0x1
+ 243 0143 14       		.byte	0x14
+ 244 0144 73000000 		.4byte	0x73
+ 245 0148 4B       		.byte	0x4b
+ 246 0149 0F       		.uleb128 0xf
+ 247 014a 16000000 		.4byte	.LVL1
+ 248 014e C2010000 		.4byte	0x1c2
+ 249 0152 71010000 		.4byte	0x171
+ 250 0156 10       		.uleb128 0x10
+ 251 0157 01       		.uleb128 0x1
+ 252 0158 50       		.byte	0x50
+ 253 0159 02       		.uleb128 0x2
+ 254 015a 7D       		.byte	0x7d
+ 255 015b 00       		.sleb128 0
+ 256 015c 10       		.uleb128 0x10
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 6
+
+
+ 257 015d 01       		.uleb128 0x1
+ 258 015e 51       		.byte	0x51
+ 259 015f 05       		.uleb128 0x5
+ 260 0160 03       		.byte	0x3
+ 261 0161 00000000 		.4byte	.LC0
+ 262 0165 10       		.uleb128 0x10
+ 263 0166 01       		.uleb128 0x1
+ 264 0167 52       		.byte	0x52
+ 265 0168 01       		.uleb128 0x1
+ 266 0169 47       		.byte	0x47
+ 267 016a 10       		.uleb128 0x10
+ 268 016b 01       		.uleb128 0x1
+ 269 016c 53       		.byte	0x53
+ 270 016d 02       		.uleb128 0x2
+ 271 016e 08       		.byte	0x8
+ 272 016f 4B       		.byte	0x4b
+ 273 0170 00       		.byte	0
+ 274 0171 0F       		.uleb128 0xf
+ 275 0172 1C000000 		.4byte	.LVL2
+ 276 0176 CD010000 		.4byte	0x1cd
+ 277 017a 85010000 		.4byte	0x185
+ 278 017e 10       		.uleb128 0x10
+ 279 017f 01       		.uleb128 0x1
+ 280 0180 50       		.byte	0x50
+ 281 0181 02       		.uleb128 0x2
+ 282 0182 7D       		.byte	0x7d
+ 283 0183 00       		.sleb128 0
+ 284 0184 00       		.byte	0
+ 285 0185 11       		.uleb128 0x11
+ 286 0186 24000000 		.4byte	.LVL3
+ 287 018a D8010000 		.4byte	0x1d8
+ 288 018e 10       		.uleb128 0x10
+ 289 018f 01       		.uleb128 0x1
+ 290 0190 50       		.byte	0x50
+ 291 0191 03       		.uleb128 0x3
+ 292 0192 0A       		.byte	0xa
+ 293 0193 E803     		.2byte	0x3e8
+ 294 0195 00       		.byte	0
+ 295 0196 00       		.byte	0
+ 296 0197 12       		.uleb128 0x12
+ 297 0198 0A000000 		.4byte	.LVL0
+ 298 019c E3010000 		.4byte	0x1e3
+ 299 01a0 00       		.byte	0
+ 300 01a1 08       		.uleb128 0x8
+ 301 01a2 A5000000 		.4byte	0xa5
+ 302 01a6 B1010000 		.4byte	0x1b1
+ 303 01aa 09       		.uleb128 0x9
+ 304 01ab B3000000 		.4byte	0xb3
+ 305 01af 1F       		.byte	0x1f
+ 306 01b0 00       		.byte	0
+ 307 01b1 13       		.uleb128 0x13
+ 308 01b2 FA000000 		.4byte	.LASF32
+ 309 01b6 07       		.byte	0x7
+ 310 01b7 1207     		.2byte	0x712
+ 311 01b9 BD010000 		.4byte	0x1bd
+ 312 01bd 14       		.uleb128 0x14
+ 313 01be 8C000000 		.4byte	0x8c
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 7
+
+
+ 314 01c2 15       		.uleb128 0x15
+ 315 01c3 07020000 		.4byte	.LASF23
+ 316 01c7 07020000 		.4byte	.LASF23
+ 317 01cb 04       		.byte	0x4
+ 318 01cc E7       		.byte	0xe7
+ 319 01cd 15       		.uleb128 0x15
+ 320 01ce F8010000 		.4byte	.LASF24
+ 321 01d2 F8010000 		.4byte	.LASF24
+ 322 01d6 05       		.byte	0x5
+ 323 01d7 8B       		.byte	0x8b
+ 324 01d8 15       		.uleb128 0x15
+ 325 01d9 0F020000 		.4byte	.LASF25
+ 326 01dd 0F020000 		.4byte	.LASF25
+ 327 01e1 06       		.byte	0x6
+ 328 01e2 76       		.byte	0x76
+ 329 01e3 15       		.uleb128 0x15
+ 330 01e4 EF000000 		.4byte	.LASF26
+ 331 01e8 EF000000 		.4byte	.LASF26
+ 332 01ec 05       		.byte	0x5
+ 333 01ed 54       		.byte	0x54
+ 334 01ee 00       		.byte	0
+ 335              		.section	.debug_abbrev,"",%progbits
+ 336              	.Ldebug_abbrev0:
+ 337 0000 01       		.uleb128 0x1
+ 338 0001 11       		.uleb128 0x11
+ 339 0002 01       		.byte	0x1
+ 340 0003 25       		.uleb128 0x25
+ 341 0004 0E       		.uleb128 0xe
+ 342 0005 13       		.uleb128 0x13
+ 343 0006 0B       		.uleb128 0xb
+ 344 0007 03       		.uleb128 0x3
+ 345 0008 0E       		.uleb128 0xe
+ 346 0009 1B       		.uleb128 0x1b
+ 347 000a 0E       		.uleb128 0xe
+ 348 000b 55       		.uleb128 0x55
+ 349 000c 17       		.uleb128 0x17
+ 350 000d 11       		.uleb128 0x11
+ 351 000e 01       		.uleb128 0x1
+ 352 000f 10       		.uleb128 0x10
+ 353 0010 17       		.uleb128 0x17
+ 354 0011 00       		.byte	0
+ 355 0012 00       		.byte	0
+ 356 0013 02       		.uleb128 0x2
+ 357 0014 24       		.uleb128 0x24
+ 358 0015 00       		.byte	0
+ 359 0016 0B       		.uleb128 0xb
+ 360 0017 0B       		.uleb128 0xb
+ 361 0018 3E       		.uleb128 0x3e
+ 362 0019 0B       		.uleb128 0xb
+ 363 001a 03       		.uleb128 0x3
+ 364 001b 0E       		.uleb128 0xe
+ 365 001c 00       		.byte	0
+ 366 001d 00       		.byte	0
+ 367 001e 03       		.uleb128 0x3
+ 368 001f 16       		.uleb128 0x16
+ 369 0020 00       		.byte	0
+ 370 0021 03       		.uleb128 0x3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 8
+
+
+ 371 0022 0E       		.uleb128 0xe
+ 372 0023 3A       		.uleb128 0x3a
+ 373 0024 0B       		.uleb128 0xb
+ 374 0025 3B       		.uleb128 0x3b
+ 375 0026 0B       		.uleb128 0xb
+ 376 0027 49       		.uleb128 0x49
+ 377 0028 13       		.uleb128 0x13
+ 378 0029 00       		.byte	0
+ 379 002a 00       		.byte	0
+ 380 002b 04       		.uleb128 0x4
+ 381 002c 24       		.uleb128 0x24
+ 382 002d 00       		.byte	0
+ 383 002e 0B       		.uleb128 0xb
+ 384 002f 0B       		.uleb128 0xb
+ 385 0030 3E       		.uleb128 0x3e
+ 386 0031 0B       		.uleb128 0xb
+ 387 0032 03       		.uleb128 0x3
+ 388 0033 08       		.uleb128 0x8
+ 389 0034 00       		.byte	0
+ 390 0035 00       		.byte	0
+ 391 0036 05       		.uleb128 0x5
+ 392 0037 17       		.uleb128 0x17
+ 393 0038 01       		.byte	0x1
+ 394 0039 0B       		.uleb128 0xb
+ 395 003a 0B       		.uleb128 0xb
+ 396 003b 3A       		.uleb128 0x3a
+ 397 003c 0B       		.uleb128 0xb
+ 398 003d 3B       		.uleb128 0x3b
+ 399 003e 0B       		.uleb128 0xb
+ 400 003f 01       		.uleb128 0x1
+ 401 0040 13       		.uleb128 0x13
+ 402 0041 00       		.byte	0
+ 403 0042 00       		.byte	0
+ 404 0043 06       		.uleb128 0x6
+ 405 0044 0D       		.uleb128 0xd
+ 406 0045 00       		.byte	0
+ 407 0046 03       		.uleb128 0x3
+ 408 0047 08       		.uleb128 0x8
+ 409 0048 3A       		.uleb128 0x3a
+ 410 0049 0B       		.uleb128 0xb
+ 411 004a 3B       		.uleb128 0x3b
+ 412 004b 0B       		.uleb128 0xb
+ 413 004c 49       		.uleb128 0x49
+ 414 004d 13       		.uleb128 0x13
+ 415 004e 00       		.byte	0
+ 416 004f 00       		.byte	0
+ 417 0050 07       		.uleb128 0x7
+ 418 0051 0D       		.uleb128 0xd
+ 419 0052 00       		.byte	0
+ 420 0053 03       		.uleb128 0x3
+ 421 0054 0E       		.uleb128 0xe
+ 422 0055 3A       		.uleb128 0x3a
+ 423 0056 0B       		.uleb128 0xb
+ 424 0057 3B       		.uleb128 0x3b
+ 425 0058 0B       		.uleb128 0xb
+ 426 0059 49       		.uleb128 0x49
+ 427 005a 13       		.uleb128 0x13
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 9
+
+
+ 428 005b 00       		.byte	0
+ 429 005c 00       		.byte	0
+ 430 005d 08       		.uleb128 0x8
+ 431 005e 01       		.uleb128 0x1
+ 432 005f 01       		.byte	0x1
+ 433 0060 49       		.uleb128 0x49
+ 434 0061 13       		.uleb128 0x13
+ 435 0062 01       		.uleb128 0x1
+ 436 0063 13       		.uleb128 0x13
+ 437 0064 00       		.byte	0
+ 438 0065 00       		.byte	0
+ 439 0066 09       		.uleb128 0x9
+ 440 0067 21       		.uleb128 0x21
+ 441 0068 00       		.byte	0
+ 442 0069 49       		.uleb128 0x49
+ 443 006a 13       		.uleb128 0x13
+ 444 006b 2F       		.uleb128 0x2f
+ 445 006c 0B       		.uleb128 0xb
+ 446 006d 00       		.byte	0
+ 447 006e 00       		.byte	0
+ 448 006f 0A       		.uleb128 0xa
+ 449 0070 2E       		.uleb128 0x2e
+ 450 0071 01       		.byte	0x1
+ 451 0072 3F       		.uleb128 0x3f
+ 452 0073 19       		.uleb128 0x19
+ 453 0074 03       		.uleb128 0x3
+ 454 0075 0E       		.uleb128 0xe
+ 455 0076 3A       		.uleb128 0x3a
+ 456 0077 0B       		.uleb128 0xb
+ 457 0078 3B       		.uleb128 0x3b
+ 458 0079 0B       		.uleb128 0xb
+ 459 007a 27       		.uleb128 0x27
+ 460 007b 19       		.uleb128 0x19
+ 461 007c 49       		.uleb128 0x49
+ 462 007d 13       		.uleb128 0x13
+ 463 007e 8701     		.uleb128 0x87
+ 464 0080 19       		.uleb128 0x19
+ 465 0081 11       		.uleb128 0x11
+ 466 0082 01       		.uleb128 0x1
+ 467 0083 12       		.uleb128 0x12
+ 468 0084 06       		.uleb128 0x6
+ 469 0085 40       		.uleb128 0x40
+ 470 0086 18       		.uleb128 0x18
+ 471 0087 9742     		.uleb128 0x2117
+ 472 0089 19       		.uleb128 0x19
+ 473 008a 01       		.uleb128 0x1
+ 474 008b 13       		.uleb128 0x13
+ 475 008c 00       		.byte	0
+ 476 008d 00       		.byte	0
+ 477 008e 0B       		.uleb128 0xb
+ 478 008f 34       		.uleb128 0x34
+ 479 0090 00       		.byte	0
+ 480 0091 03       		.uleb128 0x3
+ 481 0092 0E       		.uleb128 0xe
+ 482 0093 3A       		.uleb128 0x3a
+ 483 0094 0B       		.uleb128 0xb
+ 484 0095 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 10
+
+
+ 485 0096 0B       		.uleb128 0xb
+ 486 0097 49       		.uleb128 0x49
+ 487 0098 13       		.uleb128 0x13
+ 488 0099 00       		.byte	0
+ 489 009a 00       		.byte	0
+ 490 009b 0C       		.uleb128 0xc
+ 491 009c 34       		.uleb128 0x34
+ 492 009d 00       		.byte	0
+ 493 009e 03       		.uleb128 0x3
+ 494 009f 0E       		.uleb128 0xe
+ 495 00a0 3A       		.uleb128 0x3a
+ 496 00a1 0B       		.uleb128 0xb
+ 497 00a2 3B       		.uleb128 0x3b
+ 498 00a3 0B       		.uleb128 0xb
+ 499 00a4 49       		.uleb128 0x49
+ 500 00a5 13       		.uleb128 0x13
+ 501 00a6 02       		.uleb128 0x2
+ 502 00a7 18       		.uleb128 0x18
+ 503 00a8 00       		.byte	0
+ 504 00a9 00       		.byte	0
+ 505 00aa 0D       		.uleb128 0xd
+ 506 00ab 0B       		.uleb128 0xb
+ 507 00ac 01       		.byte	0x1
+ 508 00ad 11       		.uleb128 0x11
+ 509 00ae 01       		.uleb128 0x1
+ 510 00af 12       		.uleb128 0x12
+ 511 00b0 06       		.uleb128 0x6
+ 512 00b1 01       		.uleb128 0x1
+ 513 00b2 13       		.uleb128 0x13
+ 514 00b3 00       		.byte	0
+ 515 00b4 00       		.byte	0
+ 516 00b5 0E       		.uleb128 0xe
+ 517 00b6 34       		.uleb128 0x34
+ 518 00b7 00       		.byte	0
+ 519 00b8 03       		.uleb128 0x3
+ 520 00b9 0E       		.uleb128 0xe
+ 521 00ba 3A       		.uleb128 0x3a
+ 522 00bb 0B       		.uleb128 0xb
+ 523 00bc 3B       		.uleb128 0x3b
+ 524 00bd 0B       		.uleb128 0xb
+ 525 00be 49       		.uleb128 0x49
+ 526 00bf 13       		.uleb128 0x13
+ 527 00c0 1C       		.uleb128 0x1c
+ 528 00c1 0B       		.uleb128 0xb
+ 529 00c2 00       		.byte	0
+ 530 00c3 00       		.byte	0
+ 531 00c4 0F       		.uleb128 0xf
+ 532 00c5 898201   		.uleb128 0x4109
+ 533 00c8 01       		.byte	0x1
+ 534 00c9 11       		.uleb128 0x11
+ 535 00ca 01       		.uleb128 0x1
+ 536 00cb 31       		.uleb128 0x31
+ 537 00cc 13       		.uleb128 0x13
+ 538 00cd 01       		.uleb128 0x1
+ 539 00ce 13       		.uleb128 0x13
+ 540 00cf 00       		.byte	0
+ 541 00d0 00       		.byte	0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 11
+
+
+ 542 00d1 10       		.uleb128 0x10
+ 543 00d2 8A8201   		.uleb128 0x410a
+ 544 00d5 00       		.byte	0
+ 545 00d6 02       		.uleb128 0x2
+ 546 00d7 18       		.uleb128 0x18
+ 547 00d8 9142     		.uleb128 0x2111
+ 548 00da 18       		.uleb128 0x18
+ 549 00db 00       		.byte	0
+ 550 00dc 00       		.byte	0
+ 551 00dd 11       		.uleb128 0x11
+ 552 00de 898201   		.uleb128 0x4109
+ 553 00e1 01       		.byte	0x1
+ 554 00e2 11       		.uleb128 0x11
+ 555 00e3 01       		.uleb128 0x1
+ 556 00e4 31       		.uleb128 0x31
+ 557 00e5 13       		.uleb128 0x13
+ 558 00e6 00       		.byte	0
+ 559 00e7 00       		.byte	0
+ 560 00e8 12       		.uleb128 0x12
+ 561 00e9 898201   		.uleb128 0x4109
+ 562 00ec 00       		.byte	0
+ 563 00ed 11       		.uleb128 0x11
+ 564 00ee 01       		.uleb128 0x1
+ 565 00ef 31       		.uleb128 0x31
+ 566 00f0 13       		.uleb128 0x13
+ 567 00f1 00       		.byte	0
+ 568 00f2 00       		.byte	0
+ 569 00f3 13       		.uleb128 0x13
+ 570 00f4 34       		.uleb128 0x34
+ 571 00f5 00       		.byte	0
+ 572 00f6 03       		.uleb128 0x3
+ 573 00f7 0E       		.uleb128 0xe
+ 574 00f8 3A       		.uleb128 0x3a
+ 575 00f9 0B       		.uleb128 0xb
+ 576 00fa 3B       		.uleb128 0x3b
+ 577 00fb 05       		.uleb128 0x5
+ 578 00fc 49       		.uleb128 0x49
+ 579 00fd 13       		.uleb128 0x13
+ 580 00fe 3F       		.uleb128 0x3f
+ 581 00ff 19       		.uleb128 0x19
+ 582 0100 3C       		.uleb128 0x3c
+ 583 0101 19       		.uleb128 0x19
+ 584 0102 00       		.byte	0
+ 585 0103 00       		.byte	0
+ 586 0104 14       		.uleb128 0x14
+ 587 0105 35       		.uleb128 0x35
+ 588 0106 00       		.byte	0
+ 589 0107 49       		.uleb128 0x49
+ 590 0108 13       		.uleb128 0x13
+ 591 0109 00       		.byte	0
+ 592 010a 00       		.byte	0
+ 593 010b 15       		.uleb128 0x15
+ 594 010c 2E       		.uleb128 0x2e
+ 595 010d 00       		.byte	0
+ 596 010e 3F       		.uleb128 0x3f
+ 597 010f 19       		.uleb128 0x19
+ 598 0110 3C       		.uleb128 0x3c
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 12
+
+
+ 599 0111 19       		.uleb128 0x19
+ 600 0112 6E       		.uleb128 0x6e
+ 601 0113 0E       		.uleb128 0xe
+ 602 0114 03       		.uleb128 0x3
+ 603 0115 0E       		.uleb128 0xe
+ 604 0116 3A       		.uleb128 0x3a
+ 605 0117 0B       		.uleb128 0xb
+ 606 0118 3B       		.uleb128 0x3b
+ 607 0119 0B       		.uleb128 0xb
+ 608 011a 00       		.byte	0
+ 609 011b 00       		.byte	0
+ 610 011c 00       		.byte	0
+ 611              		.section	.debug_aranges,"",%progbits
+ 612 0000 1C000000 		.4byte	0x1c
+ 613 0004 0200     		.2byte	0x2
+ 614 0006 00000000 		.4byte	.Ldebug_info0
+ 615 000a 04       		.byte	0x4
+ 616 000b 00       		.byte	0
+ 617 000c 0000     		.2byte	0
+ 618 000e 0000     		.2byte	0
+ 619 0010 00000000 		.4byte	.LFB64
+ 620 0014 2C000000 		.4byte	.LFE64-.LFB64
+ 621 0018 00000000 		.4byte	0
+ 622 001c 00000000 		.4byte	0
+ 623              		.section	.debug_ranges,"",%progbits
+ 624              	.Ldebug_ranges0:
+ 625 0000 00000000 		.4byte	.LFB64
+ 626 0004 2C000000 		.4byte	.LFE64
+ 627 0008 00000000 		.4byte	0
+ 628 000c 00000000 		.4byte	0
+ 629              		.section	.debug_line,"",%progbits
+ 630              	.Ldebug_line0:
+ 631 0000 ED010000 		.section	.debug_str,"MS",%progbits,1
+ 631      0200C701 
+ 631      00000201 
+ 631      FB0E0D00 
+ 631      01010101 
+ 632              	.LASF4:
+ 633 0000 5F5F7569 		.ascii	"__uint8_t\000"
+ 633      6E74385F 
+ 633      7400
+ 634              	.LASF5:
+ 635 000a 5F5F696E 		.ascii	"__int32_t\000"
+ 635      7433325F 
+ 635      7400
+ 636              	.LASF21:
+ 637 0014 696E7450 		.ascii	"intPart\000"
+ 637      61727400 
+ 638              	.LASF13:
+ 639 001c 666C6F61 		.ascii	"float\000"
+ 639      7400
+ 640              	.LASF0:
+ 641 0022 7369676E 		.ascii	"signed char\000"
+ 641      65642063 
+ 641      68617200 
+ 642              	.LASF1:
+ 643 002e 756E7369 		.ascii	"unsigned char\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 13
+
+
+ 643      676E6564 
+ 643      20636861 
+ 643      7200
+ 644              	.LASF27:
+ 645 003c 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 645      43313120 
+ 645      352E342E 
+ 645      31203230 
+ 645      31363036 
+ 646 006f 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 646      20726576 
+ 646      6973696F 
+ 646      6E203233 
+ 646      37373135 
+ 647 00a2 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 647      66756E63 
+ 647      74696F6E 
+ 647      2D736563 
+ 647      74696F6E 
+ 648              	.LASF7:
+ 649 00ca 6C6F6E67 		.ascii	"long unsigned int\000"
+ 649      20756E73 
+ 649      69676E65 
+ 649      6420696E 
+ 649      7400
+ 650              	.LASF3:
+ 651 00dc 73686F72 		.ascii	"short unsigned int\000"
+ 651      7420756E 
+ 651      7369676E 
+ 651      65642069 
+ 651      6E7400
+ 652              	.LASF26:
+ 653 00ef 55415254 		.ascii	"UART_Start\000"
+ 653      5F537461 
+ 653      727400
+ 654              	.LASF32:
+ 655 00fa 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 655      52784275 
+ 655      66666572 
+ 655      00
+ 656              	.LASF14:
+ 657 0107 646F7562 		.ascii	"double\000"
+ 657      6C6500
+ 658              	.LASF29:
+ 659 010e 433A5C49 		.ascii	"C:\\IIITB\\Summer Term\\Summer Term\\Unions\\Unions"
+ 659      49495442 
+ 659      5C53756D 
+ 659      6D657220 
+ 659      5465726D 
+ 660 013c 5F446174 		.ascii	"_Data_Transfer.cydsn\000"
+ 660      615F5472 
+ 660      616E7366 
+ 660      65722E63 
+ 660      7964736E 
+ 661              	.LASF30:
+ 662 0151 6D61696E 		.ascii	"main\000"
+ 662      00
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 14
+
+
+ 663              	.LASF10:
+ 664 0156 756E7369 		.ascii	"unsigned int\000"
+ 664      676E6564 
+ 664      20696E74 
+ 664      00
+ 665              	.LASF9:
+ 666 0163 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 666      206C6F6E 
+ 666      6720756E 
+ 666      7369676E 
+ 666      65642069 
+ 667              	.LASF11:
+ 668 017a 75696E74 		.ascii	"uint8_t\000"
+ 668      385F7400 
+ 669              	.LASF12:
+ 670 0182 696E7433 		.ascii	"int32_t\000"
+ 670      325F7400 
+ 671              	.LASF17:
+ 672 018a 73697A65 		.ascii	"sizetype\000"
+ 672      74797065 
+ 672      00
+ 673              	.LASF19:
+ 674 0193 466C6F61 		.ascii	"FloatUnion\000"
+ 674      74556E69 
+ 674      6F6E00
+ 675              	.LASF8:
+ 676 019e 6C6F6E67 		.ascii	"long long int\000"
+ 676      206C6F6E 
+ 676      6720696E 
+ 676      7400
+ 677              	.LASF28:
+ 678 01ac 6D61696E 		.ascii	"main.c\000"
+ 678      2E6300
+ 679              	.LASF15:
+ 680 01b3 63686172 		.ascii	"char\000"
+ 680      00
+ 681              	.LASF22:
+ 682 01b8 66726163 		.ascii	"fracPart\000"
+ 682      50617274 
+ 682      00
+ 683              	.LASF2:
+ 684 01c1 73686F72 		.ascii	"short int\000"
+ 684      7420696E 
+ 684      7400
+ 685              	.LASF20:
+ 686 01cb 62756666 		.ascii	"buffer\000"
+ 686      657200
+ 687              	.LASF6:
+ 688 01d2 6C6F6E67 		.ascii	"long int\000"
+ 688      20696E74 
+ 688      00
+ 689              	.LASF18:
+ 690 01db 62797465 		.ascii	"bytes\000"
+ 690      7300
+ 691              	.LASF16:
+ 692 01e1 6C6F6E67 		.ascii	"long double\000"
+ 692      20646F75 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cc6wfLVL.s 			page 15
+
+
+ 692      626C6500 
+ 693              	.LASF31:
+ 694 01ed 73656E73 		.ascii	"sensorData\000"
+ 694      6F724461 
+ 694      746100
+ 695              	.LASF24:
+ 696 01f8 55415254 		.ascii	"UART_PutString\000"
+ 696      5F507574 
+ 696      53747269 
+ 696      6E6700
+ 697              	.LASF23:
+ 698 0207 73707269 		.ascii	"sprintf\000"
+ 698      6E746600 
+ 699              	.LASF25:
+ 700 020f 43794465 		.ascii	"CyDelay\000"
+ 700      6C617900 
+ 701              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

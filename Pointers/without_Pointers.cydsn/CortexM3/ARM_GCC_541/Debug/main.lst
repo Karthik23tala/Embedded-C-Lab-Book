@@ -1,0 +1,1431 @@
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.syntax unified
+  15              		.file	"main.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.addNumbers,"ax",%progbits
+  20              		.align	2
+  21              		.global	addNumbers
+  22              		.thumb
+  23              		.thumb_func
+  24              		.type	addNumbers, %function
+  25              	addNumbers:
+  26              	.LFB64:
+  27              		.file 1 "main.c"
+   1:main.c        **** #include <project.h>
+   2:main.c        **** #include <stdio.h>
+   3:main.c        **** 
+   4:main.c        **** int addNumbers(int a, int b) {
+  28              		.loc 1 4 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33              	.LVL0:
+   5:main.c        ****     return a + b;
+   6:main.c        **** }
+  34              		.loc 1 6 0
+  35 0000 0844     		add	r0, r0, r1
+  36              	.LVL1:
+  37 0002 7047     		bx	lr
+  38              		.cfi_endproc
+  39              	.LFE64:
+  40              		.size	addNumbers, .-addNumbers
+  41              		.section	.text.UART_ReadLine,"ax",%progbits
+  42              		.align	2
+  43              		.global	UART_ReadLine
+  44              		.thumb
+  45              		.thumb_func
+  46              		.type	UART_ReadLine, %function
+  47              	UART_ReadLine:
+  48              	.LFB65:
+   7:main.c        **** 
+   8:main.c        **** void UART_ReadLine(char *buffer, int maxSize) {
+  49              		.loc 1 8 0
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 2
+
+
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              	.LVL2:
+  54 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  55              		.cfi_def_cfa_offset 24
+  56              		.cfi_offset 3, -24
+  57              		.cfi_offset 4, -20
+  58              		.cfi_offset 5, -16
+  59              		.cfi_offset 6, -12
+  60              		.cfi_offset 7, -8
+  61              		.cfi_offset 14, -4
+  62 0002 0646     		mov	r6, r0
+  63 0004 0F46     		mov	r7, r1
+  64              	.LVL3:
+   9:main.c        ****     int i = 0;
+  65              		.loc 1 9 0
+  66 0006 0023     		movs	r3, #0
+  67              	.LVL4:
+  68              	.L7:
+  69 0008 1D46     		mov	r5, r3
+  70              	.L3:
+  71              	.LVL5:
+  10:main.c        ****     char ch;
+  11:main.c        ****     
+  12:main.c        ****     while (1) {
+  13:main.c        ****         if (UART_GetRxBufferSize() > 0) {
+  72              		.loc 1 13 0
+  73 000a FFF7FEFF 		bl	UART_GetRxBufferSize
+  74              	.LVL6:
+  75 000e 0028     		cmp	r0, #0
+  76 0010 FBD0     		beq	.L3
+  14:main.c        ****             ch = UART_GetChar();
+  77              		.loc 1 14 0
+  78 0012 FFF7FEFF 		bl	UART_GetChar
+  79              	.LVL7:
+  80 0016 0446     		mov	r4, r0
+  81              	.LVL8:
+  15:main.c        ****             if (ch == '\r' || ch == '\n') {
+  82              		.loc 1 15 0
+  83 0018 0D28     		cmp	r0, #13
+  84 001a 01D0     		beq	.L4
+  85              		.loc 1 15 0 is_stmt 0 discriminator 1
+  86 001c 0A28     		cmp	r0, #10
+  87 001e 05D1     		bne	.L5
+  88              	.L4:
+  16:main.c        ****                 buffer[i] = '\0';
+  89              		.loc 1 16 0 is_stmt 1
+  90 0020 0023     		movs	r3, #0
+  91 0022 7355     		strb	r3, [r6, r5]
+  17:main.c        ****                 UART_PutString("\r\n");
+  92              		.loc 1 17 0
+  93 0024 0548     		ldr	r0, .L9
+  94              	.LVL9:
+  95 0026 FFF7FEFF 		bl	UART_PutString
+  96              	.LVL10:
+  18:main.c        ****                 break;
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 3
+
+
+  97              		.loc 1 18 0
+  98 002a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+  99              	.LVL11:
+ 100              	.L5:
+  19:main.c        ****             }
+  20:main.c        ****             UART_PutChar(ch);
+ 101              		.loc 1 20 0
+ 102 002c FFF7FEFF 		bl	UART_PutChar
+ 103              	.LVL12:
+  21:main.c        ****             buffer[i++] = ch;
+ 104              		.loc 1 21 0
+ 105 0030 6B1C     		adds	r3, r5, #1
+ 106              	.LVL13:
+ 107 0032 7455     		strb	r4, [r6, r5]
+  22:main.c        ****             if (i >= maxSize - 1) break;
+ 108              		.loc 1 22 0
+ 109 0034 7A1E     		subs	r2, r7, #1
+ 110 0036 9342     		cmp	r3, r2
+ 111 0038 E6DB     		blt	.L7
+ 112 003a F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 113              	.LVL14:
+ 114              	.L10:
+ 115              		.align	2
+ 116              	.L9:
+ 117 003c 00000000 		.word	.LC0
+ 118              		.cfi_endproc
+ 119              	.LFE65:
+ 120              		.size	UART_ReadLine, .-UART_ReadLine
+ 121              		.section	.text.main,"ax",%progbits
+ 122              		.align	2
+ 123              		.global	main
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.type	main, %function
+ 127              	main:
+ 128              	.LFB66:
+  23:main.c        ****         }
+  24:main.c        ****     }
+  25:main.c        **** }
+  26:main.c        **** 
+  27:main.c        **** int main() {
+ 129              		.loc 1 27 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 64
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133 0000 00B5     		push	{lr}
+ 134              		.cfi_def_cfa_offset 4
+ 135              		.cfi_offset 14, -4
+ 136 0002 91B0     		sub	sp, sp, #68
+ 137              		.cfi_def_cfa_offset 72
+  28:main.c        ****     CyGlobalIntEnable;
+ 138              		.loc 1 28 0
+ 139              		.syntax unified
+ 140              	@ 28 "main.c" 1
+ 141 0004 62B6     		CPSIE   i
+ 142              	@ 0 "" 2
+  29:main.c        ****     UART_Start();
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 4
+
+
+ 143              		.loc 1 29 0
+ 144              		.thumb
+ 145              		.syntax unified
+ 146 0006 FFF7FEFF 		bl	UART_Start
+ 147              	.LVL15:
+  30:main.c        **** 
+  31:main.c        ****     int num1 = 0, num2 = 0, sum = 0;
+ 148              		.loc 1 31 0
+ 149 000a 0023     		movs	r3, #0
+ 150 000c 0F93     		str	r3, [sp, #60]
+ 151 000e 0E93     		str	r3, [sp, #56]
+ 152              	.LVL16:
+  32:main.c        ****     char buffer[50];
+  33:main.c        **** 
+  34:main.c        ****     UART_PutString("Press 'q' to quit at any time.\r\n\r\n");
+ 153              		.loc 1 34 0
+ 154 0010 1D48     		ldr	r0, .L15
+ 155 0012 FFF7FEFF 		bl	UART_PutString
+ 156              	.LVL17:
+ 157              	.L13:
+  35:main.c        **** 
+  36:main.c        ****     while (1) {
+  37:main.c        ****         UART_PutString("Enter first number: ");
+ 158              		.loc 1 37 0
+ 159 0016 1D48     		ldr	r0, .L15+4
+ 160 0018 FFF7FEFF 		bl	UART_PutString
+ 161              	.LVL18:
+  38:main.c        ****         UART_ReadLine(buffer, sizeof(buffer));
+ 162              		.loc 1 38 0
+ 163 001c 3221     		movs	r1, #50
+ 164 001e 01A8     		add	r0, sp, #4
+ 165 0020 FFF7FEFF 		bl	UART_ReadLine
+ 166              	.LVL19:
+  39:main.c        ****         if (buffer[0] == 'q' || buffer[0] == 'Q') break;
+ 167              		.loc 1 39 0
+ 168 0024 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 169 0028 712B     		cmp	r3, #113
+ 170 002a 25D0     		beq	.L12
+ 171              		.loc 1 39 0 is_stmt 0 discriminator 1
+ 172 002c 512B     		cmp	r3, #81
+ 173 002e 23D0     		beq	.L12
+  40:main.c        ****         sscanf(buffer, "%d", &num1);
+ 174              		.loc 1 40 0 is_stmt 1
+ 175 0030 0FAA     		add	r2, sp, #60
+ 176 0032 1749     		ldr	r1, .L15+8
+ 177 0034 01A8     		add	r0, sp, #4
+ 178 0036 FFF7FEFF 		bl	sscanf
+ 179              	.LVL20:
+  41:main.c        **** 
+  42:main.c        ****         UART_PutString("Enter second number: ");
+ 180              		.loc 1 42 0
+ 181 003a 1648     		ldr	r0, .L15+12
+ 182 003c FFF7FEFF 		bl	UART_PutString
+ 183              	.LVL21:
+  43:main.c        ****         UART_ReadLine(buffer, sizeof(buffer));
+ 184              		.loc 1 43 0
+ 185 0040 3221     		movs	r1, #50
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 5
+
+
+ 186 0042 01A8     		add	r0, sp, #4
+ 187 0044 FFF7FEFF 		bl	UART_ReadLine
+ 188              	.LVL22:
+  44:main.c        ****         if (buffer[0] == 'q' || buffer[0] == 'Q') break;
+ 189              		.loc 1 44 0
+ 190 0048 9DF80430 		ldrb	r3, [sp, #4]	@ zero_extendqisi2
+ 191 004c 712B     		cmp	r3, #113
+ 192 004e 13D0     		beq	.L12
+ 193              		.loc 1 44 0 is_stmt 0 discriminator 1
+ 194 0050 512B     		cmp	r3, #81
+ 195 0052 11D0     		beq	.L12
+  45:main.c        ****         sscanf(buffer, "%d", &num2);
+ 196              		.loc 1 45 0 is_stmt 1
+ 197 0054 0EAA     		add	r2, sp, #56
+ 198 0056 0E49     		ldr	r1, .L15+8
+ 199 0058 01A8     		add	r0, sp, #4
+ 200 005a FFF7FEFF 		bl	sscanf
+ 201              	.LVL23:
+  46:main.c        **** 
+  47:main.c        ****         sum = addNumbers(num1, num2);
+ 202              		.loc 1 47 0
+ 203 005e 0E99     		ldr	r1, [sp, #56]
+ 204 0060 0F98     		ldr	r0, [sp, #60]
+ 205 0062 FFF7FEFF 		bl	addNumbers
+ 206              	.LVL24:
+  48:main.c        ****         sprintf(buffer, "Sum: %d\r\n\r\n", sum);
+ 207              		.loc 1 48 0
+ 208 0066 0246     		mov	r2, r0
+ 209 0068 0B49     		ldr	r1, .L15+16
+ 210 006a 01A8     		add	r0, sp, #4
+ 211              	.LVL25:
+ 212 006c FFF7FEFF 		bl	sprintf
+ 213              	.LVL26:
+  49:main.c        ****         UART_PutString(buffer);
+ 214              		.loc 1 49 0
+ 215 0070 01A8     		add	r0, sp, #4
+ 216 0072 FFF7FEFF 		bl	UART_PutString
+ 217              	.LVL27:
+  50:main.c        ****     }
+ 218              		.loc 1 50 0
+ 219 0076 CEE7     		b	.L13
+ 220              	.L12:
+  51:main.c        **** 
+  52:main.c        ****     UART_PutString("Program terminated. You can now close the window.\r\n");
+ 221              		.loc 1 52 0
+ 222 0078 0848     		ldr	r0, .L15+20
+ 223 007a FFF7FEFF 		bl	UART_PutString
+ 224              	.LVL28:
+  53:main.c        **** 
+  54:main.c        ****     return 0;
+  55:main.c        **** }...
+ 225              		.loc 1 55 0
+ 226 007e 0020     		movs	r0, #0
+ 227 0080 11B0     		add	sp, sp, #68
+ 228              		.cfi_def_cfa_offset 4
+ 229              		@ sp needed
+ 230 0082 5DF804FB 		ldr	pc, [sp], #4
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 6
+
+
+ 231              	.L16:
+ 232 0086 00BF     		.align	2
+ 233              	.L15:
+ 234 0088 04000000 		.word	.LC1
+ 235 008c 28000000 		.word	.LC2
+ 236 0090 40000000 		.word	.LC3
+ 237 0094 44000000 		.word	.LC4
+ 238 0098 5C000000 		.word	.LC5
+ 239 009c 68000000 		.word	.LC6
+ 240              		.cfi_endproc
+ 241              	.LFE66:
+ 242              		.size	main, .-main
+ 243              		.section	.rodata.str1.4,"aMS",%progbits,1
+ 244              		.align	2
+ 245              	.LC0:
+ 246 0000 0D0A00   		.ascii	"\015\012\000"
+ 247 0003 00       		.space	1
+ 248              	.LC1:
+ 249 0004 50726573 		.ascii	"Press 'q' to quit at any time.\015\012\015\012\000"
+ 249      73202771 
+ 249      2720746F 
+ 249      20717569 
+ 249      74206174 
+ 250 0027 00       		.space	1
+ 251              	.LC2:
+ 252 0028 456E7465 		.ascii	"Enter first number: \000"
+ 252      72206669 
+ 252      72737420 
+ 252      6E756D62 
+ 252      65723A20 
+ 253 003d 000000   		.space	3
+ 254              	.LC3:
+ 255 0040 256400   		.ascii	"%d\000"
+ 256 0043 00       		.space	1
+ 257              	.LC4:
+ 258 0044 456E7465 		.ascii	"Enter second number: \000"
+ 258      72207365 
+ 258      636F6E64 
+ 258      206E756D 
+ 258      6265723A 
+ 259 005a 0000     		.space	2
+ 260              	.LC5:
+ 261 005c 53756D3A 		.ascii	"Sum: %d\015\012\015\012\000"
+ 261      2025640D 
+ 261      0A0D0A00 
+ 262              	.LC6:
+ 263 0068 50726F67 		.ascii	"Program terminated. You can now close the window.\015"
+ 263      72616D20 
+ 263      7465726D 
+ 263      696E6174 
+ 263      65642E20 
+ 264 009a 0A00     		.ascii	"\012\000"
+ 265              		.text
+ 266              	.Letext0:
+ 267              		.file 2 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 268              		.file 3 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 269              		.file 4 "Generated_Source\\PSoC5/UART.h"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 7
+
+
+ 270              		.file 5 "c:\\program files (x86)\\cypress\\psoc creator\\4.4\\psoc creator\\import\\gnu\\arm\\5.4.
+ 271              		.file 6 "Generated_Source\\PSoC5/core_cm3.h"
+ 272              		.section	.debug_info,"",%progbits
+ 273              	.Ldebug_info0:
+ 274 0000 37030000 		.4byte	0x337
+ 275 0004 0400     		.2byte	0x4
+ 276 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 277 000a 04       		.byte	0x4
+ 278 000b 01       		.uleb128 0x1
+ 279 000c 2E000000 		.4byte	.LASF29
+ 280 0010 0C       		.byte	0xc
+ 281 0011 9E010000 		.4byte	.LASF30
+ 282 0015 BC000000 		.4byte	.LASF31
+ 283 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 284 001d 00000000 		.4byte	0
+ 285 0021 00000000 		.4byte	.Ldebug_line0
+ 286 0025 02       		.uleb128 0x2
+ 287 0026 01       		.byte	0x1
+ 288 0027 06       		.byte	0x6
+ 289 0028 F9010000 		.4byte	.LASF0
+ 290 002c 02       		.uleb128 0x2
+ 291 002d 01       		.byte	0x1
+ 292 002e 08       		.byte	0x8
+ 293 002f 20000000 		.4byte	.LASF1
+ 294 0033 02       		.uleb128 0x2
+ 295 0034 02       		.byte	0x2
+ 296 0035 05       		.byte	0x5
+ 297 0036 B7010000 		.4byte	.LASF2
+ 298 003a 02       		.uleb128 0x2
+ 299 003b 02       		.byte	0x2
+ 300 003c 07       		.byte	0x7
+ 301 003d 12010000 		.4byte	.LASF3
+ 302 0041 03       		.uleb128 0x3
+ 303 0042 00000000 		.4byte	.LASF9
+ 304 0046 02       		.byte	0x2
+ 305 0047 3F       		.byte	0x3f
+ 306 0048 4C000000 		.4byte	0x4c
+ 307 004c 02       		.uleb128 0x2
+ 308 004d 04       		.byte	0x4
+ 309 004e 05       		.byte	0x5
+ 310 004f DD010000 		.4byte	.LASF4
+ 311 0053 02       		.uleb128 0x2
+ 312 0054 04       		.byte	0x4
+ 313 0055 07       		.byte	0x7
+ 314 0056 00010000 		.4byte	.LASF5
+ 315 005a 02       		.uleb128 0x2
+ 316 005b 08       		.byte	0x8
+ 317 005c 05       		.byte	0x5
+ 318 005d 90010000 		.4byte	.LASF6
+ 319 0061 02       		.uleb128 0x2
+ 320 0062 08       		.byte	0x8
+ 321 0063 07       		.byte	0x7
+ 322 0064 5B010000 		.4byte	.LASF7
+ 323 0068 04       		.uleb128 0x4
+ 324 0069 04       		.byte	0x4
+ 325 006a 05       		.byte	0x5
+ 326 006b 696E7400 		.ascii	"int\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 8
+
+
+ 327 006f 02       		.uleb128 0x2
+ 328 0070 04       		.byte	0x4
+ 329 0071 07       		.byte	0x7
+ 330 0072 4E010000 		.4byte	.LASF8
+ 331 0076 03       		.uleb128 0x3
+ 332 0077 72010000 		.4byte	.LASF10
+ 333 007b 03       		.byte	0x3
+ 334 007c 2C       		.byte	0x2c
+ 335 007d 41000000 		.4byte	0x41
+ 336 0081 02       		.uleb128 0x2
+ 337 0082 04       		.byte	0x4
+ 338 0083 04       		.byte	0x4
+ 339 0084 1A000000 		.4byte	.LASF11
+ 340 0088 02       		.uleb128 0x2
+ 341 0089 08       		.byte	0x8
+ 342 008a 04       		.byte	0x4
+ 343 008b 42010000 		.4byte	.LASF12
+ 344 008f 02       		.uleb128 0x2
+ 345 0090 01       		.byte	0x1
+ 346 0091 08       		.byte	0x8
+ 347 0092 A5010000 		.4byte	.LASF13
+ 348 0096 02       		.uleb128 0x2
+ 349 0097 08       		.byte	0x8
+ 350 0098 04       		.byte	0x4
+ 351 0099 E6010000 		.4byte	.LASF14
+ 352 009d 02       		.uleb128 0x2
+ 353 009e 04       		.byte	0x4
+ 354 009f 07       		.byte	0x7
+ 355 00a0 87010000 		.4byte	.LASF15
+ 356 00a4 05       		.uleb128 0x5
+ 357 00a5 04       		.byte	0x4
+ 358 00a6 8F000000 		.4byte	0x8f
+ 359 00aa 06       		.uleb128 0x6
+ 360 00ab 0A000000 		.4byte	.LASF32
+ 361 00af 01       		.byte	0x1
+ 362 00b0 04       		.byte	0x4
+ 363 00b1 68000000 		.4byte	0x68
+ 364 00b5 00000000 		.4byte	.LFB64
+ 365 00b9 04000000 		.4byte	.LFE64-.LFB64
+ 366 00bd 01       		.uleb128 0x1
+ 367 00be 9C       		.byte	0x9c
+ 368 00bf DC000000 		.4byte	0xdc
+ 369 00c3 07       		.uleb128 0x7
+ 370 00c4 6100     		.ascii	"a\000"
+ 371 00c6 01       		.byte	0x1
+ 372 00c7 04       		.byte	0x4
+ 373 00c8 68000000 		.4byte	0x68
+ 374 00cc 00000000 		.4byte	.LLST0
+ 375 00d0 08       		.uleb128 0x8
+ 376 00d1 6200     		.ascii	"b\000"
+ 377 00d3 01       		.byte	0x1
+ 378 00d4 04       		.byte	0x4
+ 379 00d5 68000000 		.4byte	0x68
+ 380 00d9 01       		.uleb128 0x1
+ 381 00da 51       		.byte	0x51
+ 382 00db 00       		.byte	0
+ 383 00dc 09       		.uleb128 0x9
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 9
+
+
+ 384 00dd 1C020000 		.4byte	.LASF18
+ 385 00e1 01       		.byte	0x1
+ 386 00e2 08       		.byte	0x8
+ 387 00e3 00000000 		.4byte	.LFB65
+ 388 00e7 40000000 		.4byte	.LFE65-.LFB65
+ 389 00eb 01       		.uleb128 0x1
+ 390 00ec 9C       		.byte	0x9c
+ 391 00ed 5D010000 		.4byte	0x15d
+ 392 00f1 0A       		.uleb128 0xa
+ 393 00f2 C1010000 		.4byte	.LASF16
+ 394 00f6 01       		.byte	0x1
+ 395 00f7 08       		.byte	0x8
+ 396 00f8 A4000000 		.4byte	0xa4
+ 397 00fc 21000000 		.4byte	.LLST1
+ 398 0100 0A       		.uleb128 0xa
+ 399 0101 05020000 		.4byte	.LASF17
+ 400 0105 01       		.byte	0x1
+ 401 0106 08       		.byte	0x8
+ 402 0107 68000000 		.4byte	0x68
+ 403 010b 4D000000 		.4byte	.LLST2
+ 404 010f 0B       		.uleb128 0xb
+ 405 0110 6900     		.ascii	"i\000"
+ 406 0112 01       		.byte	0x1
+ 407 0113 09       		.byte	0x9
+ 408 0114 68000000 		.4byte	0x68
+ 409 0118 78000000 		.4byte	.LLST3
+ 410 011c 0B       		.uleb128 0xb
+ 411 011d 636800   		.ascii	"ch\000"
+ 412 0120 01       		.byte	0x1
+ 413 0121 0A       		.byte	0xa
+ 414 0122 8F000000 		.4byte	0x8f
+ 415 0126 A2000000 		.4byte	.LLST4
+ 416 012a 0C       		.uleb128 0xc
+ 417 012b 0E000000 		.4byte	.LVL6
+ 418 012f ED020000 		.4byte	0x2ed
+ 419 0133 0C       		.uleb128 0xc
+ 420 0134 16000000 		.4byte	.LVL7
+ 421 0138 F8020000 		.4byte	0x2f8
+ 422 013c 0D       		.uleb128 0xd
+ 423 013d 2A000000 		.4byte	.LVL10
+ 424 0141 03030000 		.4byte	0x303
+ 425 0145 53010000 		.4byte	0x153
+ 426 0149 0E       		.uleb128 0xe
+ 427 014a 01       		.uleb128 0x1
+ 428 014b 50       		.byte	0x50
+ 429 014c 05       		.uleb128 0x5
+ 430 014d 03       		.byte	0x3
+ 431 014e 00000000 		.4byte	.LC0
+ 432 0152 00       		.byte	0
+ 433 0153 0C       		.uleb128 0xc
+ 434 0154 30000000 		.4byte	.LVL12
+ 435 0158 0E030000 		.4byte	0x30e
+ 436 015c 00       		.byte	0
+ 437 015d 0F       		.uleb128 0xf
+ 438 015e 49010000 		.4byte	.LASF19
+ 439 0162 01       		.byte	0x1
+ 440 0163 1B       		.byte	0x1b
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 10
+
+
+ 441 0164 68000000 		.4byte	0x68
+ 442 0168 00000000 		.4byte	.LFB66
+ 443 016c A0000000 		.4byte	.LFE66-.LFB66
+ 444 0170 01       		.uleb128 0x1
+ 445 0171 9C       		.byte	0x9c
+ 446 0172 CC020000 		.4byte	0x2cc
+ 447 0176 10       		.uleb128 0x10
+ 448 0177 15000000 		.4byte	.LASF20
+ 449 017b 01       		.byte	0x1
+ 450 017c 1F       		.byte	0x1f
+ 451 017d 68000000 		.4byte	0x68
+ 452 0181 02       		.uleb128 0x2
+ 453 0182 91       		.byte	0x91
+ 454 0183 74       		.sleb128 -12
+ 455 0184 10       		.uleb128 0x10
+ 456 0185 30010000 		.4byte	.LASF21
+ 457 0189 01       		.byte	0x1
+ 458 018a 1F       		.byte	0x1f
+ 459 018b 68000000 		.4byte	0x68
+ 460 018f 02       		.uleb128 0x2
+ 461 0190 91       		.byte	0x91
+ 462 0191 70       		.sleb128 -16
+ 463 0192 0B       		.uleb128 0xb
+ 464 0193 73756D00 		.ascii	"sum\000"
+ 465 0197 01       		.byte	0x1
+ 466 0198 1F       		.byte	0x1f
+ 467 0199 68000000 		.4byte	0x68
+ 468 019d C0000000 		.4byte	.LLST5
+ 469 01a1 10       		.uleb128 0x10
+ 470 01a2 C1010000 		.4byte	.LASF16
+ 471 01a6 01       		.byte	0x1
+ 472 01a7 20       		.byte	0x20
+ 473 01a8 CC020000 		.4byte	0x2cc
+ 474 01ac 03       		.uleb128 0x3
+ 475 01ad 91       		.byte	0x91
+ 476 01ae BC7F     		.sleb128 -68
+ 477 01b0 0C       		.uleb128 0xc
+ 478 01b1 0A000000 		.4byte	.LVL15
+ 479 01b5 19030000 		.4byte	0x319
+ 480 01b9 0D       		.uleb128 0xd
+ 481 01ba 16000000 		.4byte	.LVL17
+ 482 01be 03030000 		.4byte	0x303
+ 483 01c2 D0010000 		.4byte	0x1d0
+ 484 01c6 0E       		.uleb128 0xe
+ 485 01c7 01       		.uleb128 0x1
+ 486 01c8 50       		.byte	0x50
+ 487 01c9 05       		.uleb128 0x5
+ 488 01ca 03       		.byte	0x3
+ 489 01cb 04000000 		.4byte	.LC1
+ 490 01cf 00       		.byte	0
+ 491 01d0 0D       		.uleb128 0xd
+ 492 01d1 1C000000 		.4byte	.LVL18
+ 493 01d5 03030000 		.4byte	0x303
+ 494 01d9 E7010000 		.4byte	0x1e7
+ 495 01dd 0E       		.uleb128 0xe
+ 496 01de 01       		.uleb128 0x1
+ 497 01df 50       		.byte	0x50
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 11
+
+
+ 498 01e0 05       		.uleb128 0x5
+ 499 01e1 03       		.byte	0x3
+ 500 01e2 28000000 		.4byte	.LC2
+ 501 01e6 00       		.byte	0
+ 502 01e7 0D       		.uleb128 0xd
+ 503 01e8 24000000 		.4byte	.LVL19
+ 504 01ec DC000000 		.4byte	0xdc
+ 505 01f0 02020000 		.4byte	0x202
+ 506 01f4 0E       		.uleb128 0xe
+ 507 01f5 01       		.uleb128 0x1
+ 508 01f6 50       		.byte	0x50
+ 509 01f7 03       		.uleb128 0x3
+ 510 01f8 91       		.byte	0x91
+ 511 01f9 BC7F     		.sleb128 -68
+ 512 01fb 0E       		.uleb128 0xe
+ 513 01fc 01       		.uleb128 0x1
+ 514 01fd 51       		.byte	0x51
+ 515 01fe 02       		.uleb128 0x2
+ 516 01ff 08       		.byte	0x8
+ 517 0200 32       		.byte	0x32
+ 518 0201 00       		.byte	0
+ 519 0202 0D       		.uleb128 0xd
+ 520 0203 3A000000 		.4byte	.LVL20
+ 521 0207 24030000 		.4byte	0x324
+ 522 020b 26020000 		.4byte	0x226
+ 523 020f 0E       		.uleb128 0xe
+ 524 0210 01       		.uleb128 0x1
+ 525 0211 50       		.byte	0x50
+ 526 0212 03       		.uleb128 0x3
+ 527 0213 91       		.byte	0x91
+ 528 0214 BC7F     		.sleb128 -68
+ 529 0216 0E       		.uleb128 0xe
+ 530 0217 01       		.uleb128 0x1
+ 531 0218 51       		.byte	0x51
+ 532 0219 05       		.uleb128 0x5
+ 533 021a 03       		.byte	0x3
+ 534 021b 40000000 		.4byte	.LC3
+ 535 021f 0E       		.uleb128 0xe
+ 536 0220 01       		.uleb128 0x1
+ 537 0221 52       		.byte	0x52
+ 538 0222 02       		.uleb128 0x2
+ 539 0223 91       		.byte	0x91
+ 540 0224 74       		.sleb128 -12
+ 541 0225 00       		.byte	0
+ 542 0226 0D       		.uleb128 0xd
+ 543 0227 40000000 		.4byte	.LVL21
+ 544 022b 03030000 		.4byte	0x303
+ 545 022f 3D020000 		.4byte	0x23d
+ 546 0233 0E       		.uleb128 0xe
+ 547 0234 01       		.uleb128 0x1
+ 548 0235 50       		.byte	0x50
+ 549 0236 05       		.uleb128 0x5
+ 550 0237 03       		.byte	0x3
+ 551 0238 44000000 		.4byte	.LC4
+ 552 023c 00       		.byte	0
+ 553 023d 0D       		.uleb128 0xd
+ 554 023e 48000000 		.4byte	.LVL22
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 12
+
+
+ 555 0242 DC000000 		.4byte	0xdc
+ 556 0246 58020000 		.4byte	0x258
+ 557 024a 0E       		.uleb128 0xe
+ 558 024b 01       		.uleb128 0x1
+ 559 024c 50       		.byte	0x50
+ 560 024d 03       		.uleb128 0x3
+ 561 024e 91       		.byte	0x91
+ 562 024f BC7F     		.sleb128 -68
+ 563 0251 0E       		.uleb128 0xe
+ 564 0252 01       		.uleb128 0x1
+ 565 0253 51       		.byte	0x51
+ 566 0254 02       		.uleb128 0x2
+ 567 0255 08       		.byte	0x8
+ 568 0256 32       		.byte	0x32
+ 569 0257 00       		.byte	0
+ 570 0258 0D       		.uleb128 0xd
+ 571 0259 5E000000 		.4byte	.LVL23
+ 572 025d 24030000 		.4byte	0x324
+ 573 0261 7C020000 		.4byte	0x27c
+ 574 0265 0E       		.uleb128 0xe
+ 575 0266 01       		.uleb128 0x1
+ 576 0267 50       		.byte	0x50
+ 577 0268 03       		.uleb128 0x3
+ 578 0269 91       		.byte	0x91
+ 579 026a BC7F     		.sleb128 -68
+ 580 026c 0E       		.uleb128 0xe
+ 581 026d 01       		.uleb128 0x1
+ 582 026e 51       		.byte	0x51
+ 583 026f 05       		.uleb128 0x5
+ 584 0270 03       		.byte	0x3
+ 585 0271 40000000 		.4byte	.LC3
+ 586 0275 0E       		.uleb128 0xe
+ 587 0276 01       		.uleb128 0x1
+ 588 0277 52       		.byte	0x52
+ 589 0278 02       		.uleb128 0x2
+ 590 0279 91       		.byte	0x91
+ 591 027a 70       		.sleb128 -16
+ 592 027b 00       		.byte	0
+ 593 027c 0C       		.uleb128 0xc
+ 594 027d 66000000 		.4byte	.LVL24
+ 595 0281 AA000000 		.4byte	0xaa
+ 596 0285 0D       		.uleb128 0xd
+ 597 0286 70000000 		.4byte	.LVL26
+ 598 028a 2F030000 		.4byte	0x32f
+ 599 028e A3020000 		.4byte	0x2a3
+ 600 0292 0E       		.uleb128 0xe
+ 601 0293 01       		.uleb128 0x1
+ 602 0294 50       		.byte	0x50
+ 603 0295 03       		.uleb128 0x3
+ 604 0296 91       		.byte	0x91
+ 605 0297 BC7F     		.sleb128 -68
+ 606 0299 0E       		.uleb128 0xe
+ 607 029a 01       		.uleb128 0x1
+ 608 029b 51       		.byte	0x51
+ 609 029c 05       		.uleb128 0x5
+ 610 029d 03       		.byte	0x3
+ 611 029e 5C000000 		.4byte	.LC5
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 13
+
+
+ 612 02a2 00       		.byte	0
+ 613 02a3 0D       		.uleb128 0xd
+ 614 02a4 76000000 		.4byte	.LVL27
+ 615 02a8 03030000 		.4byte	0x303
+ 616 02ac B8020000 		.4byte	0x2b8
+ 617 02b0 0E       		.uleb128 0xe
+ 618 02b1 01       		.uleb128 0x1
+ 619 02b2 50       		.byte	0x50
+ 620 02b3 03       		.uleb128 0x3
+ 621 02b4 91       		.byte	0x91
+ 622 02b5 BC7F     		.sleb128 -68
+ 623 02b7 00       		.byte	0
+ 624 02b8 11       		.uleb128 0x11
+ 625 02b9 7E000000 		.4byte	.LVL28
+ 626 02bd 03030000 		.4byte	0x303
+ 627 02c1 0E       		.uleb128 0xe
+ 628 02c2 01       		.uleb128 0x1
+ 629 02c3 50       		.byte	0x50
+ 630 02c4 05       		.uleb128 0x5
+ 631 02c5 03       		.byte	0x3
+ 632 02c6 68000000 		.4byte	.LC6
+ 633 02ca 00       		.byte	0
+ 634 02cb 00       		.byte	0
+ 635 02cc 12       		.uleb128 0x12
+ 636 02cd 8F000000 		.4byte	0x8f
+ 637 02d1 DC020000 		.4byte	0x2dc
+ 638 02d5 13       		.uleb128 0x13
+ 639 02d6 9D000000 		.4byte	0x9d
+ 640 02da 31       		.byte	0x31
+ 641 02db 00       		.byte	0
+ 642 02dc 14       		.uleb128 0x14
+ 643 02dd 35010000 		.4byte	.LASF33
+ 644 02e1 06       		.byte	0x6
+ 645 02e2 1207     		.2byte	0x712
+ 646 02e4 E8020000 		.4byte	0x2e8
+ 647 02e8 15       		.uleb128 0x15
+ 648 02e9 76000000 		.4byte	0x76
+ 649 02ed 16       		.uleb128 0x16
+ 650 02ee C8010000 		.4byte	.LASF22
+ 651 02f2 C8010000 		.4byte	.LASF22
+ 652 02f6 04       		.byte	0x4
+ 653 02f7 73       		.byte	0x73
+ 654 02f8 16       		.uleb128 0x16
+ 655 02f9 AA010000 		.4byte	.LASF23
+ 656 02fd AA010000 		.4byte	.LASF23
+ 657 0301 04       		.byte	0x4
+ 658 0302 71       		.byte	0x71
+ 659 0303 16       		.uleb128 0x16
+ 660 0304 0D020000 		.4byte	.LASF24
+ 661 0308 0D020000 		.4byte	.LASF24
+ 662 030c 04       		.byte	0x4
+ 663 030d 8B       		.byte	0x8b
+ 664 030e 16       		.uleb128 0x16
+ 665 030f 7A010000 		.4byte	.LASF25
+ 666 0313 7A010000 		.4byte	.LASF25
+ 667 0317 04       		.byte	0x4
+ 668 0318 8A       		.byte	0x8a
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 14
+
+
+ 669 0319 16       		.uleb128 0x16
+ 670 031a 25010000 		.4byte	.LASF26
+ 671 031e 25010000 		.4byte	.LASF26
+ 672 0322 04       		.byte	0x4
+ 673 0323 54       		.byte	0x54
+ 674 0324 16       		.uleb128 0x16
+ 675 0325 F2010000 		.4byte	.LASF27
+ 676 0329 F2010000 		.4byte	.LASF27
+ 677 032d 05       		.byte	0x5
+ 678 032e BF       		.byte	0xbf
+ 679 032f 16       		.uleb128 0x16
+ 680 0330 2A020000 		.4byte	.LASF28
+ 681 0334 2A020000 		.4byte	.LASF28
+ 682 0338 05       		.byte	0x5
+ 683 0339 E7       		.byte	0xe7
+ 684 033a 00       		.byte	0
+ 685              		.section	.debug_abbrev,"",%progbits
+ 686              	.Ldebug_abbrev0:
+ 687 0000 01       		.uleb128 0x1
+ 688 0001 11       		.uleb128 0x11
+ 689 0002 01       		.byte	0x1
+ 690 0003 25       		.uleb128 0x25
+ 691 0004 0E       		.uleb128 0xe
+ 692 0005 13       		.uleb128 0x13
+ 693 0006 0B       		.uleb128 0xb
+ 694 0007 03       		.uleb128 0x3
+ 695 0008 0E       		.uleb128 0xe
+ 696 0009 1B       		.uleb128 0x1b
+ 697 000a 0E       		.uleb128 0xe
+ 698 000b 55       		.uleb128 0x55
+ 699 000c 17       		.uleb128 0x17
+ 700 000d 11       		.uleb128 0x11
+ 701 000e 01       		.uleb128 0x1
+ 702 000f 10       		.uleb128 0x10
+ 703 0010 17       		.uleb128 0x17
+ 704 0011 00       		.byte	0
+ 705 0012 00       		.byte	0
+ 706 0013 02       		.uleb128 0x2
+ 707 0014 24       		.uleb128 0x24
+ 708 0015 00       		.byte	0
+ 709 0016 0B       		.uleb128 0xb
+ 710 0017 0B       		.uleb128 0xb
+ 711 0018 3E       		.uleb128 0x3e
+ 712 0019 0B       		.uleb128 0xb
+ 713 001a 03       		.uleb128 0x3
+ 714 001b 0E       		.uleb128 0xe
+ 715 001c 00       		.byte	0
+ 716 001d 00       		.byte	0
+ 717 001e 03       		.uleb128 0x3
+ 718 001f 16       		.uleb128 0x16
+ 719 0020 00       		.byte	0
+ 720 0021 03       		.uleb128 0x3
+ 721 0022 0E       		.uleb128 0xe
+ 722 0023 3A       		.uleb128 0x3a
+ 723 0024 0B       		.uleb128 0xb
+ 724 0025 3B       		.uleb128 0x3b
+ 725 0026 0B       		.uleb128 0xb
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 15
+
+
+ 726 0027 49       		.uleb128 0x49
+ 727 0028 13       		.uleb128 0x13
+ 728 0029 00       		.byte	0
+ 729 002a 00       		.byte	0
+ 730 002b 04       		.uleb128 0x4
+ 731 002c 24       		.uleb128 0x24
+ 732 002d 00       		.byte	0
+ 733 002e 0B       		.uleb128 0xb
+ 734 002f 0B       		.uleb128 0xb
+ 735 0030 3E       		.uleb128 0x3e
+ 736 0031 0B       		.uleb128 0xb
+ 737 0032 03       		.uleb128 0x3
+ 738 0033 08       		.uleb128 0x8
+ 739 0034 00       		.byte	0
+ 740 0035 00       		.byte	0
+ 741 0036 05       		.uleb128 0x5
+ 742 0037 0F       		.uleb128 0xf
+ 743 0038 00       		.byte	0
+ 744 0039 0B       		.uleb128 0xb
+ 745 003a 0B       		.uleb128 0xb
+ 746 003b 49       		.uleb128 0x49
+ 747 003c 13       		.uleb128 0x13
+ 748 003d 00       		.byte	0
+ 749 003e 00       		.byte	0
+ 750 003f 06       		.uleb128 0x6
+ 751 0040 2E       		.uleb128 0x2e
+ 752 0041 01       		.byte	0x1
+ 753 0042 3F       		.uleb128 0x3f
+ 754 0043 19       		.uleb128 0x19
+ 755 0044 03       		.uleb128 0x3
+ 756 0045 0E       		.uleb128 0xe
+ 757 0046 3A       		.uleb128 0x3a
+ 758 0047 0B       		.uleb128 0xb
+ 759 0048 3B       		.uleb128 0x3b
+ 760 0049 0B       		.uleb128 0xb
+ 761 004a 27       		.uleb128 0x27
+ 762 004b 19       		.uleb128 0x19
+ 763 004c 49       		.uleb128 0x49
+ 764 004d 13       		.uleb128 0x13
+ 765 004e 11       		.uleb128 0x11
+ 766 004f 01       		.uleb128 0x1
+ 767 0050 12       		.uleb128 0x12
+ 768 0051 06       		.uleb128 0x6
+ 769 0052 40       		.uleb128 0x40
+ 770 0053 18       		.uleb128 0x18
+ 771 0054 9742     		.uleb128 0x2117
+ 772 0056 19       		.uleb128 0x19
+ 773 0057 01       		.uleb128 0x1
+ 774 0058 13       		.uleb128 0x13
+ 775 0059 00       		.byte	0
+ 776 005a 00       		.byte	0
+ 777 005b 07       		.uleb128 0x7
+ 778 005c 05       		.uleb128 0x5
+ 779 005d 00       		.byte	0
+ 780 005e 03       		.uleb128 0x3
+ 781 005f 08       		.uleb128 0x8
+ 782 0060 3A       		.uleb128 0x3a
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 16
+
+
+ 783 0061 0B       		.uleb128 0xb
+ 784 0062 3B       		.uleb128 0x3b
+ 785 0063 0B       		.uleb128 0xb
+ 786 0064 49       		.uleb128 0x49
+ 787 0065 13       		.uleb128 0x13
+ 788 0066 02       		.uleb128 0x2
+ 789 0067 17       		.uleb128 0x17
+ 790 0068 00       		.byte	0
+ 791 0069 00       		.byte	0
+ 792 006a 08       		.uleb128 0x8
+ 793 006b 05       		.uleb128 0x5
+ 794 006c 00       		.byte	0
+ 795 006d 03       		.uleb128 0x3
+ 796 006e 08       		.uleb128 0x8
+ 797 006f 3A       		.uleb128 0x3a
+ 798 0070 0B       		.uleb128 0xb
+ 799 0071 3B       		.uleb128 0x3b
+ 800 0072 0B       		.uleb128 0xb
+ 801 0073 49       		.uleb128 0x49
+ 802 0074 13       		.uleb128 0x13
+ 803 0075 02       		.uleb128 0x2
+ 804 0076 18       		.uleb128 0x18
+ 805 0077 00       		.byte	0
+ 806 0078 00       		.byte	0
+ 807 0079 09       		.uleb128 0x9
+ 808 007a 2E       		.uleb128 0x2e
+ 809 007b 01       		.byte	0x1
+ 810 007c 3F       		.uleb128 0x3f
+ 811 007d 19       		.uleb128 0x19
+ 812 007e 03       		.uleb128 0x3
+ 813 007f 0E       		.uleb128 0xe
+ 814 0080 3A       		.uleb128 0x3a
+ 815 0081 0B       		.uleb128 0xb
+ 816 0082 3B       		.uleb128 0x3b
+ 817 0083 0B       		.uleb128 0xb
+ 818 0084 27       		.uleb128 0x27
+ 819 0085 19       		.uleb128 0x19
+ 820 0086 11       		.uleb128 0x11
+ 821 0087 01       		.uleb128 0x1
+ 822 0088 12       		.uleb128 0x12
+ 823 0089 06       		.uleb128 0x6
+ 824 008a 40       		.uleb128 0x40
+ 825 008b 18       		.uleb128 0x18
+ 826 008c 9742     		.uleb128 0x2117
+ 827 008e 19       		.uleb128 0x19
+ 828 008f 01       		.uleb128 0x1
+ 829 0090 13       		.uleb128 0x13
+ 830 0091 00       		.byte	0
+ 831 0092 00       		.byte	0
+ 832 0093 0A       		.uleb128 0xa
+ 833 0094 05       		.uleb128 0x5
+ 834 0095 00       		.byte	0
+ 835 0096 03       		.uleb128 0x3
+ 836 0097 0E       		.uleb128 0xe
+ 837 0098 3A       		.uleb128 0x3a
+ 838 0099 0B       		.uleb128 0xb
+ 839 009a 3B       		.uleb128 0x3b
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 17
+
+
+ 840 009b 0B       		.uleb128 0xb
+ 841 009c 49       		.uleb128 0x49
+ 842 009d 13       		.uleb128 0x13
+ 843 009e 02       		.uleb128 0x2
+ 844 009f 17       		.uleb128 0x17
+ 845 00a0 00       		.byte	0
+ 846 00a1 00       		.byte	0
+ 847 00a2 0B       		.uleb128 0xb
+ 848 00a3 34       		.uleb128 0x34
+ 849 00a4 00       		.byte	0
+ 850 00a5 03       		.uleb128 0x3
+ 851 00a6 08       		.uleb128 0x8
+ 852 00a7 3A       		.uleb128 0x3a
+ 853 00a8 0B       		.uleb128 0xb
+ 854 00a9 3B       		.uleb128 0x3b
+ 855 00aa 0B       		.uleb128 0xb
+ 856 00ab 49       		.uleb128 0x49
+ 857 00ac 13       		.uleb128 0x13
+ 858 00ad 02       		.uleb128 0x2
+ 859 00ae 17       		.uleb128 0x17
+ 860 00af 00       		.byte	0
+ 861 00b0 00       		.byte	0
+ 862 00b1 0C       		.uleb128 0xc
+ 863 00b2 898201   		.uleb128 0x4109
+ 864 00b5 00       		.byte	0
+ 865 00b6 11       		.uleb128 0x11
+ 866 00b7 01       		.uleb128 0x1
+ 867 00b8 31       		.uleb128 0x31
+ 868 00b9 13       		.uleb128 0x13
+ 869 00ba 00       		.byte	0
+ 870 00bb 00       		.byte	0
+ 871 00bc 0D       		.uleb128 0xd
+ 872 00bd 898201   		.uleb128 0x4109
+ 873 00c0 01       		.byte	0x1
+ 874 00c1 11       		.uleb128 0x11
+ 875 00c2 01       		.uleb128 0x1
+ 876 00c3 31       		.uleb128 0x31
+ 877 00c4 13       		.uleb128 0x13
+ 878 00c5 01       		.uleb128 0x1
+ 879 00c6 13       		.uleb128 0x13
+ 880 00c7 00       		.byte	0
+ 881 00c8 00       		.byte	0
+ 882 00c9 0E       		.uleb128 0xe
+ 883 00ca 8A8201   		.uleb128 0x410a
+ 884 00cd 00       		.byte	0
+ 885 00ce 02       		.uleb128 0x2
+ 886 00cf 18       		.uleb128 0x18
+ 887 00d0 9142     		.uleb128 0x2111
+ 888 00d2 18       		.uleb128 0x18
+ 889 00d3 00       		.byte	0
+ 890 00d4 00       		.byte	0
+ 891 00d5 0F       		.uleb128 0xf
+ 892 00d6 2E       		.uleb128 0x2e
+ 893 00d7 01       		.byte	0x1
+ 894 00d8 3F       		.uleb128 0x3f
+ 895 00d9 19       		.uleb128 0x19
+ 896 00da 03       		.uleb128 0x3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 18
+
+
+ 897 00db 0E       		.uleb128 0xe
+ 898 00dc 3A       		.uleb128 0x3a
+ 899 00dd 0B       		.uleb128 0xb
+ 900 00de 3B       		.uleb128 0x3b
+ 901 00df 0B       		.uleb128 0xb
+ 902 00e0 49       		.uleb128 0x49
+ 903 00e1 13       		.uleb128 0x13
+ 904 00e2 11       		.uleb128 0x11
+ 905 00e3 01       		.uleb128 0x1
+ 906 00e4 12       		.uleb128 0x12
+ 907 00e5 06       		.uleb128 0x6
+ 908 00e6 40       		.uleb128 0x40
+ 909 00e7 18       		.uleb128 0x18
+ 910 00e8 9742     		.uleb128 0x2117
+ 911 00ea 19       		.uleb128 0x19
+ 912 00eb 01       		.uleb128 0x1
+ 913 00ec 13       		.uleb128 0x13
+ 914 00ed 00       		.byte	0
+ 915 00ee 00       		.byte	0
+ 916 00ef 10       		.uleb128 0x10
+ 917 00f0 34       		.uleb128 0x34
+ 918 00f1 00       		.byte	0
+ 919 00f2 03       		.uleb128 0x3
+ 920 00f3 0E       		.uleb128 0xe
+ 921 00f4 3A       		.uleb128 0x3a
+ 922 00f5 0B       		.uleb128 0xb
+ 923 00f6 3B       		.uleb128 0x3b
+ 924 00f7 0B       		.uleb128 0xb
+ 925 00f8 49       		.uleb128 0x49
+ 926 00f9 13       		.uleb128 0x13
+ 927 00fa 02       		.uleb128 0x2
+ 928 00fb 18       		.uleb128 0x18
+ 929 00fc 00       		.byte	0
+ 930 00fd 00       		.byte	0
+ 931 00fe 11       		.uleb128 0x11
+ 932 00ff 898201   		.uleb128 0x4109
+ 933 0102 01       		.byte	0x1
+ 934 0103 11       		.uleb128 0x11
+ 935 0104 01       		.uleb128 0x1
+ 936 0105 31       		.uleb128 0x31
+ 937 0106 13       		.uleb128 0x13
+ 938 0107 00       		.byte	0
+ 939 0108 00       		.byte	0
+ 940 0109 12       		.uleb128 0x12
+ 941 010a 01       		.uleb128 0x1
+ 942 010b 01       		.byte	0x1
+ 943 010c 49       		.uleb128 0x49
+ 944 010d 13       		.uleb128 0x13
+ 945 010e 01       		.uleb128 0x1
+ 946 010f 13       		.uleb128 0x13
+ 947 0110 00       		.byte	0
+ 948 0111 00       		.byte	0
+ 949 0112 13       		.uleb128 0x13
+ 950 0113 21       		.uleb128 0x21
+ 951 0114 00       		.byte	0
+ 952 0115 49       		.uleb128 0x49
+ 953 0116 13       		.uleb128 0x13
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 19
+
+
+ 954 0117 2F       		.uleb128 0x2f
+ 955 0118 0B       		.uleb128 0xb
+ 956 0119 00       		.byte	0
+ 957 011a 00       		.byte	0
+ 958 011b 14       		.uleb128 0x14
+ 959 011c 34       		.uleb128 0x34
+ 960 011d 00       		.byte	0
+ 961 011e 03       		.uleb128 0x3
+ 962 011f 0E       		.uleb128 0xe
+ 963 0120 3A       		.uleb128 0x3a
+ 964 0121 0B       		.uleb128 0xb
+ 965 0122 3B       		.uleb128 0x3b
+ 966 0123 05       		.uleb128 0x5
+ 967 0124 49       		.uleb128 0x49
+ 968 0125 13       		.uleb128 0x13
+ 969 0126 3F       		.uleb128 0x3f
+ 970 0127 19       		.uleb128 0x19
+ 971 0128 3C       		.uleb128 0x3c
+ 972 0129 19       		.uleb128 0x19
+ 973 012a 00       		.byte	0
+ 974 012b 00       		.byte	0
+ 975 012c 15       		.uleb128 0x15
+ 976 012d 35       		.uleb128 0x35
+ 977 012e 00       		.byte	0
+ 978 012f 49       		.uleb128 0x49
+ 979 0130 13       		.uleb128 0x13
+ 980 0131 00       		.byte	0
+ 981 0132 00       		.byte	0
+ 982 0133 16       		.uleb128 0x16
+ 983 0134 2E       		.uleb128 0x2e
+ 984 0135 00       		.byte	0
+ 985 0136 3F       		.uleb128 0x3f
+ 986 0137 19       		.uleb128 0x19
+ 987 0138 3C       		.uleb128 0x3c
+ 988 0139 19       		.uleb128 0x19
+ 989 013a 6E       		.uleb128 0x6e
+ 990 013b 0E       		.uleb128 0xe
+ 991 013c 03       		.uleb128 0x3
+ 992 013d 0E       		.uleb128 0xe
+ 993 013e 3A       		.uleb128 0x3a
+ 994 013f 0B       		.uleb128 0xb
+ 995 0140 3B       		.uleb128 0x3b
+ 996 0141 0B       		.uleb128 0xb
+ 997 0142 00       		.byte	0
+ 998 0143 00       		.byte	0
+ 999 0144 00       		.byte	0
+ 1000              		.section	.debug_loc,"",%progbits
+ 1001              	.Ldebug_loc0:
+ 1002              	.LLST0:
+ 1003 0000 00000000 		.4byte	.LVL0
+ 1004 0004 02000000 		.4byte	.LVL1
+ 1005 0008 0100     		.2byte	0x1
+ 1006 000a 50       		.byte	0x50
+ 1007 000b 02000000 		.4byte	.LVL1
+ 1008 000f 04000000 		.4byte	.LFE64
+ 1009 0013 0400     		.2byte	0x4
+ 1010 0015 F3       		.byte	0xf3
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 20
+
+
+ 1011 0016 01       		.uleb128 0x1
+ 1012 0017 50       		.byte	0x50
+ 1013 0018 9F       		.byte	0x9f
+ 1014 0019 00000000 		.4byte	0
+ 1015 001d 00000000 		.4byte	0
+ 1016              	.LLST1:
+ 1017 0021 00000000 		.4byte	.LVL2
+ 1018 0025 08000000 		.4byte	.LVL4
+ 1019 0029 0100     		.2byte	0x1
+ 1020 002b 50       		.byte	0x50
+ 1021 002c 08000000 		.4byte	.LVL4
+ 1022 0030 3C000000 		.4byte	.LVL14
+ 1023 0034 0100     		.2byte	0x1
+ 1024 0036 56       		.byte	0x56
+ 1025 0037 3C000000 		.4byte	.LVL14
+ 1026 003b 40000000 		.4byte	.LFE65
+ 1027 003f 0400     		.2byte	0x4
+ 1028 0041 F3       		.byte	0xf3
+ 1029 0042 01       		.uleb128 0x1
+ 1030 0043 50       		.byte	0x50
+ 1031 0044 9F       		.byte	0x9f
+ 1032 0045 00000000 		.4byte	0
+ 1033 0049 00000000 		.4byte	0
+ 1034              	.LLST2:
+ 1035 004d 00000000 		.4byte	.LVL2
+ 1036 0051 08000000 		.4byte	.LVL4
+ 1037 0055 0100     		.2byte	0x1
+ 1038 0057 51       		.byte	0x51
+ 1039 0058 08000000 		.4byte	.LVL4
+ 1040 005c 3C000000 		.4byte	.LVL14
+ 1041 0060 0100     		.2byte	0x1
+ 1042 0062 57       		.byte	0x57
+ 1043 0063 3C000000 		.4byte	.LVL14
+ 1044 0067 40000000 		.4byte	.LFE65
+ 1045 006b 0300     		.2byte	0x3
+ 1046 006d 72       		.byte	0x72
+ 1047 006e 01       		.sleb128 1
+ 1048 006f 9F       		.byte	0x9f
+ 1049 0070 00000000 		.4byte	0
+ 1050 0074 00000000 		.4byte	0
+ 1051              	.LLST3:
+ 1052 0078 06000000 		.4byte	.LVL3
+ 1053 007c 08000000 		.4byte	.LVL4
+ 1054 0080 0200     		.2byte	0x2
+ 1055 0082 30       		.byte	0x30
+ 1056 0083 9F       		.byte	0x9f
+ 1057 0084 0A000000 		.4byte	.LVL5
+ 1058 0088 32000000 		.4byte	.LVL13
+ 1059 008c 0100     		.2byte	0x1
+ 1060 008e 55       		.byte	0x55
+ 1061 008f 32000000 		.4byte	.LVL13
+ 1062 0093 3C000000 		.4byte	.LVL14
+ 1063 0097 0100     		.2byte	0x1
+ 1064 0099 53       		.byte	0x53
+ 1065 009a 00000000 		.4byte	0
+ 1066 009e 00000000 		.4byte	0
+ 1067              	.LLST4:
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 21
+
+
+ 1068 00a2 18000000 		.4byte	.LVL8
+ 1069 00a6 26000000 		.4byte	.LVL9
+ 1070 00aa 0100     		.2byte	0x1
+ 1071 00ac 50       		.byte	0x50
+ 1072 00ad 2C000000 		.4byte	.LVL11
+ 1073 00b1 2F000000 		.4byte	.LVL12-1
+ 1074 00b5 0100     		.2byte	0x1
+ 1075 00b7 50       		.byte	0x50
+ 1076 00b8 00000000 		.4byte	0
+ 1077 00bc 00000000 		.4byte	0
+ 1078              	.LLST5:
+ 1079 00c0 10000000 		.4byte	.LVL16
+ 1080 00c4 16000000 		.4byte	.LVL17
+ 1081 00c8 0200     		.2byte	0x2
+ 1082 00ca 30       		.byte	0x30
+ 1083 00cb 9F       		.byte	0x9f
+ 1084 00cc 66000000 		.4byte	.LVL24
+ 1085 00d0 6C000000 		.4byte	.LVL25
+ 1086 00d4 0100     		.2byte	0x1
+ 1087 00d6 50       		.byte	0x50
+ 1088 00d7 6C000000 		.4byte	.LVL25
+ 1089 00db 6F000000 		.4byte	.LVL26-1
+ 1090 00df 0100     		.2byte	0x1
+ 1091 00e1 52       		.byte	0x52
+ 1092 00e2 00000000 		.4byte	0
+ 1093 00e6 00000000 		.4byte	0
+ 1094              		.section	.debug_aranges,"",%progbits
+ 1095 0000 2C000000 		.4byte	0x2c
+ 1096 0004 0200     		.2byte	0x2
+ 1097 0006 00000000 		.4byte	.Ldebug_info0
+ 1098 000a 04       		.byte	0x4
+ 1099 000b 00       		.byte	0
+ 1100 000c 0000     		.2byte	0
+ 1101 000e 0000     		.2byte	0
+ 1102 0010 00000000 		.4byte	.LFB64
+ 1103 0014 04000000 		.4byte	.LFE64-.LFB64
+ 1104 0018 00000000 		.4byte	.LFB65
+ 1105 001c 40000000 		.4byte	.LFE65-.LFB65
+ 1106 0020 00000000 		.4byte	.LFB66
+ 1107 0024 A0000000 		.4byte	.LFE66-.LFB66
+ 1108 0028 00000000 		.4byte	0
+ 1109 002c 00000000 		.4byte	0
+ 1110              		.section	.debug_ranges,"",%progbits
+ 1111              	.Ldebug_ranges0:
+ 1112 0000 00000000 		.4byte	.LFB64
+ 1113 0004 04000000 		.4byte	.LFE64
+ 1114 0008 00000000 		.4byte	.LFB65
+ 1115 000c 40000000 		.4byte	.LFE65
+ 1116 0010 00000000 		.4byte	.LFB66
+ 1117 0014 A0000000 		.4byte	.LFE66
+ 1118 0018 00000000 		.4byte	0
+ 1119 001c 00000000 		.4byte	0
+ 1120              		.section	.debug_line,"",%progbits
+ 1121              	.Ldebug_line0:
+ 1122 0000 1C020000 		.section	.debug_str,"MS",%progbits,1
+ 1122      0200BC01 
+ 1122      00000201 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 22
+
+
+ 1122      FB0E0D00 
+ 1122      01010101 
+ 1123              	.LASF9:
+ 1124 0000 5F5F696E 		.ascii	"__int32_t\000"
+ 1124      7433325F 
+ 1124      7400
+ 1125              	.LASF32:
+ 1126 000a 6164644E 		.ascii	"addNumbers\000"
+ 1126      756D6265 
+ 1126      727300
+ 1127              	.LASF20:
+ 1128 0015 6E756D31 		.ascii	"num1\000"
+ 1128      00
+ 1129              	.LASF11:
+ 1130 001a 666C6F61 		.ascii	"float\000"
+ 1130      7400
+ 1131              	.LASF1:
+ 1132 0020 756E7369 		.ascii	"unsigned char\000"
+ 1132      676E6564 
+ 1132      20636861 
+ 1132      7200
+ 1133              	.LASF29:
+ 1134 002e 474E5520 		.ascii	"GNU C11 5.4.1 20160609 (release) [ARM/embedded-5-br"
+ 1134      43313120 
+ 1134      352E342E 
+ 1134      31203230 
+ 1134      31363036 
+ 1135 0061 616E6368 		.ascii	"anch revision 237715] -mcpu=cortex-m3 -mthumb -g -O"
+ 1135      20726576 
+ 1135      6973696F 
+ 1135      6E203233 
+ 1135      37373135 
+ 1136 0094 67202D66 		.ascii	"g -ffunction-sections -ffat-lto-objects\000"
+ 1136      66756E63 
+ 1136      74696F6E 
+ 1136      2D736563 
+ 1136      74696F6E 
+ 1137              	.LASF31:
+ 1138 00bc 433A5C49 		.ascii	"C:\\IIITB\\Summer Term\\Summer Term\\Workspace01\\w"
+ 1138      49495442 
+ 1138      5C53756D 
+ 1138      6D657220 
+ 1138      5465726D 
+ 1139 00ea 6974686F 		.ascii	"ithout_Pointers.cydsn\000"
+ 1139      75745F50 
+ 1139      6F696E74 
+ 1139      6572732E 
+ 1139      63796473 
+ 1140              	.LASF5:
+ 1141 0100 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1141      20756E73 
+ 1141      69676E65 
+ 1141      6420696E 
+ 1141      7400
+ 1142              	.LASF3:
+ 1143 0112 73686F72 		.ascii	"short unsigned int\000"
+ 1143      7420756E 
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 23
+
+
+ 1143      7369676E 
+ 1143      65642069 
+ 1143      6E7400
+ 1144              	.LASF26:
+ 1145 0125 55415254 		.ascii	"UART_Start\000"
+ 1145      5F537461 
+ 1145      727400
+ 1146              	.LASF21:
+ 1147 0130 6E756D32 		.ascii	"num2\000"
+ 1147      00
+ 1148              	.LASF33:
+ 1149 0135 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 1149      52784275 
+ 1149      66666572 
+ 1149      00
+ 1150              	.LASF12:
+ 1151 0142 646F7562 		.ascii	"double\000"
+ 1151      6C6500
+ 1152              	.LASF19:
+ 1153 0149 6D61696E 		.ascii	"main\000"
+ 1153      00
+ 1154              	.LASF8:
+ 1155 014e 756E7369 		.ascii	"unsigned int\000"
+ 1155      676E6564 
+ 1155      20696E74 
+ 1155      00
+ 1156              	.LASF7:
+ 1157 015b 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1157      206C6F6E 
+ 1157      6720756E 
+ 1157      7369676E 
+ 1157      65642069 
+ 1158              	.LASF10:
+ 1159 0172 696E7433 		.ascii	"int32_t\000"
+ 1159      325F7400 
+ 1160              	.LASF25:
+ 1161 017a 55415254 		.ascii	"UART_PutChar\000"
+ 1161      5F507574 
+ 1161      43686172 
+ 1161      00
+ 1162              	.LASF15:
+ 1163 0187 73697A65 		.ascii	"sizetype\000"
+ 1163      74797065 
+ 1163      00
+ 1164              	.LASF6:
+ 1165 0190 6C6F6E67 		.ascii	"long long int\000"
+ 1165      206C6F6E 
+ 1165      6720696E 
+ 1165      7400
+ 1166              	.LASF30:
+ 1167 019e 6D61696E 		.ascii	"main.c\000"
+ 1167      2E6300
+ 1168              	.LASF13:
+ 1169 01a5 63686172 		.ascii	"char\000"
+ 1169      00
+ 1170              	.LASF23:
+ 1171 01aa 55415254 		.ascii	"UART_GetChar\000"
+ARM GAS  C:\Users\karthik\AppData\Local\Temp\cccyGiac.s 			page 24
+
+
+ 1171      5F476574 
+ 1171      43686172 
+ 1171      00
+ 1172              	.LASF2:
+ 1173 01b7 73686F72 		.ascii	"short int\000"
+ 1173      7420696E 
+ 1173      7400
+ 1174              	.LASF16:
+ 1175 01c1 62756666 		.ascii	"buffer\000"
+ 1175      657200
+ 1176              	.LASF22:
+ 1177 01c8 55415254 		.ascii	"UART_GetRxBufferSize\000"
+ 1177      5F476574 
+ 1177      52784275 
+ 1177      66666572 
+ 1177      53697A65 
+ 1178              	.LASF4:
+ 1179 01dd 6C6F6E67 		.ascii	"long int\000"
+ 1179      20696E74 
+ 1179      00
+ 1180              	.LASF14:
+ 1181 01e6 6C6F6E67 		.ascii	"long double\000"
+ 1181      20646F75 
+ 1181      626C6500 
+ 1182              	.LASF27:
+ 1183 01f2 73736361 		.ascii	"sscanf\000"
+ 1183      6E6600
+ 1184              	.LASF0:
+ 1185 01f9 7369676E 		.ascii	"signed char\000"
+ 1185      65642063 
+ 1185      68617200 
+ 1186              	.LASF17:
+ 1187 0205 6D617853 		.ascii	"maxSize\000"
+ 1187      697A6500 
+ 1188              	.LASF24:
+ 1189 020d 55415254 		.ascii	"UART_PutString\000"
+ 1189      5F507574 
+ 1189      53747269 
+ 1189      6E6700
+ 1190              	.LASF18:
+ 1191 021c 55415254 		.ascii	"UART_ReadLine\000"
+ 1191      5F526561 
+ 1191      644C696E 
+ 1191      6500
+ 1192              	.LASF28:
+ 1193 022a 73707269 		.ascii	"sprintf\000"
+ 1193      6E746600 
+ 1194              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 5.4.1 20160609 (release) [ARM/embedded-5-bran

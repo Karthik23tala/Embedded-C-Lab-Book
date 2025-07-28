@@ -1,0 +1,72 @@
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/CortexM3/ARM_GCC_541/Debug/main.o : C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyDmac.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyFlash.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyLib.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CySpc.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/UART.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/UART_IntClock.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_armcc.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_compiler.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_gcc.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/core_cm3.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyPm.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydevice.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydevice_trm.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydisabledsheets.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyfitter.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cypins.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cytypes.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/led.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/led_aliases.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/project.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/FreeRTOSConfig.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/../../Source/portable/GCC/ARM_CM3/portmacro.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/FreeRTOS.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/deprecated_definitions.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/list.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/mpu_wrappers.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/portable.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/projdefs.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/queue.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/semphr.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/task.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/main.c 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyDmac.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyFlash.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CyLib.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/CySpc.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/UART.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/UART_IntClock.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_armcc.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_compiler.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cmsis_gcc.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/core_cm3.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/core_cm3_psoc5.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyPm.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cy_em_eeprom.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydevice.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydevice_trm.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cydisabledsheets.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyfitter.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cyfitter_cfg.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cypins.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/cytypes.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/led.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/led_aliases.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/Generated_Source/PSoC5/project.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/FreeRTOSConfig.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/FreeRTOS.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/deprecated_definitions.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/list.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/mpu_wrappers.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/portable.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/projdefs.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/queue.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/semphr.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/FreeRTOS/Source/include/task.h : 
+
+C:/IIITB/Summer\ Term/Summer\ Term/freertos_test/005Counting_Semaphore.cydsn/main.c : 
+

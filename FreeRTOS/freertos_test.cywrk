@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CyXmlSerializer>
+<!--This file is machine generated and read. It is not intended to be edited by hand.-->
+<!--Due to this, there is no schema for this file.-->
+<CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize" version="5" xml_contents_version="3" name="freertos_test" persistent="freertos_test.cywrk" platform="NOT_USED">
+<current_project name=".\005Counting_Semaphore.cydsn\005Counting_Semaphore.cyprj" />
+<wrkspc_folders />
+<files />
+<projects>
+<v>.\000Test.cydsn\000Test.cyprj</v>
+<v>.\001LED_Blink.cydsn\001LED_Blink.cyprj</v>
+<v>.\002Semaphore.cydsn\002Semaphore.cyprj</v>
+<v>.\003Mutex.cydsn\003Mutex.cyprj</v>
+<v>.\004Binary_Semaphore.cydsn\004Binary_Semaphore.cyprj</v>
+<v>.\005Counting_Semaphore.cydsn\005Counting_Semaphore.cyprj</v>
+<v>.\006Mutex_Tasks.cydsn\006Mutex_Tasks.cyprj</v>
+<v>.\007Queue.cydsn\007Queue.cyprj</v>
+<v>.\008Mailbox.cydsn\008Mailbox.cyprj</v>
+</projects>
+<workspace_id v="f5d0b020-7402-48ee-aeca-6d902ddbe0bc" />
+<WriteAppVersionLastSavedWith v="4.4.0.80" />
+<WriteAppMarketingVersionLastSavedWith v="4.4" />
+<CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyPrjDependencyList" version="4">
+<wrkspc_dependencies />
+</CyGuid_dcbd9771-0334-43dc-9cc3-fe99dc3c5316>
+<CyGuid_63b68103-67f5-4406-8da6-5c8625765b82 type_name="CyDesigner.Common.ProjMgmt.Model.CyPrjMgmtWorkspaceSerialize+CyIgnoredSystemDepsList" version="1">
+<wrkspc_dependencies />
+</CyGuid_63b68103-67f5-4406-8da6-5c8625765b82>
+</CyGuid_2867d519-54d2-4c01-9830-c51cb08bc3dd>
+</CyXmlSerializer>

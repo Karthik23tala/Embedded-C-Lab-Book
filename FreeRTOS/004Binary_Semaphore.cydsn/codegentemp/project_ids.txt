@@ -1,0 +1,12 @@
+C:\IIITB\Summer Term\Summer Term\freertos_test\000Test.cydsn\000Test.cyprj|e40d09df-9f59-44e6-9d9b-7ea3ad3f3aa1
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|a55d3ef2-b075-47ef-b201-b4950f08b5b2
+C:\Users\karthik\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|90e7d583-7c0e-4793-aec3-834c0776c959
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|647d3b83-a96a-487f-b21d-4b2b7e273ec4
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|270b992b-90cf-4576-a84f-f1eec487a97e
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|5bfa9a69-00dc-4c87-a882-fe4570ca37e7
+C:\IIITB\Summer Term\Summer Term\freertos_test\001LED_Blink.cydsn\001LED_Blink.cyprj|34c04b11-bbed-4772-883e-87026ac94b07
+C:\IIITB\Summer Term\Summer Term\freertos_test\002Semaphore.cydsn\002Semaphore.cyprj|798e4b70-0d9d-4fac-b71f-75d3926fcd52
+C:\IIITB\Summer Term\Summer Term\freertos_test\003Mutex.cydsn\003Mutex.cyprj|803c6402-a3c6-47ce-8db4-b9fab92d7b08
+C:\IIITB\Summer Term\Summer Term\freertos_test\004Binary_Semaphore.cydsn\004Binary_Semaphore.cyprj|757f6691-2b9e-4cbc-bc06-5680b7d7d46f
+C:\IIITB\Summer Term\Summer Term\freertos_test\005Counting_Semaphore.cydsn\005Counting_Semaphore.cyprj|3493d2fb-8cac-4872-ad5e-9c488b21f82a
+C:\IIITB\Summer Term\Summer Term\freertos_test\006Mutex_Tasks.cydsn\006Mutex_Tasks.cyprj|3e4b8884-aac8-4ec1-a206-bdfb9eabc0b4
