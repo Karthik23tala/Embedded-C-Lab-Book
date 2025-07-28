@@ -41,4 +41,4 @@ This GitHub repository lists down the lab exercises designed to understand the c
 
 ---
 
-## 🔗 [Notion Lab Book Link](https://www.notion.so/kurianpolachan/Karthik-Embedded-C-Lab-Book-206d051c359e8071b04fdf94f377bcd1?source=copy_link)
+## 🔗 [Notion Lab Book Link](https://www.notion.so/kurianpolachan/Karthik-Embedded-C-Lab-Book-206d051c359e8071b04fdf94f377bcd1)
