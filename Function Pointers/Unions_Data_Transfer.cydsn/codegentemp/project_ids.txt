@@ -1,6 +1,0 @@
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|650be9a2-b491-4702-ae41-798f1b7fc5f3
-C:\Users\karthik\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|ee1ac5f1-13e3-4f4c-ad92-8eb2d67a22e0
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|e338c4bd-f2f4-4658-b634-5d2e2cbbaf8a
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|99adb587-a635-4564-8ef5-76b88e9c3960
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|9e270c55-edc9-457a-82c0-b71631afe0a7
-C:\IIITB\Summer Term\Summer Term\Unions\Unions_Data_Transfer.cydsn\Unions_Data_Transfer.cyprj|9c371cee-a33c-4564-8ae3-59f62e611e7a

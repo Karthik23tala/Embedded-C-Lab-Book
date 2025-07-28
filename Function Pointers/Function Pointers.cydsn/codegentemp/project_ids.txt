@@ -1,6 +1,0 @@
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|f7e1ca0e-aa73-4842-8da4-0a79a82ba75f
-C:\Users\karthik\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|9e23405c-15aa-492d-bdc2-c0a5152dea9d
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|38a2c8ef-9b00-4132-b146-ae49418a524a
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|a9da7d5c-75cb-4bf0-821a-3afc581b7859
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|fbb380a2-dc7d-4652-99c3-6e9cafa15892
-C:\IIITB\Summer Term\Summer Term\Function Pointers\Function Pointers.cydsn\Function Pointers.cyprj|742a3e6c-ae80-4590-ad76-774e7cdd1dc7
