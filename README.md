@@ -8,8 +8,8 @@ This GitHub repository lists down the lab exercises designed to understand the c
 - [Pointers - Toggle LED](Pointers/LED_Pointers.cydsn) **Filename: Pointers/LED_Pointers**
 - [Structures - Sensors Data](Structures/Struct_with_3_sensors.cydsn) **Filename: Structures/Struct_with_3_sensors**
 - [Unions - Data Transfer](Unions/Unions.cydsn) **Filename: Unions/Unions**
-- [Function Pointer - LED Menu](Function Pointers/Function Pointers.cydsn) **Filename: Function Pointers/Function Pointers**
-- [memcpy() - String Matching](memcpy()/string matching.cydsn) **Filename: memcpy()/string matching**
+- [Function Pointers - LED Menu](Function_Pointers/Function_Pointers.cydsn) **Filename: Function_Pointers/Function_Pointers**
+- [memcpy() - String Matching](memcpy()/string_matching.cydsn) **Filename: memcpy()/string_matching**
 
 ---
 
@@ -22,3 +22,5 @@ This GitHub repository lists down the lab exercises designed to understand the c
 - [FreeRTOS - Counting Semaphore](FreeRTOS/005Counting_Semaphore.cydsn) **Filename: FreeRTOS/005Counting_Semaphore**
 - [FreeRTOS - Queue](FreeRTOS/007Queue.cydsn) **Filename: FreeRTOS/007Queue**
 - [FreeRTOS - Mailbox](FreeRTOS/008Mailbox.cydsn) **Filename: FreeRTOS/008Mailbox**
+
+## [Notion Lab Book Link](https://www.notion.so/kurianpolachan/Karthik-Embedded-C-Lab-Book-206d051c359e8071b04fdf94f377bcd1?source=copy_link)
