@@ -3,7 +3,7 @@ This GitHub repository lists down the lab exercises designed to understand the c
 
 # Fundamentals of Embedded C
 
-- [Addition without Pointers] (Pointers/without_Pointers.cydsn) **Filename: Pointers/without_Pointers**
+- [Addition with Pointers](Pointers/without_Pointers.cydsn) **Filename: Pointers/without_Pointers**
 - [Addition with Pointers]()
 - [Pointers - Toggle LED]()
 - [Structures - Sensors Data]()
