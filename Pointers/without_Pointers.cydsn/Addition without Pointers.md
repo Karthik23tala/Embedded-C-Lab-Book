@@ -10,13 +10,13 @@ In this exercise, two numbers a and b are added using the `addNumbers()` functio
 
 # PSoC-Schematic
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image.png)
+<img width="779" height="488" alt="image" src="https://github.com/user-attachments/assets/a36954a7-8517-4eb5-bc35-2e13800fbc5a" />
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/d397725a-34dd-4253-b7eb-b11673ae3379" />
 
 # Pin Assignment
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%202.png)
+<img width="727" height="226" alt="image" src="https://github.com/user-attachments/assets/0bf9dfcf-038e-481d-9eae-ad707db8cd29" />
 
 The Pin assignment of Rx and Tx pins remain fixed for PSoC 5 development board. In case you are using any other development, refer the datasheet.
 
@@ -76,8 +76,8 @@ To view the results in Tera Term, set the baud rate to 115200 bps in Tera Term -
 
 Note: Change the baud rate to the same used in the schematic for every lab wherever UART component is used in the Top Design.
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%203.png)
+<img width="530" height="555" alt="image" src="https://github.com/user-attachments/assets/dc1d4818-1ed0-4543-bff3-1448b7b589bd" />
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%204.png)
+<img width="900" height="367" alt="image" src="https://github.com/user-attachments/assets/c5df96b9-c3e3-4f5a-8341-c657345d098f" />
 
 **— END**
