@@ -10,15 +10,15 @@ To use function pointer to display the LED menu with options for led ON, OFF and
 
 # PSoC-Schematic
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image.png)
+<img width="865" height="516" alt="image" src="https://github.com/user-attachments/assets/1989073b-75e4-47a1-ac01-9233f85140a4" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/d108b3e9-50a4-4c2b-851a-d38a2a3a04ca" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%202.png)
+<img width="865" height="661" alt="image" src="https://github.com/user-attachments/assets/005e0ed7-787f-4edc-b556-ed56893e962c" />
 
 # Pin Assignment
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%203.png)
+<img width="775" height="283" alt="image" src="https://github.com/user-attachments/assets/b95e49dc-7b65-4744-ad6e-9a9688d0e648" />
 
 Here Pin P2[1] is fixed on the PSoC board itself for LED. In case you want to use any external LED or display unit, assign the appropriate GPIO for the same.
 
@@ -88,6 +88,6 @@ In the above code example, the same functionality of LED menu can be implemented
 
 # Results (Tera Term)
 
-![image.png](Function%20Pointer%20-%20LED%20Menu%20209d051c359e806f9ab4d450ee205fa5/image.png)
+<img width="413" height="692" alt="image" src="https://github.com/user-attachments/assets/79aebe5a-7054-43b0-b491-51ae752f50b8" />
 
 **— END**
