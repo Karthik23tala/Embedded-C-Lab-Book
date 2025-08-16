@@ -18,15 +18,15 @@ In the below lab exercise, we have designed an LED menu system where the user en
 
 # PSoC-Schematic
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image.png)
+<img width="865" height="516" alt="image" src="https://github.com/user-attachments/assets/bb2ad3fc-b8e4-431d-8e9e-c1318f9418c3" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/5b213de4-c2a7-4797-87fd-5bbadf7818fc" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%202.png)
+<img width="865" height="661" alt="image" src="https://github.com/user-attachments/assets/0d82b85a-ae77-4d05-8e8f-b8bc6cf5bb47" />
 
 # Pin Assignment
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%203.png)
+<img width="775" height="283" alt="image" src="https://github.com/user-attachments/assets/f0dc86af-2ba0-4085-84cc-1becb488d8c2" />
 
 Here Pin P2[1] is fixed on the PSoC board itself for LED. In case you want to use any external LED or display unit, assign the appropriate GPIO for the same.
 
@@ -364,8 +364,8 @@ Note: Change the baud rate to the same used in the schematic for every lab where
 
 As mentioned above, Mailbox overwrites the current value with latest value. In the experiment, we have entered SLEEP first which takes the LED to sleep mode for 5 seconds. Now followed by this, we have entered ON and OFF in the same order. We can also see there is a `command received` statement for both the user entered commands. But once, the LED is woken up, it turns LED OFF only because the ON command is overwritten with OFF command in the Mailbox. The same can be seen the output window in Tera Term.
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%203.png)
+<img width="530" height="555" alt="image" src="https://github.com/user-attachments/assets/0eb97bc0-7421-40ad-9074-214dcc08457d" />
 
-![image.png](FreeRTOS%20-%20Mailbox%2023ad051c359e800dacb7dd02b49ea76c/image%201.png)
+<img width="386" height="793" alt="image" src="https://github.com/user-attachments/assets/1fc7cca9-d4aa-421a-abd2-6f099b1135e5" />
 
 **— END**
