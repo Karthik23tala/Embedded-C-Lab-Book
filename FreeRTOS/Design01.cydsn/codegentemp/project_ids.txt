@@ -1,6 +1,0 @@
-C:\Users\karthik\Downloads\freertos_test.cywrk.Archive01\freertos_test\Design01.cydsn\Design01.cyprj|ba374fd2-9dd1-493f-b154-a30fc167fcd6
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|483c349f-f448-47b9-a555-4b8e87a63150
-C:\Users\karthik\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|aa783daa-ca6b-44cb-8478-ca0bce4e39d8
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|fbf76013-747d-4e93-9e74-fa138bab4243
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|15239056-f48d-4e65-b50e-bc51a2998bce
-C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|7191101d-7190-4ac1-ae87-3c0a2785af38
