@@ -10,15 +10,15 @@ To use `memcpy()` function in C programming to copy the string from one variable
 
 # PSoC-Schematic
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image.png)
+<img width="865" height="516" alt="image" src="https://github.com/user-attachments/assets/27db4864-37d0-4bbb-8eda-d3347df4633f" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/b4e7e16b-a2bc-48f6-bbca-1c97f38f3a87" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%202.png)
+<img width="865" height="661" alt="image" src="https://github.com/user-attachments/assets/9606628a-1f17-4ca4-bfe2-29e6e26884dc" />
 
 # Pin Assignment
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%203.png)
+<img width="775" height="283" alt="image" src="https://github.com/user-attachments/assets/2643e09e-8572-4c00-bd3c-b4be253a7d11" />
 
 Here Pin P2[1] is fixed on the PSoC board itself for LED. In case you want to use any external LED or display unit, assign the appropriate GPIO for the same.
 
@@ -83,6 +83,6 @@ The primary question that may arise is that why not simply define as `copyBuffer
 
 # Results (Tera Term)
 
-![image.png](memcpy()%20-%20String%20Matching%20216d051c359e80f6a569e0c04c55d31b/image.png)
+<img width="483" height="417" alt="image" src="https://github.com/user-attachments/assets/6f44ab2a-4ff3-469f-a711-125725a0cec5" />
 
 **— END**
