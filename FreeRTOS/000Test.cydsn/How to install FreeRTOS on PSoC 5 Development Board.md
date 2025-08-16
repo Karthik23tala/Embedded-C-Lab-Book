@@ -6,9 +6,9 @@ This lab demonstrates step by step guide on how to install FreeRTOS on the PSoC 
 
 # Step by Step Guide
 
-1. Visit [www.freertos.org](http://www.freertos.org) and download the FreeRTOS from the homepage.
-2. Create a PSoC project in the PSoC Creator app and select CY8C5888LTI-LP097 board from the list of PSoC 5.
-3. In the next step, create the folders inside the PSoC project folder in the below manner.
+- Visit [www.freertos.org](http://www.freertos.org) and download the FreeRTOS from the homepage.
+- Create a PSoC project in the PSoC Creator app and select CY8C5888LTI-LP097 board from the list of PSoC 5.
+- In the next step, create the folders inside the PSoC project folder in the below manner.
 
 ```c
 /FreeRTOS/Source
@@ -17,26 +17,27 @@ This lab demonstrates step by step guide on how to install FreeRTOS on the PSoC 
 /FreeRTOS/Source/gcc/MemMang
 ```
 
-1. Now copy the contents from FreeRTOS to the FreeRTOS folder created inside PSoC project folder respectively. For Memory Management, FreeRTOS provides five files namely heap_1, 2, 3, 4 and 5. Out of the five files, we can use heap_1 for our basic application. So copy and paste the file accordingly.
-2. After this, for better organization we can create the folder structure for FreeRTOS files. To add new folder right click on the project → Add → New Folder.
+- Now copy the contents from FreeRTOS to the FreeRTOS folder created inside PSoC project folder respectively. For Memory Management, FreeRTOS provides five files namely heap_1, 2, 3, 4 and - Out of the five files, we can use heap_1 for our basic application. So copy and paste the file accordingly.
+- After this, for better organization we can create the folder structure for FreeRTOS files. To add new folder right click on the project → Add → New Folder.
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image.png)
+<img width="839" height="294" alt="image" src="https://github.com/user-attachments/assets/a23466e7-7c13-4728-b3c6-1863f64079bd" />
 
-1. Post the folder creation, import the files into respective folder for FreeRTOS. To import the files, right click on the project → Add → Existing item. In the window opened, browse the files from the folder and click open.
-2. After importing all the necessary header files, C files and memory management heap files, the folder should look similar to the below.
+- Post the folder creation, import the files into respective folder for FreeRTOS. To import the files, right click on the project → Add → Existing item. In the window opened, browse the files from the folder and click open.
+- After importing all the necessary header files, C files and memory management heap files, the folder should look similar to the below.
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%201.png)
+<img width="304" height="326" alt="image 1" src="https://github.com/user-attachments/assets/15b786c9-11ef-4801-b32e-b27974ecd87e" />
 
-1. FreeRTOS provides all the required header and C files to run the program on RTOS using any development board such as PSoC 5. But there are two files that we need to create specifically for this board and they are namely, `FreeRTOS.c` and `FreeRTOSConfig.h` . To create new files, select new item in the above menu.
+- FreeRTOS provides all the required header and C files to run the program on RTOS using any development board such as PSoC 5. But there are two files that we need to create specifically for this board and they are namely, `FreeRTOS.c` and `FreeRTOSConfig.h` . To create new files, select new item in the above menu.
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%202.png)
+<img width="318" height="459" alt="image 2" src="https://github.com/user-attachments/assets/ca3291c8-b420-43e1-83d5-8588c2e695eb" />
 
-1. The code that needs to used for the files is mentioned in the below sections.
-2. At the end, some additional paths need to be added in the project settings. For this right click on the project → Build Settings → ARM GCC → Compiler → General. In the General menu, select the three dots on the side of additional include directories. In the window opened Add the path as mentioned below by browsing through the file explorer. Click Apply and OK.
+- The code that needs to used for the files is mentioned in the below sections.
+- At the end, some additional paths need to be added in the project settings. For this right click on the project → Build Settings → ARM GCC → Compiler → General. In the General menu, select the three dots on the side of additional include directories. In the window opened Add the path as mentioned below by browsing through the file explorer. Click Apply and OK.
+- In the same build settings, navigate to ARM GCC → Linker → General, in additional libraries click and add 'm' and also in the bottom line use newlib-nano change it to True. Click apply and OK.
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%203.png)
+<img width="1590" height="968" alt="image 3" src="https://github.com/user-attachments/assets/28669e29-a021-4773-b349-61fc58bfee5e" />
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%204.png)
+<img width="531" height="475" alt="image 4" src="https://github.com/user-attachments/assets/dd1f411e-4491-4375-b5b4-db994361aa0c" />
 
 Note: The above process remains the same for any development board used in PSoC Creator app. The only difference being that instead of the files from ARM_CM3, use the files from the respective processor folder provided in the FreeRTOS depending on the development board being used. For instance, PSoC 5 is based on ARM Cortex M3, hence we have used the files from `GCC/ARM_CM3` folder. 
 
@@ -147,7 +148,7 @@ See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 
 # PSoC-Schematic
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%205.png)
+<img width="896" height="537" alt="image 5" src="https://github.com/user-attachments/assets/992c15c7-fed6-4106-a51b-6d6d27854a78" />
 
 # PSoC-Code
 
@@ -203,6 +204,6 @@ Note: Just to toggle the LED and print the message on UART, we need not use Free
 
 # Results (in Tera Term)
 
-![image.png](How%20to%20install%20FreeRTOS%20on%20PSoC%205%20Development%20Boar%20221d051c359e808a962df7ef4e2514cf/image%206.png)
+<img width="438" height="231" alt="image 6" src="https://github.com/user-attachments/assets/f0990d72-f225-459a-ae45-82446e318a89" />
 
 **— END**
