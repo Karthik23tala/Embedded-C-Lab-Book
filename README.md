@@ -1,4 +1,6 @@
 # Embedded-C-Lab-Book
+This work was carried out as part of a project elective under the guidance of Prof. Kurian Polachan at IIIT-Bangalore.
+
 This GitHub repository lists down the lab exercises designed to understand the concepts of Embedded C and also FreeRTOS on PSoC 5LP development board in PSoC Creator app.
 
 ---
