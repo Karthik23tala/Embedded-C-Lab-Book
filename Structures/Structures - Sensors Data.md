@@ -10,9 +10,9 @@ In this code, structure named Sensor is defined with three parameters named name
 
 # PSoC-Schematic
 
-![image.png](Structures%20-%20Sensors%20Data%20206d051c359e80558102e3b8ec2af088/image.png)
+<img width="499" height="312" alt="image" src="https://github.com/user-attachments/assets/8f5b1788-54ac-4e4e-a7ef-bdaae9fd952a" />
 
-![image.png](Structures%20-%20Sensors%20Data%20206d051c359e80558102e3b8ec2af088/image%201.png)
+<img width="576" height="443" alt="image" src="https://github.com/user-attachments/assets/17f10342-640c-43e1-a90d-7f46b8f143c9" />
 
 # PSoC-Code
 
@@ -92,6 +92,6 @@ To conclude with an analogy, if the regular int, char or float data types are co
 
 # Results (Tera Term)
 
-![image.png](Structures%20-%20Sensors%20Data%20206d051c359e80558102e3b8ec2af088/image%202.png)
+<img width="436" height="455" alt="image" src="https://github.com/user-attachments/assets/1660ba7b-ebff-4f3c-a533-e145f6c4c068" />
 
 **— END**
