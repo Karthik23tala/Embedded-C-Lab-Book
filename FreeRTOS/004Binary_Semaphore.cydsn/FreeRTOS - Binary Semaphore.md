@@ -26,15 +26,15 @@ In this lab exercise, we have defined two tasks namely `uart_input_task()` and `
 
 # PSoC-Schematic
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image.png)
+<img width="865" height="516" alt="image" src="https://github.com/user-attachments/assets/8181415d-f67f-4c73-81c1-530cd6888d27" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/9638601e-a165-46e4-906e-f4062b4383b4" />
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%202.png)
+<img width="865" height="661" alt="image" src="https://github.com/user-attachments/assets/8245b947-de97-4823-843a-15b5c26276c6" />
 
 # Pin Assignment
 
-![image.png](Pointers%20-%20Toggle%20LED%20206d051c359e803494fae699c464df0c/image%203.png)
+<img width="775" height="283" alt="image" src="https://github.com/user-attachments/assets/f4b7b96a-a7ed-4496-bdc0-d35731dffec5" />
 
 Here Pin P2[1] is fixed on the PSoC board itself for LED. In case you want to use any external LED or display unit, assign the appropriate GPIO for the same.
 
@@ -112,8 +112,8 @@ To view the results in Tera Term, set the baud rate to 115200 bps in Tera Term -
 
 Note: Change the baud rate to the same used in the schematic for every lab wherever UART component is used in the Top Design.
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%203.png)
+<img width="530" height="555" alt="image" src="https://github.com/user-attachments/assets/e05c7e5d-ffbb-46cd-9e1f-03168fcf7350" />
 
-![image.png](FreeRTOS%20-%20Binary%20Semaphore%20231d051c359e80e88c75c1b0ee7c5835/image.png)
+<img width="569" height="508" alt="image" src="https://github.com/user-attachments/assets/92327a3d-abb0-47a6-b218-e99cbf56899c" />
 
 **— END**
