@@ -10,9 +10,9 @@ This lab is simply about reconstructing the value that is being sent from one de
 
 # PSoC-Schematic
 
-![image.png](Unions%20-%20Data%20Transfer%20206d051c359e80de949bcef92a4c0b87/image.png)
+<img width="499" height="312" alt="image" src="https://github.com/user-attachments/assets/8083363d-be52-421d-9c96-9b3504efbb5b" />
 
-![image.png](Unions%20-%20Data%20Transfer%20206d051c359e80de949bcef92a4c0b87/image%201.png)
+<img width="576" height="443" alt="image" src="https://github.com/user-attachments/assets/67b73668-7023-4754-be5f-a0c11a12710b" />
 
 # PSoC-Code
 
@@ -75,6 +75,6 @@ Similar to the structures used in previous lab example, unions are also used to 
 
 # Results (Tera Term)
 
-![image.png](Unions%20-%20Data%20Transfer%20206d051c359e80de949bcef92a4c0b87/99939dc1-f081-4c55-abec-a9014031b108.png)
+<img width="495" height="644" alt="image" src="https://github.com/user-attachments/assets/6099ba45-a625-4a2d-b97f-db7032963319" />
 
 **— END**
