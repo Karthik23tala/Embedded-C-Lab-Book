@@ -10,9 +10,9 @@ In this exercise, two numbers a and b are added using the `addNumbers()` functio
 
 # PSoC-Schematic
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image.png)
+<img width="779" height="488" alt="image" src="https://github.com/user-attachments/assets/3aa3ffe5-e386-4e6b-8b86-79330880068b" />
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%201.png)
+<img width="900" height="693" alt="image" src="https://github.com/user-attachments/assets/88520232-045b-459d-a626-39b1dab52f03" />
 
 # PSoC-Code
 
@@ -74,8 +74,8 @@ To view the results in Tera Term, set the baud rate to 115200 bps in Tera Term -
 
 Note: Change the baud rate to the same used in the schematic for every lab wherever UART component is used in the Top Design.
 
-![image.png](Addition%20without%20Pointers%20206d051c359e80278902dfcca222e0eb/image%203.png)
+<img width="530" height="555" alt="image" src="https://github.com/user-attachments/assets/863f9b13-3ed3-4d11-ac07-6c721b1d667c" />
 
-![image.png](Addition%20with%20Pointers%20206d051c359e80d08bd3edfe89fe52a8/image.png)
+<img width="865" height="273" alt="image" src="https://github.com/user-attachments/assets/ef1e8636-0ce3-49be-a2fe-9fdaa5970d7a" />
 
 **— END**
